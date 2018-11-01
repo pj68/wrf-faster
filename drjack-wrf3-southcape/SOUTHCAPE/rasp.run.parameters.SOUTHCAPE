@@ -1,0 +1,174 @@
+#############################################################################
+################## RUN-ARGUMENT-SPECIFIC RASP PARAMETERS ####################
+#############################################################################
+### For updated information on these model parameters see                 ###
+### http://www.drjack.info/twiki/bin/view/RASPop/RunParametersDescription ###
+#############################################################################
+###### SET REGIONS PROCESSED BY THIS RUN
+  @REGION_DOLIST = ( 'SOUTHCAPE' );
+###### SET MODEL USED FOR DOWNLOADED GRIB FILES
+  ###    ( USA=ETA WORLD=GFSA/GFSN )
+  $GRIBFILE_MODEL = 'GFSA' ;      
+  $GRIB_LEFT_LON = 0 ; 
+  $GRIB_RIGHT_LON = 55 ;
+  $GRIB_BOTTOM_LAT = -48 ;
+  $GRIB_TOP_LAT = -15 ;
+
+###### SET OPTIONAL WEBSITE FILE CREATION (can be bypassed by certain run arguments)
+  ### $LSEND=  0 = images produced only in local "RASP/RUN/OUT" subdirectory
+  ##           1 = copy images to web directory using filenames pre-pended with "test"
+  ##           2 = copy images to web directory using normal filenames 
+  ##           -1,-2 = ftp images to remote server (NOT OPERATIONALLY TESTED)
+  ##           3 = also do firstofday processing (NOT IMPLEMENTED)
+  ### uses test so will not overwrite if set by run argument
+  if( not defined $LSEND ) { $LSEND =  0; }
+###### SET OPTIONAL ARCHIVE FILE CREATION (can be bypassed by certain run arguments)
+  ### $LSAVE=  0 = inhibits all archive saves to preserve disk space
+  ##           1 = saves data files - uses least disk space
+  ##           2 = saves data files and images - uses much less disk space than $LSAVE=2
+  ##           3 = saves data files and image files and initial condition files to a storage directory 
+  ### uses test so will not overwrite if set by run argument
+  if( not defined $LSAVE ) { $LSAVE =  0; }
+##################################################################
+#############  START OF REGION DEPENDENT PARAMETERS  #############
+###### SET RUN TYPE
+  ### LRUN_WINDOW 0=> stage-1 only (no_windowing) 2=> stage-1+2 "windowed" run 
+  $LRUN_WINDOW{'SOUTHCAPE'} = 0 ;
+  #ACTIVATE THE NEXT LINE TO PRODUCE 2-STAGE RUN: 
+  #for2stage: $LRUN_WINDOW{'SOUTHCAPE'} = 2 ;
+###### SET BASIC PARAMETER LIST
+  @{$PARAMETER_DOLIST{'SOUTHCAPE'}} = ( 'hbl','dbl','hwcrit','dwcrit','wstar','bsratio', 'sfcsunpct','sfcshf', 'blwind','sfcwind','sfcwind0', 'zsfclcl','zsfclcldif','zsfclclmask', 'zblcl','zblcldif','zblclmask','blcloudpct','blcwbase', 'boxwmax','press850','press700','press500', 'bltopvariab','bltopwind','wblmaxmin','zwblmaxmin', 'blwindshear', 'sfctemp','sfcdewpt', 'cape', 'wstar_bsratio', 'hglider' );
+
+### @{$PARAMETER_DOLIST{'SOUTHCAPE'}} =( 'hbl','dbl','blwind','sfcwind','sfcwind0','bltopwind','wblmaxmin','zsfclcl' );
+
+
+  ###### ADD POSSIBLE SOUNDINGS  (corresponding data must be set in file ../WRF/NCL/rasp.ncl.region.data)
+  # push @{$PARAMETER_DOLIST{'SOUTHCAPE'}}, ( 'sounding1','sounding2','sounding3','sounding4','sounding5','sounding6','sounding7');  
+######  SET GRID LOCAL TIME
+  $LOCALTIME_ID{'SOUTHCAPE'} = substr `date +%Z`,0,3; ;
+  $LOCALTIME_ADJ{'SOUTHCAPE'} = substr `date +%z`,0,3; ; 
+###### SET GRIB FILE PROCESSING 
+  ### GRIBFILES_PER_FORECAST_PERIOD IS NUMBER OF GRIB FILES PROCESSED AT SAME TIME
+  #12hr_run:
+  $GRIBFILES_PER_FORECAST_PERIOD{'SOUTHCAPE'} = 8 ;
+  #15hr_run:  
+ $GRIBFILES_PER_FORECAST_PERIOD{'SOUTHCAPE'} = 6 ;
+  ### BLIPMAPFILEDOLIST LISTS ALL GRIB FILES NEEDED
+  %GRIBFILE_DOLIST = 
+  (
+    #4immediaterun: 
+    # 'SOUTHCAPE'   => ['0Z+12', '0Z+15','0Z+18','0Z+21','0Z+24','0Z+27' ],
+    #once-daily_12_hr_run (earlyAM):      'SOUTHCAPE'   => [ '6Z+6','6Z+9','6Z+12','6Z+15','6Z+18' ],
+    #once-daily_15_hr_run (earlyAM):      'SOUTHCAPE'   => [ '6Z+6','6Z+9','6Z+12','6Z+15','6Z+18','6Z+21' ],
+    #once-daily_15_hr_run (lateAM):      'SOUTHCAPE'   => [ '12Z+0','12Z+3','12Z+6','12Z+9','12Z+12','12Z+15' ],
+    #twice-daily_15hr_run (earlyAM+lateAM):      'SOUTHCAPE'   => [ '12Z+0','12Z+3','12Z+6','12Z+9','12Z+12','12Z+15', '6Z+6','6Z+9','6Z+12','6Z+15','6Z+18','6Z+21' ],
+    #thrice-daily_12hr_run:     'SOUTHCAPE'   => [ '12Z+0','12Z+3','12Z+6','12Z+9','12Z+12', '6Z+6','6Z+9','6Z+12','6Z+15','6Z+18', '0Z+12','0Z+15','0Z+18','0Z+21','0Z+24' ],
+  );
+
+
+###### SET DOMAIN PARAMETERS FOR STAGE1 [NON-WINDOW] ITERATION
+  #12hr_run:
+  $FORECAST_PERIODHRS{'SOUTHCAPE'}[0] = 21;              # used only by initialization programs
+  #15hr_run:   
+ $FORECAST_PERIODHRS{'SOUTHCAPE'}[0] = 15;       # used only by initialization programs
+  ### SET DOMAIN START/END TIMES
+  $DOMAIN1_STARTHH{'SOUTHCAPE'}[0] = '00';               # must have grib file available for this time
+  #12hr_run:
+  $DOMAIN1_ENDHH{'SOUTHCAPE'}[0] = '21';                 # 
+  #15hr_run:    
+$DOMAIN1_STARTHH{'SOUTHCAPE'}[0] = '03';              # 
+$DOMAIN1_ENDHH{'SOUTHCAPE'}[0] = '18';
+  $DOMAIN2_START_DELTAMINS{'SOUTHCAPE'}[0] = 0;          # if non-zero, must set namelist.template INPUT_FROM_FILE=false
+  $DOMAIN2_END_DELTAMINS{'SOUTHCAPE'}[0] = 0;            # relative to domain1
+  $DOMAIN3_START_DELTAMINS{'SOUTHCAPE'}[0] = 420;        # if non-zero, must set namelist.template INPUT_FROM_FILE=false
+  $DOMAIN3_END_DELTAMINS{'SOUTHCAPE'}[0] = -120;         # relative to domain1
+  ### SET MODEL TIME STEP
+  $DOMAIN1_TIMESTEP{'SOUTHCAPE'}[0] = 60.;               # over-rides namelist.template TIME_STEP
+  ### SET BOUNDARY UPDATE PERIODS
+  $BOUNDARY_UPDATE_PERIODHRS{'SOUTHCAPE'}[0] = 3;        # used only by initialization programs
+  $NDOWN_BOUNDARY_UPDATE_PERIODHRS{'SOUTHCAPE'}[0] = 0 ; # should always be 0 for non-windowed case
+  ### SET BLIPMAP IMAGE SIZES  - 1st,2nd value for 1st,2nd domain - blank=NOplot
+  @{$PLOT_IMAGE_SIZE{'SOUTHCAPE'}[0]} = ( '', '2000x800' );
+  ### SET HISTORY HOUR FOR IMAGES PLOTTED WHEN $PLOT_IMAGE_SIZE FOR THAT DOMAIN NOT BLANK
+  #12hr_run:
+  @{$PLOT_HHMMLIST{'SOUTHCAPE'}[0]} =  ('0800', '0900', '1000', '1100', '1200', '1300', '1400', '1500', '1600', '1700', '1800', '1900', '2000' );
+  #15hr_run:  @{$PLOT_HHMMLIST{'SOUTHCAPE'}[0]} =  ( '1200', '1500', '1800', '2100', '0000','0300' );
+  ### CREATE WEBSITE IMAGE LOOP
+  #12hr_run:
+  @{$PLOT_LOOP_HHMMLIST{'SOUTHCAPE'}[0]} =  ( 'title', '1200', '1500', '1800', '2100', '0000' );
+  #15hr:  @{$PLOT_LOOP_HHMMLIST{'SOUTHCAPE'}[0]} =  ( 'title', '1200', '1500','1800', '2100', '0000', '0300' );
+  ### SET HISTORY HOUR FOR IMAGES SAVED WHEN LSAVE>0 AND $PLOT_IMAGE_SIZE FOR THAT DOMAIN NOT BLANK
+  #12hr_run:
+  @{$SAVE_PLOT_HHMMLIST{'SOUTHCAPE'}[0]} = ( '2100' );
+  #15hr:  @{$SAVE_PLOT_HHMMLIST{'SOUTHCAPE'}[0]} = ( '1800','2100','0000','0300' );
+  
+  # request latest GRIB files for processing
+  use POSIX;
+
+  # first file has to be at 12Z
+  $start = int($DOMAIN1_STARTHH{'SOUTHCAPE'}[0]);
+  if(defined $ENV{'START_HOUR'}) {
+    $start = int($ENV{'START_HOUR'});
+  }
+  $init_time = int(POSIX::floor((`date -u +%H` -1 ) / 6 ) * 6);
+  # if it's EOD, pick next day. This also works with +1, +2, etc runs
+  if (($start % 24) < $init_time) {
+     $start = $start + 24;
+  }
+  for ($i = 0; $i < $GRIBFILES_PER_FORECAST_PERIOD{'SOUTHCAPE'}; $i++) {
+     $forecast = ($start + 3*$i - $init_time);
+     $GRIBFILE_DOLIST{'SOUTHCAPE'}[$i] = "${init_time}Z+${forecast}";
+  }
+ 
+  
+##pj...tmp
+%GRIBFILE_DOLIST = 
+  (
+    #4immediaterun: 
+     #'SOUTHCAPE'   => ['0Z+12', '0Z+15','0Z+18','0Z+21','0Z+24','0Z+27' ],
+   ##  
+# 'SOUTHCAPE'   => ['18Z+9','18Z+12','18Z+15','18Z+18','18Z+21','18Z+24'],
+##'SOUTHCAPE'   => [ '0Z+3','0Z+6','0Z+9','0Z+12','0Z+15' ,'0Z+18'],
+# 'SOUTHCAPE'   =>  [ '0Z+27','0Z+30','0Z+33','0Z+36','0Z+39','0Z+42' ],
+# 'SOUTHCAPE'   =>[ '0Z+51','0Z+54','0Z+57','0Z+60','0Z+63','0Z+66' ],
+# 'SOUTHCAPE'   => [ '0Z+3','0Z+6','0Z+9','0Z+12','0Z+15' ,'0Z+18'],
+## 'SOUTHCAPE'   =>[ '12Z+15','12Z+18','12Z+21','12Z+24','12Z+27','12Z+30' ], 
+## 'SOUTHCAPE'   => [ '12Z+39','12Z+42','12Z+45','12Z+48','12Z+51','12Z+54' ], 
+ 'SOUTHCAPE'   =>[ '12Z+63','12Z+66','12Z+69','12Z+72','12Z+75','12Z+78' ], 
+## [ '0Z+3','0Z+6','0Z+9','0Z+12','0Z+15' ,'0Z+18']
+    #once-daily_12_hr_run (earlyAM):      'EC'   => [ '6Z+6','6Z+9','6Z+12','6Z+15','6Z+18' ],
+    #once-daily_15_hr_run (earlyAM):      'EC'   => [ '6Z+6','6Z+9','6Z+12','6Z+15','6Z+18','6Z+21' ],
+    #once-daily_15_hr_run (lateAM):      'EC'   => [ '12Z+0','12Z+3','12Z+6','12Z+9','12Z+12','12Z+15' ],
+    #twice-daily_15hr_run (earlyAM+lateAM):      'EC'   => [ '12Z+0','12Z+3','12Z+6','12Z+9','12Z+12','12Z+15', '6Z+6','6Z+9','6Z+12','6Z+15','6Z+18','6Z+21' ],
+    #thrice-daily_12hr_run:     'EC'   => [ '12Z+0','12Z+3','12Z+6','12Z+9','12Z+12', '6Z+6','6Z+9','6Z+12','6Z+15','6Z+18', '0Z+12','0Z+15','0Z+18','0Z+21','0Z+24' ],
+  );
+
+
+###### SET DOMAIN PARAMETERS FOR STAGE2 [WINDOWED] ITERATION (not used if no windowing done)
+  $FORECAST_PERIODHRS{'SOUTHCAPE'}[1] = 3;       
+  ### SET DOMAIN START/END TIMES
+  $DOMAIN1_STARTHH{'SOUTHCAPE'}[1] = '18';               # must have grib file available at this time
+  $DOMAIN1_ENDHH{'SOUTHCAPE'}[1] = '21';          
+  $DOMAIN2_START_DELTAMINS{'SOUTHCAPE'}[1] = 0;          # if non-zero, must set namelist.template INPUT_FROM_FILE=false
+  $DOMAIN2_END_DELTAMINS{'SOUTHCAPE'}[1] = 0;            # relative to domain1
+  $DOMAIN3_START_DELTAMINS{'SOUTHCAPE'}[1] = 0;          # if non-zero, must set namelist.template INPUT_FROM_FILE=false
+  $DOMAIN3_END_DELTAMINS{'SOUTHCAPE'}[1] = 0;            # relative to domain1
+  ### SET MODEL TIME STEP
+  $DOMAIN1_TIMESTEP{'SOUTHCAPE'}[1] = 24.;               # over-rides namelist.template TIME_STEP
+  ### SET BOUNDARY UPDATE PERIODS
+  $BOUNDARY_UPDATE_PERIODHRS{'SOUTHCAPE'}[1] = 1;     
+  ### NDOWN_BOUNDARY_UPDATE_PERIODHRS must agree with stage 1 output interval (in hours)
+  $NDOWN_BOUNDARY_UPDATE_PERIODHRS{'SOUTHCAPE'}[1] = 1 ;  
+  ### SET BLIPMAP IMAGE SIZES  - 1st,2nd value for 1st,2nd domain - blank=NOplot
+  @{$PLOT_IMAGE_SIZE{'SOUTHCAPE'}[1]} = ( '', '800x800' );
+  ### SET HISTORY HOUR FOR IMAGES PLOTTED WHEN $PLOT_IMAGE_SIZE FOR THAT DOMAIN NOT BLANK
+  @{$PLOT_HHMMLIST{'SOUTHCAPE'}[1]} =  ( '2000', '2030', '2100' );
+  ### CREATE WEBSITE IMAGE LOOP
+  @{$PLOT_LOOP_HHMMLIST{'SOUTHCAPE'}[1]} =  ( );
+  ### SET HISTORY HOUR FOR IMAGES SAVED WHEN LSAVE>0 AND $PLOT_IMAGE_SIZE FOR THAT DOMAIN NOT BLANK
+  @{$SAVE_PLOT_HHMMLIST{'SOUTHCAPE'}[1]} = ( '2100' );
+##############  END OF REGION DEPENDENT PARAMETERS  ##############
+##################################################################
+##########    ADDITIONS MUST BE MADE ABOVE THIS LINE    ##########
+##################################################################
+1.;
