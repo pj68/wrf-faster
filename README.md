@@ -27,8 +27,15 @@ COPY wrf361/getvars.ncl $BASEDIR/GM
 ```
 build and run the docker, should see a 10%-20% increase in speed
 
+## file change descriptions
+wrf361/GM-master.pl - changed the wrf.exe output log filename, line 2066
+
+rasp.site.runenvironment - appended the new libs folder to the LD_LIBRARY_PATH
+
+getvars.ncl - temp hack, set the rqcblten to any value (requires the drjack.diff)
+
 ## notes
-the resulting blipmaps are self-similer as the current optimization has reduced numerical precision but the difference should be small
+the resulting blipmaps are self-similar as the current optimization has reduced numerical precision but the difference should be small
 
 the full set of blipmaps cannot be currently used as the drjack.diff still needs to be applied 
 
