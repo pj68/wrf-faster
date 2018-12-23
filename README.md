@@ -1,5 +1,5 @@
 # wrf-faster
-An optimized WRF.exe for the RASP Soaring Weather Forecast
+A multicore Skylake optimized WRF.exe for the RASP Soaring Weather Forecast 
 
 ## Demo install 
 Requires: an existing RASP-docker setup, ref: https://github.com/wargoth/rasp-docker-script
@@ -10,7 +10,7 @@ Unzip the drjack-wrf-faster/wrf361/wrf-V3.6.1.exe-xSKYLAKE-AVX512.zip into the w
 
 Add the geog.tar.gz file ito the drjack-wrf-faster folder
 
-Build & run the docker container as described in drjack-wrf-faster/README.md
+Build & run the docker container as described in drjack-wrf-southcape/README.md
 
 
 ## Updating an existing region
@@ -24,7 +24,7 @@ COPY wrf361/wrf-V3.6.1.exe $BASEDIR/bin
 COPY wrf361/rasp.site.runenvironment $BASEDIR
 COPY wrf361/libs $BASEDIR/libs
 ```
-Build and run the docker container, should see a 10%-20% increase in speed
+Build and run the docker container, should see a 10% increase in speed on a single Skylake cpu system and another 40% increase on a dual core system
 
 ## File change descriptions
 wrf361/GM-master.pl - the mpi build of wrf.exe has a different output filename so changed the wrf.exe output log filename, line 2066
