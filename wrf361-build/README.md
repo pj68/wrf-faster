@@ -69,15 +69,15 @@ solve_em.o :
 ```
 
 -- apply the drjack patch
-
+ download https://github.com/pj68/wrf-faster/blob/master/wrf361-build/WRFV3.4.drjack.patch
 ```
 cd WRFV3
-patch -p1 -i WRFV3.drjack.patch
+patch -p1 -i WRFV3.4.drjack.patch
 ```
 
 -- if there are errors, reverse the patch 
 ```
- patch -p1 -R -i WRFV3.drjack.patch
+ patch -p1 -R -i WRFV3.4.drjack.patch
 ```
 
 -- clean, use -a as there have been changes to the Registery files
@@ -97,8 +97,9 @@ https://www.climatescience.org.au/sites/default/files/WRF_gill_registry.pdf
 
 
  -- build wrf 
- 
- make real_em 
+  download https://github.com/pj68/wrf-faster/blob/master/wrf361-build/compile-wrf.sh , change  DIR to the current work folder
+ ```
+ ./compile-wrf.sh
   
  -- run wrf using intel's mpirun (adjusted the num_procs from 10 down to 6) 
  ```
