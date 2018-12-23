@@ -1,9 +1,10 @@
 # WRF 3.6.1 build for RASP
 
 
---install the intel compiler ** 
+## install the intel compiler 
+```
   ./install_GUI.sh   
-   
+```   
   ** note: at first there was a multilib error 
    Protected multilib versions: libstdc++-4.8.5-16.el7_4.1.i686 != libstdc++-4.8.5-16.el7.x86_64 
    which was resolved by running: 
@@ -28,12 +29,14 @@ source /home/pj/intel/parallel_studio_xe_2018/compilers_and_libraries_2018/linux
  ./install_GUI.sh 
 ```
 
- --build the WRF v3.6.1 source 
+## install requred libraries
  
  -- install the requred libraries as descibed in:
    http://www2.mmm.ucar.edu/wrf/OnLineTutorial/compilation_tutorial.php
    
-   
+  
+## build the WRF v3.6.1 source 
+  
  ```
  source /opt/intel/bin/ifortvars.sh intel64 
  source /opt/intel/bin/iccvars.sh intel64 
@@ -45,9 +48,8 @@ source /home/pj/intel/parallel_studio_xe_2018/compilers_and_libraries_2018/linux
  
    21.  Linux x86_64 i486 i586 i686, Xeon (SNB with AVX mods) ifort compiler with icc  (dm+sm) 
     
- --adjust the configure.wrf, add the compile optimizations, ref:  
- 
- changed:  
+ --adjust the configure.wrf, add the compile optimizations:  
+
 ```
  OPTAVX          =        -xSKYLAKE-AVX512 
  LDFLAGS_LOCAL   =       -O3 -xsse4.2 -convert big_endian $(OPTAVX) 
