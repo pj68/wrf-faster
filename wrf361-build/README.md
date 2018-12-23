@@ -67,8 +67,11 @@ solve_em.o :
 	$(RM) $*.b 
 	$(FC) -O0 -xO -mP2OPT_vec_xform_level=103 -o $@ -c $(FCFLAGS) $(MODULE_DIRS) $(PROMOTION) $(FCSUFFIX) $(SOLVE_EM_SPECIAL) $(OMP) $*.f90 
 ```
+ref: https://github.com/pj68/wrf-faster/blob/master/wrf361-build/configure.wrf
+
 
 -- apply the drjack patch
+
  download https://github.com/pj68/wrf-faster/blob/master/wrf361-build/WRFV3.4.drjack.patch
 ```
 cd WRFV3
