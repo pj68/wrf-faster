@@ -6,10 +6,16 @@
    
   ** note: at first there was a multilib error 
    Protected multilib versions: libstdc++-4.8.5-16.el7_4.1.i686 != libstdc++-4.8.5-16.el7.x86_64 
-   which was resolved by running: yum update libstdc++ 
+   which was resolved by running: 
+   ```
+   yum update libstdc++ 
+   ```
+   
    note2: error - 32 bit libraries not found
+   ```
    sudo yum install libstdc*i686
    sudo yum install libgcc*i686
+   ```
 
 -- edit ~/.bash.rc add
 ```
@@ -43,8 +49,9 @@ source /home/pj/intel/parallel_studio_xe_2018/compilers_and_libraries_2018/linux
  
  changed:  
 ```
+ OPTAVX          =        -xSKYLAKE-AVX512 
  LDFLAGS_LOCAL   =       -O3 -xsse4.2 -convert big_endian $(OPTAVX) 
- FCOPTIM         =       -O3 -xsse4.2 -no-prec-div -no-prec-sqrt -fp-model fast=2 -mP2OPT_vec_xform_level=103 -qoverride-limits $(OPTAVX) 
+  FCOPTIM         =       -O3 $(OPTAVX) -xSSE4.2 -axSSE4.2 -opt-subscription-in-renge  -mP2OPT_vec_xform_level=103 -qoverride-limits 
  FCBASEOPTS      =       $(FCBASEOPTS_NO_G) -FR -cm -w -I. $(FCDEBUG) -convert big_endian 
   
   
