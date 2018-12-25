@@ -1,6 +1,9 @@
 # wrf-faster
 A multicore Skylake optimized WRF.exe for the RASP Soaring Weather Forecast 
 
+# Build
+The changelog for this build : https://github.com/pj68/wrf-faster/blob/master/wrf361-build/README.md
+
 ## Demo install 
 Requires: an existing RASP-docker setup, ref: https://github.com/wargoth/rasp-docker-script
 
