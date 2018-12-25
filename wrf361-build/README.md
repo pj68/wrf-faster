@@ -90,7 +90,22 @@ patch -p1 -i WRFV3.6.1.drjack.patch
 ```
 ./clean -a
 ```
+
+ -- build wrf 
+  download https://github.com/pj68/wrf-faster/blob/master/wrf361-build/compile-wrf.sh , change  DIR to the current work folder
+ ```
+ ./compile-wrf.sh
+  
+ -- run wrf using intel's mpirun (adjusted the num_procs from 10 down to 6) 
+
+ulimit -s unlimited 
+set OMP_NUM_THREADS=6 
+export KMP_STACKSIZE=100000000 
+/opt/intel/impi/2018.1.163/bin64/mpirun -n 4 -ppn 2 /home/pj/WRF361/WRFV3/main/wrf.exe 
+```
 -- ref:
+
+http://www.drjack.info/twiki/bin/view/RASPop/IfortCompile32
 
 http://www.drjack.info/cgi-bin/WEBBBS/rasp-forum_config.pl/read/4884
 
@@ -102,15 +117,3 @@ https://www.climatescience.org.au/sites/default/files/WRF_gill_registry.pdf
 
 
 
- -- build wrf 
-  download https://github.com/pj68/wrf-faster/blob/master/wrf361-build/compile-wrf.sh , change  DIR to the current work folder
- ```
- ./compile-wrf.sh
-  
- -- run wrf using intel's mpirun (adjusted the num_procs from 10 down to 6) 
- ```
-ulimit -s unlimited 
-set OMP_NUM_THREADS=6 
-export KMP_STACKSIZE=100000000 
-/opt/intel/impi/2018.1.163/bin64/mpirun -n 4 -ppn 2 /home/pj/WRF361/WRFV3/main/wrf.exe 
-```
