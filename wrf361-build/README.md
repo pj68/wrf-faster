@@ -53,7 +53,7 @@ source /home/pj/intel/parallel_studio_xe_2018/compilers_and_libraries_2018/linux
 ```
  OPTAVX          =        -xSKYLAKE-AVX512 
  LDFLAGS_LOCAL   =       -O3 -xsse4.2 -convert big_endian $(OPTAVX) 
-  FCOPTIM         =       -O3 $(OPTAVX) -xSSE4.2 -axSSE4.2 -opt-subscription-in-renge  -mP2OPT_vec_xform_level=103 -qoverride-limits 
+  FCOPTIM         =       -O3 $(OPTAVX) -xSSE4.2 -axSSE4.2 -opt-subscription-in-range  -mP2OPT_vec_xform_level=103 -qoverride-limits 
  FCBASEOPTS      =       $(FCBASEOPTS_NO_G) -FR -cm -w -I. $(FCDEBUG) -convert big_endian 
   
   
@@ -72,15 +72,18 @@ ref: https://github.com/pj68/wrf-faster/blob/master/wrf361-build/configure.wrf
 
 -- apply the drjack patch
 
- download https://github.com/pj68/wrf-faster/blob/master/wrf361-build/WRFV3.4.drjack.patch
+ note: the orig 3.4 patch https://github.com/pj68/wrf-faster/blob/master/wrf361-build/WRFV3.4.drjack.patch
+ 
+ download the updated patch https://github.com/pj68/wrf-faster/blob/master/wrf361-build/WRF3.6.1.drjack.patch
+ 
 ```
 cd WRFV3
-patch -p1 -i WRFV3.4.drjack.patch
+patch -p1 -i WRFV3.6.1.drjack.patch
 ```
 
 -- if there are errors, reverse the patch 
 ```
- patch -p1 -R -i WRFV3.4.drjack.patch
+ patch -p1 -R -i WRFV3.6.1.drjack.patch
 ```
 
 -- clean, use -a as there have been changes to the Registery files
