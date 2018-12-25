@@ -1,0 +1,2372 @@
+diff -ruN -X exclude-files.txt WRFV3-orig/arch/configure_new.defaults WRFV3/arch/configure_new.defaults
+--- WRFV3-orig/arch/configure_new.defaults	2014-07-13 01:32:03.000000000 +0200
++++ WRFV3/arch/configure_new.defaults	2018-11-27 12:43:04.000000000 +0200
+@@ -300,7 +300,8 @@
+ LDFLAGS_LOCAL   =       -ip #-xHost -fp-model fast=2 -no-prec-div -no-prec-sqrt -ftz -align all -fno-alias -fno-common
+ CPLUSPLUSLIB    =       
+ ESMF_LDFLAG     =       $(CPLUSPLUSLIB)
+-FCOPTIM         =       -O3
++FCOPTIM         =       -O3 -fno-alias -ip  -axSSE4.2   -xSSE4.2 \
++	-opt-subscript-in-range -mP2OPT_vec_xform_level=103 -override-limits
+ FCREDUCEDOPT	=       $(FCOPTIM)
+ FCNOOPT		=       -O0 -fno-inline -fno-ip
+ FCDEBUG         =       # -g $(FCNOOPT) -traceback # -fpe0 -check all -ftrapuv -unroll0 -u
+Binary files WRFV3-orig/dyn_em/adapt_timestep_em.o and WRFV3/dyn_em/adapt_timestep_em.o differ
+Binary files WRFV3-orig/dyn_em/couple_or_uncouple_em.o and WRFV3/dyn_em/couple_or_uncouple_em.o differ
+Binary files WRFV3-orig/dyn_em/interp_domain_em.o and WRFV3/dyn_em/interp_domain_em.o differ
+Binary files WRFV3-orig/dyn_em/module_advect_em.mod and WRFV3/dyn_em/module_advect_em.mod differ
+Binary files WRFV3-orig/dyn_em/module_advect_em.o and WRFV3/dyn_em/module_advect_em.o differ
+Binary files WRFV3-orig/dyn_em/module_after_all_rk_steps.mod and WRFV3/dyn_em/module_after_all_rk_steps.mod differ
+Binary files WRFV3-orig/dyn_em/module_after_all_rk_steps.o and WRFV3/dyn_em/module_after_all_rk_steps.o differ
+Binary files WRFV3-orig/dyn_em/module_avgflx_em.mod and WRFV3/dyn_em/module_avgflx_em.mod differ
+Binary files WRFV3-orig/dyn_em/module_avgflx_em.o and WRFV3/dyn_em/module_avgflx_em.o differ
+Binary files WRFV3-orig/dyn_em/module_bc_em.mod and WRFV3/dyn_em/module_bc_em.mod differ
+Binary files WRFV3-orig/dyn_em/module_bc_em.o and WRFV3/dyn_em/module_bc_em.o differ
+Binary files WRFV3-orig/dyn_em/module_bc.mod and WRFV3/dyn_em/module_bc.mod differ
+Binary files WRFV3-orig/dyn_em/module_big_step_utilities_em.mod and WRFV3/dyn_em/module_big_step_utilities_em.mod differ
+Binary files WRFV3-orig/dyn_em/module_big_step_utilities_em.o and WRFV3/dyn_em/module_big_step_utilities_em.o differ
+Binary files WRFV3-orig/dyn_em/module_convtrans_prep.mod and WRFV3/dyn_em/module_convtrans_prep.mod differ
+Binary files WRFV3-orig/dyn_em/module_convtrans_prep.o and WRFV3/dyn_em/module_convtrans_prep.o differ
+Binary files WRFV3-orig/dyn_em/module_cpl.mod and WRFV3/dyn_em/module_cpl.mod differ
+Binary files WRFV3-orig/dyn_em/module_cumulus_driver.mod and WRFV3/dyn_em/module_cumulus_driver.mod differ
+Binary files WRFV3-orig/dyn_em/module_damping_em.mod and WRFV3/dyn_em/module_damping_em.mod differ
+Binary files WRFV3-orig/dyn_em/module_damping_em.o and WRFV3/dyn_em/module_damping_em.o differ
+Binary files WRFV3-orig/dyn_em/module_date_time.mod and WRFV3/dyn_em/module_date_time.mod differ
+Binary files WRFV3-orig/dyn_em/module_diagnostics_driver.mod and WRFV3/dyn_em/module_diagnostics_driver.mod differ
+Binary files WRFV3-orig/dyn_em/module_diag_pld.mod and WRFV3/dyn_em/module_diag_pld.mod differ
+Binary files WRFV3-orig/dyn_em/module_diffusion_em.mod and WRFV3/dyn_em/module_diffusion_em.mod differ
+Binary files WRFV3-orig/dyn_em/module_diffusion_em.o and WRFV3/dyn_em/module_diffusion_em.o differ
+Binary files WRFV3-orig/dyn_em/module_driver_constants.mod and WRFV3/dyn_em/module_driver_constants.mod differ
+Binary files WRFV3-orig/dyn_em/module_em.mod and WRFV3/dyn_em/module_em.mod differ
+Binary files WRFV3-orig/dyn_em/module_em.o and WRFV3/dyn_em/module_em.o differ
+Binary files WRFV3-orig/dyn_em/module_fddagd_driver.mod and WRFV3/dyn_em/module_fddagd_driver.mod differ
+Binary files WRFV3-orig/dyn_em/module_fddaobs_driver.mod and WRFV3/dyn_em/module_fddaobs_driver.mod differ
+Binary files WRFV3-orig/dyn_em/module_first_rk_step_part1.mod and WRFV3/dyn_em/module_first_rk_step_part1.mod differ
+Binary files WRFV3-orig/dyn_em/module_first_rk_step_part1.o and WRFV3/dyn_em/module_first_rk_step_part1.o differ
+Binary files WRFV3-orig/dyn_em/module_first_rk_step_part2.mod and WRFV3/dyn_em/module_first_rk_step_part2.mod differ
+Binary files WRFV3-orig/dyn_em/module_first_rk_step_part2.o and WRFV3/dyn_em/module_first_rk_step_part2.o differ
+Binary files WRFV3-orig/dyn_em/module_force_scm.mod and WRFV3/dyn_em/module_force_scm.mod differ
+Binary files WRFV3-orig/dyn_em/module_force_scm.o and WRFV3/dyn_em/module_force_scm.o differ
+Binary files WRFV3-orig/dyn_em/module_fr_fire_driver_wrf.mod and WRFV3/dyn_em/module_fr_fire_driver_wrf.mod differ
+Binary files WRFV3-orig/dyn_em/module_initialize_real.o and WRFV3/dyn_em/module_initialize_real.o differ
+Binary files WRFV3-orig/dyn_em/module_init_utilities.mod and WRFV3/dyn_em/module_init_utilities.mod differ
+Binary files WRFV3-orig/dyn_em/module_init_utilities.o and WRFV3/dyn_em/module_init_utilities.o differ
+Binary files WRFV3-orig/dyn_em/module_io_domain.mod and WRFV3/dyn_em/module_io_domain.mod differ
+Binary files WRFV3-orig/dyn_em/module_llxy.mod and WRFV3/dyn_em/module_llxy.mod differ
+Binary files WRFV3-orig/dyn_em/module_machine.mod and WRFV3/dyn_em/module_machine.mod differ
+Binary files WRFV3-orig/dyn_em/module_microphysics_driver.mod and WRFV3/dyn_em/module_microphysics_driver.mod differ
+Binary files WRFV3-orig/dyn_em/module_microphysics_zero_out.mod and WRFV3/dyn_em/module_microphysics_zero_out.mod differ
+Binary files WRFV3-orig/dyn_em/module_model_constants.mod and WRFV3/dyn_em/module_model_constants.mod differ
+Binary files WRFV3-orig/dyn_em/module_pbl_driver.mod and WRFV3/dyn_em/module_pbl_driver.mod differ
+Binary files WRFV3-orig/dyn_em/module_physics_addtendc.mod and WRFV3/dyn_em/module_physics_addtendc.mod differ
+Binary files WRFV3-orig/dyn_em/module_polarfft.mod and WRFV3/dyn_em/module_polarfft.mod differ
+Binary files WRFV3-orig/dyn_em/module_polarfft.o and WRFV3/dyn_em/module_polarfft.o differ
+Binary files WRFV3-orig/dyn_em/module_radiation_driver.mod and WRFV3/dyn_em/module_radiation_driver.mod differ
+Binary files WRFV3-orig/dyn_em/module_sfs_driver.mod and WRFV3/dyn_em/module_sfs_driver.mod differ
+Binary files WRFV3-orig/dyn_em/module_sfs_driver.o and WRFV3/dyn_em/module_sfs_driver.o differ
+Binary files WRFV3-orig/dyn_em/module_sfs_nba.mod and WRFV3/dyn_em/module_sfs_nba.mod differ
+Binary files WRFV3-orig/dyn_em/module_sfs_nba.o and WRFV3/dyn_em/module_sfs_nba.o differ
+Binary files WRFV3-orig/dyn_em/module_shallowcu_driver.mod and WRFV3/dyn_em/module_shallowcu_driver.mod differ
+Binary files WRFV3-orig/dyn_em/module_small_step_em.mod and WRFV3/dyn_em/module_small_step_em.mod differ
+Binary files WRFV3-orig/dyn_em/module_small_step_em.o and WRFV3/dyn_em/module_small_step_em.o differ
+Binary files WRFV3-orig/dyn_em/module_solvedebug_em.mod and WRFV3/dyn_em/module_solvedebug_em.mod differ
+Binary files WRFV3-orig/dyn_em/module_solvedebug_em.o and WRFV3/dyn_em/module_solvedebug_em.o differ
+Binary files WRFV3-orig/dyn_em/module_stoch.mod and WRFV3/dyn_em/module_stoch.mod differ
+Binary files WRFV3-orig/dyn_em/module_stoch.o and WRFV3/dyn_em/module_stoch.o differ
+Binary files WRFV3-orig/dyn_em/module_surface_driver.mod and WRFV3/dyn_em/module_surface_driver.mod differ
+Binary files WRFV3-orig/dyn_em/module_timing.mod and WRFV3/dyn_em/module_timing.mod differ
+Binary files WRFV3-orig/dyn_em/module_wps_io_arw.mod and WRFV3/dyn_em/module_wps_io_arw.mod differ
+Binary files WRFV3-orig/dyn_em/module_wps_io_arw.o and WRFV3/dyn_em/module_wps_io_arw.o differ
+Binary files WRFV3-orig/dyn_em/module_wrf_error.mod and WRFV3/dyn_em/module_wrf_error.mod differ
+Binary files WRFV3-orig/dyn_em/nest_init_utils.o and WRFV3/dyn_em/nest_init_utils.o differ
+Binary files WRFV3-orig/dyn_em/pt-subscription-in-renge and WRFV3/dyn_em/pt-subscription-in-renge differ
+Binary files WRFV3-orig/dyn_em/shift_domain_em.o and WRFV3/dyn_em/shift_domain_em.o differ
+Binary files WRFV3-orig/dyn_em/solve_em.o and WRFV3/dyn_em/solve_em.o differ
+Binary files WRFV3-orig/dyn_em/start_em.o and WRFV3/dyn_em/start_em.o differ
+Binary files WRFV3-orig/external/esmf_time_f90/esmf_alarmclockmod.mod and WRFV3/external/esmf_time_f90/esmf_alarmclockmod.mod differ
+Binary files WRFV3-orig/external/esmf_time_f90/esmf_alarmmod.mod and WRFV3/external/esmf_time_f90/esmf_alarmmod.mod differ
+Binary files WRFV3-orig/external/esmf_time_f90/ESMF_Alarm.o and WRFV3/external/esmf_time_f90/ESMF_Alarm.o differ
+Binary files WRFV3-orig/external/esmf_time_f90/esmf_basemod.mod and WRFV3/external/esmf_time_f90/esmf_basemod.mod differ
+Binary files WRFV3-orig/external/esmf_time_f90/ESMF_Base.o and WRFV3/external/esmf_time_f90/ESMF_Base.o differ
+Binary files WRFV3-orig/external/esmf_time_f90/esmf_basetimemod.mod and WRFV3/external/esmf_time_f90/esmf_basetimemod.mod differ
+Binary files WRFV3-orig/external/esmf_time_f90/ESMF_BaseTime.o and WRFV3/external/esmf_time_f90/ESMF_BaseTime.o differ
+Binary files WRFV3-orig/external/esmf_time_f90/esmf_calendarmod.mod and WRFV3/external/esmf_time_f90/esmf_calendarmod.mod differ
+Binary files WRFV3-orig/external/esmf_time_f90/ESMF_Calendar.o and WRFV3/external/esmf_time_f90/ESMF_Calendar.o differ
+Binary files WRFV3-orig/external/esmf_time_f90/esmf_clockmod.mod and WRFV3/external/esmf_time_f90/esmf_clockmod.mod differ
+Binary files WRFV3-orig/external/esmf_time_f90/ESMF_Clock.o and WRFV3/external/esmf_time_f90/ESMF_Clock.o differ
+Binary files WRFV3-orig/external/esmf_time_f90/esmf_fractionmod.mod and WRFV3/external/esmf_time_f90/esmf_fractionmod.mod differ
+Binary files WRFV3-orig/external/esmf_time_f90/esmf_mod.mod and WRFV3/external/esmf_time_f90/esmf_mod.mod differ
+Binary files WRFV3-orig/external/esmf_time_f90/esmf_stubs.mod and WRFV3/external/esmf_time_f90/esmf_stubs.mod differ
+Binary files WRFV3-orig/external/esmf_time_f90/ESMF_Stubs.o and WRFV3/external/esmf_time_f90/ESMF_Stubs.o differ
+Binary files WRFV3-orig/external/esmf_time_f90/esmf_timeintervalmod.mod and WRFV3/external/esmf_time_f90/esmf_timeintervalmod.mod differ
+Binary files WRFV3-orig/external/esmf_time_f90/ESMF_TimeInterval.o and WRFV3/external/esmf_time_f90/ESMF_TimeInterval.o differ
+Binary files WRFV3-orig/external/esmf_time_f90/esmf_timemod.mod and WRFV3/external/esmf_time_f90/esmf_timemod.mod differ
+Binary files WRFV3-orig/external/esmf_time_f90/ESMF_Time.o and WRFV3/external/esmf_time_f90/ESMF_Time.o differ
+Binary files WRFV3-orig/external/esmf_time_f90/libesmf_time.a and WRFV3/external/esmf_time_f90/libesmf_time.a differ
+Binary files WRFV3-orig/external/esmf_time_f90/Meat.o and WRFV3/external/esmf_time_f90/Meat.o differ
+Binary files WRFV3-orig/external/esmf_time_f90/module_symbols_util.mod and WRFV3/external/esmf_time_f90/module_symbols_util.mod differ
+Binary files WRFV3-orig/external/esmf_time_f90/module_utility.mod and WRFV3/external/esmf_time_f90/module_utility.mod differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/c1f2kb.o and WRFV3/external/fftpack/fftpack5/c1f2kb.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/c1f2kf.o and WRFV3/external/fftpack/fftpack5/c1f2kf.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/c1f3kb.o and WRFV3/external/fftpack/fftpack5/c1f3kb.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/c1f3kf.o and WRFV3/external/fftpack/fftpack5/c1f3kf.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/c1f4kb.o and WRFV3/external/fftpack/fftpack5/c1f4kb.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/c1f4kf.o and WRFV3/external/fftpack/fftpack5/c1f4kf.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/c1f5kb.o and WRFV3/external/fftpack/fftpack5/c1f5kb.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/c1f5kf.o and WRFV3/external/fftpack/fftpack5/c1f5kf.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/c1fgkb.o and WRFV3/external/fftpack/fftpack5/c1fgkb.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/c1fgkf.o and WRFV3/external/fftpack/fftpack5/c1fgkf.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/c1fm1b.o and WRFV3/external/fftpack/fftpack5/c1fm1b.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/c1fm1f.o and WRFV3/external/fftpack/fftpack5/c1fm1f.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/cfft1b.o and WRFV3/external/fftpack/fftpack5/cfft1b.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/cfft1f.o and WRFV3/external/fftpack/fftpack5/cfft1f.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/cfft1i.o and WRFV3/external/fftpack/fftpack5/cfft1i.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/cfft2b.o and WRFV3/external/fftpack/fftpack5/cfft2b.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/cfft2f.o and WRFV3/external/fftpack/fftpack5/cfft2f.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/cfft2i.o and WRFV3/external/fftpack/fftpack5/cfft2i.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/cfftmb.o and WRFV3/external/fftpack/fftpack5/cfftmb.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/cfftmf.o and WRFV3/external/fftpack/fftpack5/cfftmf.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/cfftmi.o and WRFV3/external/fftpack/fftpack5/cfftmi.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/cmf2kb.o and WRFV3/external/fftpack/fftpack5/cmf2kb.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/cmf2kf.o and WRFV3/external/fftpack/fftpack5/cmf2kf.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/cmf3kb.o and WRFV3/external/fftpack/fftpack5/cmf3kb.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/cmf3kf.o and WRFV3/external/fftpack/fftpack5/cmf3kf.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/cmf4kb.o and WRFV3/external/fftpack/fftpack5/cmf4kb.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/cmf4kf.o and WRFV3/external/fftpack/fftpack5/cmf4kf.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/cmf5kb.o and WRFV3/external/fftpack/fftpack5/cmf5kb.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/cmf5kf.o and WRFV3/external/fftpack/fftpack5/cmf5kf.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/cmfgkb.o and WRFV3/external/fftpack/fftpack5/cmfgkb.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/cmfgkf.o and WRFV3/external/fftpack/fftpack5/cmfgkf.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/cmfm1b.o and WRFV3/external/fftpack/fftpack5/cmfm1b.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/cmfm1f.o and WRFV3/external/fftpack/fftpack5/cmfm1f.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/cosq1b.o and WRFV3/external/fftpack/fftpack5/cosq1b.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/cosq1f.o and WRFV3/external/fftpack/fftpack5/cosq1f.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/cosq1i.o and WRFV3/external/fftpack/fftpack5/cosq1i.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/cosqb1.o and WRFV3/external/fftpack/fftpack5/cosqb1.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/cosqf1.o and WRFV3/external/fftpack/fftpack5/cosqf1.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/cosqmb.o and WRFV3/external/fftpack/fftpack5/cosqmb.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/cosqmf.o and WRFV3/external/fftpack/fftpack5/cosqmf.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/cosqmi.o and WRFV3/external/fftpack/fftpack5/cosqmi.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/cost1b.o and WRFV3/external/fftpack/fftpack5/cost1b.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/cost1f.o and WRFV3/external/fftpack/fftpack5/cost1f.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/cost1i.o and WRFV3/external/fftpack/fftpack5/cost1i.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/costb1.o and WRFV3/external/fftpack/fftpack5/costb1.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/costf1.o and WRFV3/external/fftpack/fftpack5/costf1.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/costmb.o and WRFV3/external/fftpack/fftpack5/costmb.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/costmf.o and WRFV3/external/fftpack/fftpack5/costmf.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/costmi.o and WRFV3/external/fftpack/fftpack5/costmi.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/d1f2kb.o and WRFV3/external/fftpack/fftpack5/d1f2kb.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/d1f2kf.o and WRFV3/external/fftpack/fftpack5/d1f2kf.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/d1f3kb.o and WRFV3/external/fftpack/fftpack5/d1f3kb.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/d1f3kf.o and WRFV3/external/fftpack/fftpack5/d1f3kf.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/d1f4kb.o and WRFV3/external/fftpack/fftpack5/d1f4kb.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/d1f4kf.o and WRFV3/external/fftpack/fftpack5/d1f4kf.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/d1f5kb.o and WRFV3/external/fftpack/fftpack5/d1f5kb.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/d1f5kf.o and WRFV3/external/fftpack/fftpack5/d1f5kf.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/d1fgkb.o and WRFV3/external/fftpack/fftpack5/d1fgkb.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/d1fgkf.o and WRFV3/external/fftpack/fftpack5/d1fgkf.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/dcosq1b.o and WRFV3/external/fftpack/fftpack5/dcosq1b.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/dcosq1f.o and WRFV3/external/fftpack/fftpack5/dcosq1f.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/dcosq1i.o and WRFV3/external/fftpack/fftpack5/dcosq1i.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/dcosqb1.o and WRFV3/external/fftpack/fftpack5/dcosqb1.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/dcosqf1.o and WRFV3/external/fftpack/fftpack5/dcosqf1.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/dcost1b.o and WRFV3/external/fftpack/fftpack5/dcost1b.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/dcost1f.o and WRFV3/external/fftpack/fftpack5/dcost1f.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/dcost1i.o and WRFV3/external/fftpack/fftpack5/dcost1i.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/dcostb1.o and WRFV3/external/fftpack/fftpack5/dcostb1.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/dcostf1.o and WRFV3/external/fftpack/fftpack5/dcostf1.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/dfft1b.o and WRFV3/external/fftpack/fftpack5/dfft1b.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/dfft1f.o and WRFV3/external/fftpack/fftpack5/dfft1f.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/dfft1i.o and WRFV3/external/fftpack/fftpack5/dfft1i.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/dfftb1.o and WRFV3/external/fftpack/fftpack5/dfftb1.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/dfftf1.o and WRFV3/external/fftpack/fftpack5/dfftf1.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/dffti1.o and WRFV3/external/fftpack/fftpack5/dffti1.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/dsint1b.o and WRFV3/external/fftpack/fftpack5/dsint1b.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/dsint1f.o and WRFV3/external/fftpack/fftpack5/dsint1f.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/dsint1i.o and WRFV3/external/fftpack/fftpack5/dsint1i.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/dsintb1.o and WRFV3/external/fftpack/fftpack5/dsintb1.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/dsintf1.o and WRFV3/external/fftpack/fftpack5/dsintf1.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/libfftpack.a and WRFV3/external/fftpack/fftpack5/libfftpack.a differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/mcsqb1.o and WRFV3/external/fftpack/fftpack5/mcsqb1.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/mcsqf1.o and WRFV3/external/fftpack/fftpack5/mcsqf1.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/mcstb1.o and WRFV3/external/fftpack/fftpack5/mcstb1.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/mcstf1.o and WRFV3/external/fftpack/fftpack5/mcstf1.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/mradb2.o and WRFV3/external/fftpack/fftpack5/mradb2.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/mradb3.o and WRFV3/external/fftpack/fftpack5/mradb3.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/mradb4.o and WRFV3/external/fftpack/fftpack5/mradb4.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/mradb5.o and WRFV3/external/fftpack/fftpack5/mradb5.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/mradbg.o and WRFV3/external/fftpack/fftpack5/mradbg.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/mradf2.o and WRFV3/external/fftpack/fftpack5/mradf2.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/mradf3.o and WRFV3/external/fftpack/fftpack5/mradf3.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/mradf4.o and WRFV3/external/fftpack/fftpack5/mradf4.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/mradf5.o and WRFV3/external/fftpack/fftpack5/mradf5.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/mradfg.o and WRFV3/external/fftpack/fftpack5/mradfg.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/mrftb1.o and WRFV3/external/fftpack/fftpack5/mrftb1.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/mrftf1.o and WRFV3/external/fftpack/fftpack5/mrftf1.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/mrfti1.o and WRFV3/external/fftpack/fftpack5/mrfti1.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/msntb1.o and WRFV3/external/fftpack/fftpack5/msntb1.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/msntf1.o and WRFV3/external/fftpack/fftpack5/msntf1.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/r1f2kb.o and WRFV3/external/fftpack/fftpack5/r1f2kb.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/r1f2kf.o and WRFV3/external/fftpack/fftpack5/r1f2kf.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/r1f3kb.o and WRFV3/external/fftpack/fftpack5/r1f3kb.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/r1f3kf.o and WRFV3/external/fftpack/fftpack5/r1f3kf.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/r1f4kb.o and WRFV3/external/fftpack/fftpack5/r1f4kb.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/r1f4kf.o and WRFV3/external/fftpack/fftpack5/r1f4kf.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/r1f5kb.o and WRFV3/external/fftpack/fftpack5/r1f5kb.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/r1f5kf.o and WRFV3/external/fftpack/fftpack5/r1f5kf.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/r1fgkb.o and WRFV3/external/fftpack/fftpack5/r1fgkb.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/r1fgkf.o and WRFV3/external/fftpack/fftpack5/r1fgkf.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/r4_factor.o and WRFV3/external/fftpack/fftpack5/r4_factor.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/r4_mcfti1.o and WRFV3/external/fftpack/fftpack5/r4_mcfti1.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/r4_tables.o and WRFV3/external/fftpack/fftpack5/r4_tables.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/r8_factor.o and WRFV3/external/fftpack/fftpack5/r8_factor.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/r8_mcfti1.o and WRFV3/external/fftpack/fftpack5/r8_mcfti1.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/r8_tables.o and WRFV3/external/fftpack/fftpack5/r8_tables.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/rfft1b.o and WRFV3/external/fftpack/fftpack5/rfft1b.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/rfft1f.o and WRFV3/external/fftpack/fftpack5/rfft1f.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/rfft1i.o and WRFV3/external/fftpack/fftpack5/rfft1i.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/rfft2b.o and WRFV3/external/fftpack/fftpack5/rfft2b.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/rfft2f.o and WRFV3/external/fftpack/fftpack5/rfft2f.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/rfft2i.o and WRFV3/external/fftpack/fftpack5/rfft2i.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/rfftb1.o and WRFV3/external/fftpack/fftpack5/rfftb1.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/rfftf1.o and WRFV3/external/fftpack/fftpack5/rfftf1.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/rffti1.o and WRFV3/external/fftpack/fftpack5/rffti1.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/rfftmb.o and WRFV3/external/fftpack/fftpack5/rfftmb.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/rfftmf.o and WRFV3/external/fftpack/fftpack5/rfftmf.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/rfftmi.o and WRFV3/external/fftpack/fftpack5/rfftmi.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/sinq1b.o and WRFV3/external/fftpack/fftpack5/sinq1b.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/sinq1f.o and WRFV3/external/fftpack/fftpack5/sinq1f.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/sinq1i.o and WRFV3/external/fftpack/fftpack5/sinq1i.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/sinqmb.o and WRFV3/external/fftpack/fftpack5/sinqmb.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/sinqmf.o and WRFV3/external/fftpack/fftpack5/sinqmf.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/sinqmi.o and WRFV3/external/fftpack/fftpack5/sinqmi.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/sint1b.o and WRFV3/external/fftpack/fftpack5/sint1b.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/sint1f.o and WRFV3/external/fftpack/fftpack5/sint1f.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/sint1i.o and WRFV3/external/fftpack/fftpack5/sint1i.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/sintb1.o and WRFV3/external/fftpack/fftpack5/sintb1.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/sintf1.o and WRFV3/external/fftpack/fftpack5/sintf1.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/sintmb.o and WRFV3/external/fftpack/fftpack5/sintmb.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/sintmf.o and WRFV3/external/fftpack/fftpack5/sintmf.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/sintmi.o and WRFV3/external/fftpack/fftpack5/sintmi.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/z1f2kb.o and WRFV3/external/fftpack/fftpack5/z1f2kb.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/z1f2kf.o and WRFV3/external/fftpack/fftpack5/z1f2kf.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/z1f3kb.o and WRFV3/external/fftpack/fftpack5/z1f3kb.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/z1f3kf.o and WRFV3/external/fftpack/fftpack5/z1f3kf.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/z1f4kb.o and WRFV3/external/fftpack/fftpack5/z1f4kb.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/z1f4kf.o and WRFV3/external/fftpack/fftpack5/z1f4kf.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/z1f5kb.o and WRFV3/external/fftpack/fftpack5/z1f5kb.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/z1f5kf.o and WRFV3/external/fftpack/fftpack5/z1f5kf.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/z1fgkb.o and WRFV3/external/fftpack/fftpack5/z1fgkb.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/z1fgkf.o and WRFV3/external/fftpack/fftpack5/z1fgkf.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/z1fm1b.o and WRFV3/external/fftpack/fftpack5/z1fm1b.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/z1fm1f.o and WRFV3/external/fftpack/fftpack5/z1fm1f.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/zfft1b.o and WRFV3/external/fftpack/fftpack5/zfft1b.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/zfft1f.o and WRFV3/external/fftpack/fftpack5/zfft1f.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/zfft1i.o and WRFV3/external/fftpack/fftpack5/zfft1i.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/zfft2b.o and WRFV3/external/fftpack/fftpack5/zfft2b.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/zfft2f.o and WRFV3/external/fftpack/fftpack5/zfft2f.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/zfft2i.o and WRFV3/external/fftpack/fftpack5/zfft2i.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/zfftmb.o and WRFV3/external/fftpack/fftpack5/zfftmb.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/zfftmf.o and WRFV3/external/fftpack/fftpack5/zfftmf.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/zfftmi.o and WRFV3/external/fftpack/fftpack5/zfftmi.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/zmf2kb.o and WRFV3/external/fftpack/fftpack5/zmf2kb.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/zmf2kf.o and WRFV3/external/fftpack/fftpack5/zmf2kf.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/zmf3kb.o and WRFV3/external/fftpack/fftpack5/zmf3kb.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/zmf3kf.o and WRFV3/external/fftpack/fftpack5/zmf3kf.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/zmf4kb.o and WRFV3/external/fftpack/fftpack5/zmf4kb.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/zmf4kf.o and WRFV3/external/fftpack/fftpack5/zmf4kf.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/zmf5kb.o and WRFV3/external/fftpack/fftpack5/zmf5kb.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/zmf5kf.o and WRFV3/external/fftpack/fftpack5/zmf5kf.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/zmfgkb.o and WRFV3/external/fftpack/fftpack5/zmfgkb.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/zmfgkf.o and WRFV3/external/fftpack/fftpack5/zmfgkf.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/zmfm1b.o and WRFV3/external/fftpack/fftpack5/zmfm1b.o differ
+Binary files WRFV3-orig/external/fftpack/fftpack5/zmfm1f.o and WRFV3/external/fftpack/fftpack5/zmfm1f.o differ
+Binary files WRFV3-orig/external/io_grib1/gr1_data_info.mod and WRFV3/external/io_grib1/gr1_data_info.mod differ
+Binary files WRFV3-orig/external/io_grib1/grib1_routines.o and WRFV3/external/io_grib1/grib1_routines.o differ
+Binary files WRFV3-orig/external/io_grib1/grib1_util/read_grib.o and WRFV3/external/io_grib1/grib1_util/read_grib.o differ
+Binary files WRFV3-orig/external/io_grib1/grib1_util/write_grib.o and WRFV3/external/io_grib1/grib1_util/write_grib.o differ
+Binary files WRFV3-orig/external/io_grib1/gribmap.o and WRFV3/external/io_grib1/gribmap.o differ
+Binary files WRFV3-orig/external/io_grib1/io_grib1.o and WRFV3/external/io_grib1/io_grib1.o differ
+Binary files WRFV3-orig/external/io_grib1/libio_grib1.a and WRFV3/external/io_grib1/libio_grib1.a differ
+Binary files WRFV3-orig/external/io_grib1/MEL_grib1/gbyte.o and WRFV3/external/io_grib1/MEL_grib1/gbyte.o differ
+Binary files WRFV3-orig/external/io_grib1/MEL_grib1/grib_enc.o and WRFV3/external/io_grib1/MEL_grib1/grib_enc.o differ
+Binary files WRFV3-orig/external/io_grib1/MEL_grib1/gribgetbds.o and WRFV3/external/io_grib1/MEL_grib1/gribgetbds.o differ
+Binary files WRFV3-orig/external/io_grib1/MEL_grib1/gribgetbms.o and WRFV3/external/io_grib1/MEL_grib1/gribgetbms.o differ
+Binary files WRFV3-orig/external/io_grib1/MEL_grib1/gribgetgds.o and WRFV3/external/io_grib1/MEL_grib1/gribgetgds.o differ
+Binary files WRFV3-orig/external/io_grib1/MEL_grib1/gribputbds.o and WRFV3/external/io_grib1/MEL_grib1/gribputbds.o differ
+Binary files WRFV3-orig/external/io_grib1/MEL_grib1/gribputgds.o and WRFV3/external/io_grib1/MEL_grib1/gribputgds.o differ
+Binary files WRFV3-orig/external/io_grib1/MEL_grib1/gribputpds.o and WRFV3/external/io_grib1/MEL_grib1/gribputpds.o differ
+Binary files WRFV3-orig/external/io_grib1/MEL_grib1/grib_seek.o and WRFV3/external/io_grib1/MEL_grib1/grib_seek.o differ
+Binary files WRFV3-orig/external/io_grib1/MEL_grib1/grib_uthin.o and WRFV3/external/io_grib1/MEL_grib1/grib_uthin.o differ
+Binary files WRFV3-orig/external/io_grib1/MEL_grib1/init_dec_struct.o and WRFV3/external/io_grib1/MEL_grib1/init_dec_struct.o differ
+Binary files WRFV3-orig/external/io_grib1/MEL_grib1/init_enc_struct.o and WRFV3/external/io_grib1/MEL_grib1/init_enc_struct.o differ
+Binary files WRFV3-orig/external/io_grib1/MEL_grib1/init_gribhdr.o and WRFV3/external/io_grib1/MEL_grib1/init_gribhdr.o differ
+Binary files WRFV3-orig/external/io_grib1/MEL_grib1/init_struct.o and WRFV3/external/io_grib1/MEL_grib1/init_struct.o differ
+Binary files WRFV3-orig/external/io_grib1/MEL_grib1/ld_enc_lookup.o and WRFV3/external/io_grib1/MEL_grib1/ld_enc_lookup.o differ
+Binary files WRFV3-orig/external/io_grib1/MEL_grib1/ld_grib_origctrs.o and WRFV3/external/io_grib1/MEL_grib1/ld_grib_origctrs.o differ
+Binary files WRFV3-orig/external/io_grib1/MEL_grib1/make_grib_log.o and WRFV3/external/io_grib1/MEL_grib1/make_grib_log.o differ
+Binary files WRFV3-orig/external/io_grib1/MEL_grib1/map_lvl.o and WRFV3/external/io_grib1/MEL_grib1/map_lvl.o differ
+Binary files WRFV3-orig/external/io_grib1/MEL_grib1/pack_spatial.o and WRFV3/external/io_grib1/MEL_grib1/pack_spatial.o differ
+Binary files WRFV3-orig/external/io_grib1/MEL_grib1/prt_badmsg.o and WRFV3/external/io_grib1/MEL_grib1/prt_badmsg.o differ
+Binary files WRFV3-orig/external/io_grib1/MEL_grib1/set_bytes.o and WRFV3/external/io_grib1/MEL_grib1/set_bytes.o differ
+Binary files WRFV3-orig/external/io_grib1/MEL_grib1/swap.o and WRFV3/external/io_grib1/MEL_grib1/swap.o differ
+Binary files WRFV3-orig/external/io_grib_share/get_region_center.o and WRFV3/external/io_grib_share/get_region_center.o differ
+Binary files WRFV3-orig/external/io_grib_share/gridnav.o and WRFV3/external/io_grib_share/gridnav.o differ
+Binary files WRFV3-orig/external/io_grib_share/io_grib_share.o and WRFV3/external/io_grib_share/io_grib_share.o differ
+Binary files WRFV3-orig/external/io_grib_share/libio_grib_share.a and WRFV3/external/io_grib_share/libio_grib_share.a differ
+Binary files WRFV3-orig/external/io_int/diffwrf and WRFV3/external/io_int/diffwrf differ
+Binary files WRFV3-orig/external/io_int/diffwrf.o and WRFV3/external/io_int/diffwrf.o differ
+Binary files WRFV3-orig/external/io_int/io_int.o and WRFV3/external/io_int/io_int.o differ
+Binary files WRFV3-orig/external/io_int/libwrfio_int.a and WRFV3/external/io_int/libwrfio_int.a differ
+Binary files WRFV3-orig/external/io_int/module_ext_internal.mod and WRFV3/external/io_int/module_ext_internal.mod differ
+Binary files WRFV3-orig/external/io_int/module_internal_header_util.mod and WRFV3/external/io_int/module_internal_header_util.mod differ
+Binary files WRFV3-orig/external/io_int/module_internal_header_util.o and WRFV3/external/io_int/module_internal_header_util.o differ
+Binary files WRFV3-orig/external/io_int/module_io_int_idx.mod and WRFV3/external/io_int/module_io_int_idx.mod differ
+Binary files WRFV3-orig/external/io_int/module_io_int_idx.o and WRFV3/external/io_int/module_io_int_idx.o differ
+Binary files WRFV3-orig/external/io_int/module_io_int_read.mod and WRFV3/external/io_int/module_io_int_read.mod differ
+Binary files WRFV3-orig/external/io_int/read_util_module.mod and WRFV3/external/io_int/read_util_module.mod differ
+Binary files WRFV3-orig/external/io_int/test_io_idx and WRFV3/external/io_int/test_io_idx differ
+Binary files WRFV3-orig/external/io_netcdf/diffwrf and WRFV3/external/io_netcdf/diffwrf differ
+Binary files WRFV3-orig/external/io_netcdf/diffwrf.o and WRFV3/external/io_netcdf/diffwrf.o differ
+Binary files WRFV3-orig/external/io_netcdf/ext_ncd_support_routines.mod and WRFV3/external/io_netcdf/ext_ncd_support_routines.mod differ
+Binary files WRFV3-orig/external/io_netcdf/field_routines.o and WRFV3/external/io_netcdf/field_routines.o differ
+Binary files WRFV3-orig/external/io_netcdf/libwrfio_nf.a and WRFV3/external/io_netcdf/libwrfio_nf.a differ
+Binary files WRFV3-orig/external/io_netcdf/module_wrfsi_static.o and WRFV3/external/io_netcdf/module_wrfsi_static.o differ
+Binary files WRFV3-orig/external/io_netcdf/read_util_module.mod and WRFV3/external/io_netcdf/read_util_module.mod differ
+Binary files WRFV3-orig/external/io_netcdf/wrf_data.mod and WRFV3/external/io_netcdf/wrf_data.mod differ
+Binary files WRFV3-orig/external/io_netcdf/wrf_io.o and WRFV3/external/io_netcdf/wrf_io.o differ
+Binary files WRFV3-orig/external/io_netcdf/wrfsi_static.mod and WRFV3/external/io_netcdf/wrfsi_static.mod differ
+Binary files WRFV3-orig/external/RSL_LITE/buf_for_proc.o and WRFV3/external/RSL_LITE/buf_for_proc.o differ
+Binary files WRFV3-orig/external/RSL_LITE/cycle.o and WRFV3/external/RSL_LITE/cycle.o differ
+Binary files WRFV3-orig/external/RSL_LITE/duplicate_of_driver_constants.mod and WRFV3/external/RSL_LITE/duplicate_of_driver_constants.mod differ
+Binary files WRFV3-orig/external/RSL_LITE/f_pack.o and WRFV3/external/RSL_LITE/f_pack.o differ
+Binary files WRFV3-orig/external/RSL_LITE/f_xpose.o and WRFV3/external/RSL_LITE/f_xpose.o differ
+Binary files WRFV3-orig/external/RSL_LITE/librsl_lite.a and WRFV3/external/RSL_LITE/librsl_lite.a differ
+Binary files WRFV3-orig/external/RSL_LITE/rsl_bcast.o and WRFV3/external/RSL_LITE/rsl_bcast.o differ
+Binary files WRFV3-orig/external/RSL_LITE/rsl_malloc.o and WRFV3/external/RSL_LITE/rsl_malloc.o differ
+Binary files WRFV3-orig/external/RSL_LITE/swap.o and WRFV3/external/RSL_LITE/swap.o differ
+Binary files WRFV3-orig/frame/clog.o and WRFV3/frame/clog.o differ
+Binary files WRFV3-orig/frame/collect_on_comm.o and WRFV3/frame/collect_on_comm.o differ
+diff -ruN -X exclude-files.txt WRFV3-orig/frame/.directory WRFV3/frame/.directory
+--- WRFV3-orig/frame/.directory	1970-01-01 02:00:00.000000000 +0200
++++ WRFV3/frame/.directory	2018-11-27 12:46:08.000000000 +0200
+@@ -0,0 +1,5 @@
++[Dolphin]
++Timestamp=2018,11,27,12,46,8
++Version=3
++ViewMode=1
++VisibleRoles=Details_text,Details_size,Details_date,Details_type,CustomizedDetails
+Binary files WRFV3-orig/frame/libmassv.o and WRFV3/frame/libmassv.o differ
+Binary files WRFV3-orig/frame/module_alloc_space_0.mod and WRFV3/frame/module_alloc_space_0.mod differ
+Binary files WRFV3-orig/frame/module_alloc_space_0.o and WRFV3/frame/module_alloc_space_0.o differ
+Binary files WRFV3-orig/frame/module_alloc_space_1.mod and WRFV3/frame/module_alloc_space_1.mod differ
+Binary files WRFV3-orig/frame/module_alloc_space_1.o and WRFV3/frame/module_alloc_space_1.o differ
+Binary files WRFV3-orig/frame/module_alloc_space_2.mod and WRFV3/frame/module_alloc_space_2.mod differ
+Binary files WRFV3-orig/frame/module_alloc_space_2.o and WRFV3/frame/module_alloc_space_2.o differ
+Binary files WRFV3-orig/frame/module_alloc_space_3.mod and WRFV3/frame/module_alloc_space_3.mod differ
+Binary files WRFV3-orig/frame/module_alloc_space_3.o and WRFV3/frame/module_alloc_space_3.o differ
+Binary files WRFV3-orig/frame/module_alloc_space_4.mod and WRFV3/frame/module_alloc_space_4.mod differ
+Binary files WRFV3-orig/frame/module_alloc_space_5.mod and WRFV3/frame/module_alloc_space_5.mod differ
+Binary files WRFV3-orig/frame/module_alloc_space_6.mod and WRFV3/frame/module_alloc_space_6.mod differ
+Binary files WRFV3-orig/frame/module_alloc_space_6.o and WRFV3/frame/module_alloc_space_6.o differ
+Binary files WRFV3-orig/frame/module_alloc_space_7.mod and WRFV3/frame/module_alloc_space_7.mod differ
+Binary files WRFV3-orig/frame/module_alloc_space_7.o and WRFV3/frame/module_alloc_space_7.o differ
+Binary files WRFV3-orig/frame/module_alloc_space_8.mod and WRFV3/frame/module_alloc_space_8.mod differ
+Binary files WRFV3-orig/frame/module_alloc_space_9.mod and WRFV3/frame/module_alloc_space_9.mod differ
+Binary files WRFV3-orig/frame/module_comm_dm_0.mod and WRFV3/frame/module_comm_dm_0.mod differ
+Binary files WRFV3-orig/frame/module_comm_dm_1.mod and WRFV3/frame/module_comm_dm_1.mod differ
+Binary files WRFV3-orig/frame/module_comm_dm_2.mod and WRFV3/frame/module_comm_dm_2.mod differ
+Binary files WRFV3-orig/frame/module_comm_dm_3.mod and WRFV3/frame/module_comm_dm_3.mod differ
+Binary files WRFV3-orig/frame/module_comm_dm_4_.mod and WRFV3/frame/module_comm_dm_4_.mod differ
+Binary files WRFV3-orig/frame/module_comm_dm_4.o and WRFV3/frame/module_comm_dm_4.o differ
+Binary files WRFV3-orig/frame/module_comm_dm.mod and WRFV3/frame/module_comm_dm.mod differ
+Binary files WRFV3-orig/frame/module_comm_nesting_dm.mod and WRFV3/frame/module_comm_nesting_dm.mod differ
+Binary files WRFV3-orig/frame/module_configure.mod and WRFV3/frame/module_configure.mod differ
+Binary files WRFV3-orig/frame/module_configure.o and WRFV3/frame/module_configure.o differ
+Binary files WRFV3-orig/frame/module_cpl.mod and WRFV3/frame/module_cpl.mod differ
+Binary files WRFV3-orig/frame/module_cpl.o and WRFV3/frame/module_cpl.o differ
+Binary files WRFV3-orig/frame/module_cpl_oasis3.mod and WRFV3/frame/module_cpl_oasis3.mod differ
+Binary files WRFV3-orig/frame/module_cpl_oasis3.o and WRFV3/frame/module_cpl_oasis3.o differ
+Binary files WRFV3-orig/frame/module_dm.mod and WRFV3/frame/module_dm.mod differ
+Binary files WRFV3-orig/frame/module_dm.o and WRFV3/frame/module_dm.o differ
+Binary files WRFV3-orig/frame/module_domain.mod and WRFV3/frame/module_domain.mod differ
+Binary files WRFV3-orig/frame/module_domain.o and WRFV3/frame/module_domain.o differ
+Binary files WRFV3-orig/frame/module_domain_type.mod and WRFV3/frame/module_domain_type.mod differ
+Binary files WRFV3-orig/frame/module_driver_constants.mod and WRFV3/frame/module_driver_constants.mod differ
+Binary files WRFV3-orig/frame/module_driver_constants.o and WRFV3/frame/module_driver_constants.o differ
+Binary files WRFV3-orig/frame/module_integrate.mod and WRFV3/frame/module_integrate.mod differ
+Binary files WRFV3-orig/frame/module_integrate.o and WRFV3/frame/module_integrate.o differ
+Binary files WRFV3-orig/frame/module_intermediate_nmm.mod and WRFV3/frame/module_intermediate_nmm.mod differ
+Binary files WRFV3-orig/frame/module_intermediate_nmm.o and WRFV3/frame/module_intermediate_nmm.o differ
+Binary files WRFV3-orig/frame/module_internal_header_util.mod and WRFV3/frame/module_internal_header_util.mod differ
+Binary files WRFV3-orig/frame/module_internal_header_util.o and WRFV3/frame/module_internal_header_util.o differ
+Binary files WRFV3-orig/frame/module_io.mod and WRFV3/frame/module_io.mod differ
+Binary files WRFV3-orig/frame/module_io.o and WRFV3/frame/module_io.o differ
+Binary files WRFV3-orig/frame/module_io_quilt.o and WRFV3/frame/module_io_quilt.o differ
+Binary files WRFV3-orig/frame/module_machine.mod and WRFV3/frame/module_machine.mod differ
+Binary files WRFV3-orig/frame/module_machine.o and WRFV3/frame/module_machine.o differ
+Binary files WRFV3-orig/frame/module_model_constants.mod and WRFV3/frame/module_model_constants.mod differ
+Binary files WRFV3-orig/frame/module_nesting.mod and WRFV3/frame/module_nesting.mod differ
+Binary files WRFV3-orig/frame/module_nesting.o and WRFV3/frame/module_nesting.o differ
+Binary files WRFV3-orig/frame/module_quilt_outbuf_ops.mod and WRFV3/frame/module_quilt_outbuf_ops.mod differ
+Binary files WRFV3-orig/frame/module_quilt_outbuf_ops.o and WRFV3/frame/module_quilt_outbuf_ops.o differ
+Binary files WRFV3-orig/frame/module_scalar_tables.mod and WRFV3/frame/module_scalar_tables.mod differ
+Binary files WRFV3-orig/frame/module_sm.mod and WRFV3/frame/module_sm.mod differ
+Binary files WRFV3-orig/frame/module_sm.o and WRFV3/frame/module_sm.o differ
+Binary files WRFV3-orig/frame/module_state_description.mod and WRFV3/frame/module_state_description.mod differ
+Binary files WRFV3-orig/frame/module_streams.mod and WRFV3/frame/module_streams.mod differ
+Binary files WRFV3-orig/frame/module_streams.o and WRFV3/frame/module_streams.o differ
+Binary files WRFV3-orig/frame/module_tiles.mod and WRFV3/frame/module_tiles.mod differ
+diff -ruN -X exclude-files.txt WRFV3-orig/frame/module_timing.F WRFV3/frame/module_timing.F
+--- WRFV3-orig/frame/module_timing.F	2014-07-18 18:50:09.000000000 +0200
++++ WRFV3/frame/module_timing.F	2018-11-27 12:43:04.000000000 +0200
+@@ -99,6 +99,8 @@
+ !     PRINT '(A,A,A,F10.5,A)' ,'Timing for ',TRIM(string),': ',cpu_seconds,' cpu seconds.'
+ 
+       cn = cn - 1
++	
++ 	CALL FLUSH(6)
+ 
+    END SUBROUTINE end_timing
+ 
+Binary files WRFV3-orig/frame/module_timing.mod and WRFV3/frame/module_timing.mod differ
+Binary files WRFV3-orig/frame/module_timing.o and WRFV3/frame/module_timing.o differ
+Binary files WRFV3-orig/frame/module_wrf_error.mod and WRFV3/frame/module_wrf_error.mod differ
+Binary files WRFV3-orig/frame/module_wrf_error.o and WRFV3/frame/module_wrf_error.o differ
+Binary files WRFV3-orig/frame/module_wrf_quilt.mod and WRFV3/frame/module_wrf_quilt.mod differ
+Binary files WRFV3-orig/frame/nl_get_0_routines.o and WRFV3/frame/nl_get_0_routines.o differ
+Binary files WRFV3-orig/frame/nl_get_1_routines.o and WRFV3/frame/nl_get_1_routines.o differ
+Binary files WRFV3-orig/frame/nl_get_2_routines.o and WRFV3/frame/nl_get_2_routines.o differ
+Binary files WRFV3-orig/frame/nl_get_7_routines.o and WRFV3/frame/nl_get_7_routines.o differ
+Binary files WRFV3-orig/frame/nl_set_0_routines.o and WRFV3/frame/nl_set_0_routines.o differ
+Binary files WRFV3-orig/frame/nl_set_1_routines.o and WRFV3/frame/nl_set_1_routines.o differ
+Binary files WRFV3-orig/frame/nl_set_2_routines.o and WRFV3/frame/nl_set_2_routines.o differ
+Binary files WRFV3-orig/frame/nl_set_7_routines.o and WRFV3/frame/nl_set_7_routines.o differ
+Binary files WRFV3-orig/frame/pack_utils.o and WRFV3/frame/pack_utils.o differ
+Binary files WRFV3-orig/frame/pt-subscription-in-renge and WRFV3/frame/pt-subscription-in-renge differ
+Binary files WRFV3-orig/frame/wrf_debug.o and WRFV3/frame/wrf_debug.o differ
+Binary files WRFV3-orig/frame/wrf_shutdown.o and WRFV3/frame/wrf_shutdown.o differ
+diff -ruN -X exclude-files.txt WRFV3-orig/inc/allocs.inc WRFV3/inc/allocs.inc
+--- WRFV3-orig/inc/allocs.inc	2018-11-20 20:30:59.000000000 +0200
++++ WRFV3/inc/allocs.inc	2018-12-15 16:26:13.000000000 +0200
+@@ -11895,7 +11895,7 @@
+   grid%tail_statevars%Restart  = .TRUE.
+   grid%tail_statevars%scalar_array = .FALSE.
+   grid%tail_statevars%rfield_3d => grid%tke_1
+-  grid%tail_statevars%streams(1) = 0 ! 00000000 
++  grid%tail_statevars%streams(1) = 1 ! 00000001 
+   grid%tail_statevars%streams(2) = 2097152 ! 00200000 
+   grid%tail_statevars%sd1 = ids
+   grid%tail_statevars%ed1 = (ide-1)
+@@ -11954,7 +11954,7 @@
+   grid%tail_statevars%Restart  = .TRUE.
+   grid%tail_statevars%scalar_array = .FALSE.
+   grid%tail_statevars%rfield_3d => grid%tke_2
+-  grid%tail_statevars%streams(1) = 0 ! 00000000 
++  grid%tail_statevars%streams(1) = 1 ! 00000001 
+   grid%tail_statevars%streams(2) = 2097152 ! 00200000 
+   grid%tail_statevars%sd1 = ids
+   grid%tail_statevars%ed1 = (ide-1)
+@@ -36504,8 +36504,8 @@
+   NULLIFY( grid%tail_statevars%next )
+   grid%tail_statevars%VarName = 'cfracl'
+   grid%tail_statevars%DataName = 'CFRACL'
+-  grid%tail_statevars%Description = '-'
+-  grid%tail_statevars%Units = '-'
++  grid%tail_statevars%Description = 'ETA 2D CLOUD FRACTION - LOW '
++  grid%tail_statevars%Units = ''
+   grid%tail_statevars%Type    = 'r'
+   grid%tail_statevars%ProcOrient    = ' '
+   grid%tail_statevars%MemoryOrder  = 'XY'
+@@ -36515,7 +36515,7 @@
+   grid%tail_statevars%Restart  = .FALSE.
+   grid%tail_statevars%scalar_array = .FALSE.
+   grid%tail_statevars%rfield_2d => grid%cfracl
+-  grid%tail_statevars%streams(1) = 0 ! 00000000 
++  grid%tail_statevars%streams(1) = 33554433 ! 02000001 
+   grid%tail_statevars%streams(2) = 0 ! 00000000 
+   grid%tail_statevars%sd1 = ids
+   grid%tail_statevars%ed1 = (ide-1)
+@@ -36563,8 +36563,8 @@
+   NULLIFY( grid%tail_statevars%next )
+   grid%tail_statevars%VarName = 'cfracm'
+   grid%tail_statevars%DataName = 'CFRACM'
+-  grid%tail_statevars%Description = '-'
+-  grid%tail_statevars%Units = '-'
++  grid%tail_statevars%Description = 'ETA 2D CLOUD FRACTION - MID '
++  grid%tail_statevars%Units = ''
+   grid%tail_statevars%Type    = 'r'
+   grid%tail_statevars%ProcOrient    = ' '
+   grid%tail_statevars%MemoryOrder  = 'XY'
+@@ -36574,7 +36574,7 @@
+   grid%tail_statevars%Restart  = .FALSE.
+   grid%tail_statevars%scalar_array = .FALSE.
+   grid%tail_statevars%rfield_2d => grid%cfracm
+-  grid%tail_statevars%streams(1) = 0 ! 00000000 
++  grid%tail_statevars%streams(1) = 33554433 ! 02000001 
+   grid%tail_statevars%streams(2) = 0 ! 00000000 
+   grid%tail_statevars%sd1 = ids
+   grid%tail_statevars%ed1 = (ide-1)
+@@ -36622,8 +36622,8 @@
+   NULLIFY( grid%tail_statevars%next )
+   grid%tail_statevars%VarName = 'cfrach'
+   grid%tail_statevars%DataName = 'CFRACH'
+-  grid%tail_statevars%Description = '-'
+-  grid%tail_statevars%Units = '-'
++  grid%tail_statevars%Description = 'ETA 2D CLOUD FRACTION - HIGH'
++  grid%tail_statevars%Units = ''
+   grid%tail_statevars%Type    = 'r'
+   grid%tail_statevars%ProcOrient    = ' '
+   grid%tail_statevars%MemoryOrder  = 'XY'
+@@ -36633,7 +36633,7 @@
+   grid%tail_statevars%Restart  = .FALSE.
+   grid%tail_statevars%scalar_array = .FALSE.
+   grid%tail_statevars%rfield_2d => grid%cfrach
+-  grid%tail_statevars%streams(1) = 0 ! 00000000 
++  grid%tail_statevars%streams(1) = 33554433 ! 02000001 
+   grid%tail_statevars%streams(2) = 0 ! 00000000 
+   grid%tail_statevars%sd1 = ids
+   grid%tail_statevars%ed1 = (ide-1)
+@@ -53208,7 +53208,7 @@
+   grid%tail_statevars%Restart  = .TRUE.
+   grid%tail_statevars%scalar_array = .FALSE.
+   grid%tail_statevars%rfield_3d => grid%rthblten
+-  grid%tail_statevars%streams(1) = 0 ! 00000000 
++  grid%tail_statevars%streams(1) = 1 ! 00000001 
+   grid%tail_statevars%streams(2) = 2097152 ! 00200000 
+   grid%tail_statevars%sd1 = ids
+   grid%tail_statevars%ed1 = (ide-1)
+@@ -53267,7 +53267,7 @@
+   grid%tail_statevars%Restart  = .TRUE.
+   grid%tail_statevars%scalar_array = .FALSE.
+   grid%tail_statevars%rfield_3d => grid%rqvblten
+-  grid%tail_statevars%streams(1) = 0 ! 00000000 
++  grid%tail_statevars%streams(1) = 1 ! 00000001 
+   grid%tail_statevars%streams(2) = 2097152 ! 00200000 
+   grid%tail_statevars%sd1 = ids
+   grid%tail_statevars%ed1 = (ide-1)
+@@ -53326,7 +53326,7 @@
+   grid%tail_statevars%Restart  = .TRUE.
+   grid%tail_statevars%scalar_array = .FALSE.
+   grid%tail_statevars%rfield_3d => grid%rqcblten
+-  grid%tail_statevars%streams(1) = 0 ! 00000000 
++  grid%tail_statevars%streams(1) = 1 ! 00000001 
+   grid%tail_statevars%streams(2) = 2097152 ! 00200000 
+   grid%tail_statevars%sd1 = ids
+   grid%tail_statevars%ed1 = (ide-1)
+Binary files WRFV3-orig/main/libwrflib.a and WRFV3/main/libwrflib.a differ
+Binary files WRFV3-orig/main/module_bc.mod and WRFV3/main/module_bc.mod differ
+Binary files WRFV3-orig/main/module_bc_time_utilities.mod and WRFV3/main/module_bc_time_utilities.mod differ
+Binary files WRFV3-orig/main/module_big_step_utilities_em.mod and WRFV3/main/module_big_step_utilities_em.mod differ
+Binary files WRFV3-orig/main/module_date_time.mod and WRFV3/main/module_date_time.mod differ
+Binary files WRFV3-orig/main/module_driver_constants.mod and WRFV3/main/module_driver_constants.mod differ
+Binary files WRFV3-orig/main/module_get_file_names.mod and WRFV3/main/module_get_file_names.mod differ
+Binary files WRFV3-orig/main/module_initialize_real.mod and WRFV3/main/module_initialize_real.mod differ
+Binary files WRFV3-orig/main/module_io_domain.mod and WRFV3/main/module_io_domain.mod differ
+Binary files WRFV3-orig/main/module_machine.mod and WRFV3/main/module_machine.mod differ
+Binary files WRFV3-orig/main/module_optional_input.mod and WRFV3/main/module_optional_input.mod differ
+Binary files WRFV3-orig/main/module_soil_pre.mod and WRFV3/main/module_soil_pre.mod differ
+Binary files WRFV3-orig/main/module_streams.mod and WRFV3/main/module_streams.mod differ
+Binary files WRFV3-orig/main/module_timing.mod and WRFV3/main/module_timing.mod differ
+Binary files WRFV3-orig/main/module_wrf_error.mod and WRFV3/main/module_wrf_error.mod differ
+Binary files WRFV3-orig/main/module_wrf_top.mod and WRFV3/main/module_wrf_top.mod differ
+Binary files WRFV3-orig/main/module_wrf_top.o and WRFV3/main/module_wrf_top.o differ
+Binary files WRFV3-orig/main/ndown_em.o and WRFV3/main/ndown_em.o differ
+Binary files WRFV3-orig/main/ndown.exe and WRFV3/main/ndown.exe differ
+Binary files WRFV3-orig/main/nup_em.o and WRFV3/main/nup_em.o differ
+Binary files WRFV3-orig/main/nup.exe and WRFV3/main/nup.exe differ
+Binary files WRFV3-orig/main/pt-subscription-in-renge and WRFV3/main/pt-subscription-in-renge differ
+Binary files WRFV3-orig/main/real_em.o and WRFV3/main/real_em.o differ
+Binary files WRFV3-orig/main/real.exe and WRFV3/main/real.exe differ
+Binary files WRFV3-orig/main/tc_em.o and WRFV3/main/tc_em.o differ
+Binary files WRFV3-orig/main/tc.exe and WRFV3/main/tc.exe differ
+Binary files WRFV3-orig/main/wrf.exe and WRFV3/main/wrf.exe differ
+Binary files WRFV3-orig/main/wrf.o and WRFV3/main/wrf.o differ
+diff -ruN -X exclude-files.txt WRFV3-orig/phys/.directory WRFV3/phys/.directory
+--- WRFV3-orig/phys/.directory	1970-01-01 02:00:00.000000000 +0200
++++ WRFV3/phys/.directory	2018-11-27 12:48:48.000000000 +0200
+@@ -0,0 +1,5 @@
++[Dolphin]
++Timestamp=2018,11,27,12,48,48
++Version=3
++ViewMode=1
++VisibleRoles=Details_text,Details_size,Details_date,Details_type,CustomizedDetails
+Binary files WRFV3-orig/phys/module_bl_acm.o and WRFV3/phys/module_bl_acm.o differ
+Binary files WRFV3-orig/phys/module_bl_boulac.o and WRFV3/phys/module_bl_boulac.o differ
+Binary files WRFV3-orig/phys/module_bl_camuwpbl_driver.o and WRFV3/phys/module_bl_camuwpbl_driver.o differ
+Binary files WRFV3-orig/phys/module_bl_fogdes.o and WRFV3/phys/module_bl_fogdes.o differ
+Binary files WRFV3-orig/phys/module_bl_gbmpbl.o and WRFV3/phys/module_bl_gbmpbl.o differ
+Binary files WRFV3-orig/phys/module_bl_gfs2011.o and WRFV3/phys/module_bl_gfs2011.o differ
+Binary files WRFV3-orig/phys/module_bl_gfs.o and WRFV3/phys/module_bl_gfs.o differ
+Binary files WRFV3-orig/phys/module_bl_gwdo.o and WRFV3/phys/module_bl_gwdo.o differ
+Binary files WRFV3-orig/phys/module_bl_mfshconvpbl.o and WRFV3/phys/module_bl_mfshconvpbl.o differ
+Binary files WRFV3-orig/phys/module_bl_mrf.o and WRFV3/phys/module_bl_mrf.o differ
+Binary files WRFV3-orig/phys/module_bl_myjpbl.o and WRFV3/phys/module_bl_myjpbl.o differ
+Binary files WRFV3-orig/phys/module_bl_myjurb.o and WRFV3/phys/module_bl_myjurb.o differ
+Binary files WRFV3-orig/phys/module_bl_mynn.o and WRFV3/phys/module_bl_mynn.o differ
+Binary files WRFV3-orig/phys/module_bl_qnsepbl09.o and WRFV3/phys/module_bl_qnsepbl09.o differ
+Binary files WRFV3-orig/phys/module_bl_qnsepbl.o and WRFV3/phys/module_bl_qnsepbl.o differ
+Binary files WRFV3-orig/phys/module_bl_temf.o and WRFV3/phys/module_bl_temf.o differ
+Binary files WRFV3-orig/phys/module_bl_ysu.o and WRFV3/phys/module_bl_ysu.o differ
+Binary files WRFV3-orig/phys/module_cam_bl_diffusion_solver.o and WRFV3/phys/module_cam_bl_diffusion_solver.o differ
+Binary files WRFV3-orig/phys/module_cam_bl_eddy_diff.o and WRFV3/phys/module_cam_bl_eddy_diff.o differ
+Binary files WRFV3-orig/phys/module_cam_cldwat.o and WRFV3/phys/module_cam_cldwat.o differ
+Binary files WRFV3-orig/phys/module_cam_constituents.o and WRFV3/phys/module_cam_constituents.o differ
+Binary files WRFV3-orig/phys/module_cam_error_function.o and WRFV3/phys/module_cam_error_function.o differ
+Binary files WRFV3-orig/phys/module_cam_esinti.o and WRFV3/phys/module_cam_esinti.o differ
+Binary files WRFV3-orig/phys/module_cam_gffgch.o and WRFV3/phys/module_cam_gffgch.o differ
+Binary files WRFV3-orig/phys/module_cam_infnan.o and WRFV3/phys/module_cam_infnan.o differ
+Binary files WRFV3-orig/phys/module_cam_molec_diff.o and WRFV3/phys/module_cam_molec_diff.o differ
+Binary files WRFV3-orig/phys/module_cam_mp_cldwat2m_micro.o and WRFV3/phys/module_cam_mp_cldwat2m_micro.o differ
+Binary files WRFV3-orig/phys/module_cam_mp_conv_water.o and WRFV3/phys/module_cam_mp_conv_water.o differ
+Binary files WRFV3-orig/phys/module_cam_mp_microp_aero.o and WRFV3/phys/module_cam_mp_microp_aero.o differ
+Binary files WRFV3-orig/phys/module_cam_mp_modal_aero_initialize_data_phys.o and WRFV3/phys/module_cam_mp_modal_aero_initialize_data_phys.o differ
+Binary files WRFV3-orig/phys/module_cam_mp_ndrop.o and WRFV3/phys/module_cam_mp_ndrop.o differ
+Binary files WRFV3-orig/phys/module_cam_mp_qneg3.o and WRFV3/phys/module_cam_mp_qneg3.o differ
+Binary files WRFV3-orig/phys/module_cam_mp_radconstants.o and WRFV3/phys/module_cam_mp_radconstants.o differ
+Binary files WRFV3-orig/phys/module_cam_physconst.o and WRFV3/phys/module_cam_physconst.o differ
+Binary files WRFV3-orig/phys/module_cam_shr_const_mod.o and WRFV3/phys/module_cam_shr_const_mod.o differ
+Binary files WRFV3-orig/phys/module_cam_shr_kind_mod.o and WRFV3/phys/module_cam_shr_kind_mod.o differ
+Binary files WRFV3-orig/phys/module_cam_support.o and WRFV3/phys/module_cam_support.o differ
+Binary files WRFV3-orig/phys/module_cam_trb_mtn_stress.o and WRFV3/phys/module_cam_trb_mtn_stress.o differ
+Binary files WRFV3-orig/phys/module_cam_upper_bc.o and WRFV3/phys/module_cam_upper_bc.o differ
+Binary files WRFV3-orig/phys/module_cam_wv_saturation.o and WRFV3/phys/module_cam_wv_saturation.o differ
+Binary files WRFV3-orig/phys/module_cu_bmj.o and WRFV3/phys/module_cu_bmj.o differ
+Binary files WRFV3-orig/phys/module_cu_camzm_driver.o and WRFV3/phys/module_cu_camzm_driver.o differ
+Binary files WRFV3-orig/phys/module_cu_camzm.o and WRFV3/phys/module_cu_camzm.o differ
+Binary files WRFV3-orig/phys/module_cu_g3.o and WRFV3/phys/module_cu_g3.o differ
+Binary files WRFV3-orig/phys/module_cu_gd.o and WRFV3/phys/module_cu_gd.o differ
+Binary files WRFV3-orig/phys/module_cu_gf.o and WRFV3/phys/module_cu_gf.o differ
+Binary files WRFV3-orig/phys/module_cu_kfeta.o and WRFV3/phys/module_cu_kfeta.o differ
+Binary files WRFV3-orig/phys/module_cu_kf.o and WRFV3/phys/module_cu_kf.o differ
+Binary files WRFV3-orig/phys/module_cu_mesosas.o and WRFV3/phys/module_cu_mesosas.o differ
+Binary files WRFV3-orig/phys/module_cumulus_driver.o and WRFV3/phys/module_cumulus_driver.o differ
+Binary files WRFV3-orig/phys/module_cu_nsas.o and WRFV3/phys/module_cu_nsas.o differ
+Binary files WRFV3-orig/phys/module_cu_osas.o and WRFV3/phys/module_cu_osas.o differ
+Binary files WRFV3-orig/phys/module_cu_sas.o and WRFV3/phys/module_cu_sas.o differ
+Binary files WRFV3-orig/phys/module_cu_tiedtke.o and WRFV3/phys/module_cu_tiedtke.o differ
+Binary files WRFV3-orig/phys/module_data_cam_mam_aero.o and WRFV3/phys/module_data_cam_mam_aero.o differ
+Binary files WRFV3-orig/phys/module_data_cam_mam_asect.o and WRFV3/phys/module_data_cam_mam_asect.o differ
+Binary files WRFV3-orig/phys/module_data_gocart_dust.o and WRFV3/phys/module_data_gocart_dust.o differ
+Binary files WRFV3-orig/phys/module_diag_afwa_hail.o and WRFV3/phys/module_diag_afwa_hail.o differ
+Binary files WRFV3-orig/phys/module_diag_afwa.o and WRFV3/phys/module_diag_afwa.o differ
+Binary files WRFV3-orig/phys/module_diag_cl.o and WRFV3/phys/module_diag_cl.o differ
+Binary files WRFV3-orig/phys/module_diag_misc.o and WRFV3/phys/module_diag_misc.o differ
+Binary files WRFV3-orig/phys/module_diagnostics_driver.o and WRFV3/phys/module_diagnostics_driver.o differ
+Binary files WRFV3-orig/phys/module_diag_pld.o and WRFV3/phys/module_diag_pld.o differ
+Binary files WRFV3-orig/phys/module_fddagd_driver.o and WRFV3/phys/module_fddagd_driver.o differ
+Binary files WRFV3-orig/phys/module_fddaobs_driver.o and WRFV3/phys/module_fddaobs_driver.o differ
+Binary files WRFV3-orig/phys/module_fddaobs_rtfdda.o and WRFV3/phys/module_fddaobs_rtfdda.o differ
+Binary files WRFV3-orig/phys/module_fdda_psufddagd.o and WRFV3/phys/module_fdda_psufddagd.o differ
+Binary files WRFV3-orig/phys/module_fdda_spnudging.o and WRFV3/phys/module_fdda_spnudging.o differ
+Binary files WRFV3-orig/phys/module_fr_fire_atm.o and WRFV3/phys/module_fr_fire_atm.o differ
+Binary files WRFV3-orig/phys/module_fr_fire_core.o and WRFV3/phys/module_fr_fire_core.o differ
+Binary files WRFV3-orig/phys/module_fr_fire_driver.o and WRFV3/phys/module_fr_fire_driver.o differ
+Binary files WRFV3-orig/phys/module_fr_fire_driver_wrf.o and WRFV3/phys/module_fr_fire_driver_wrf.o differ
+Binary files WRFV3-orig/phys/module_fr_fire_model.o and WRFV3/phys/module_fr_fire_model.o differ
+Binary files WRFV3-orig/phys/module_fr_fire_phys.o and WRFV3/phys/module_fr_fire_phys.o differ
+Binary files WRFV3-orig/phys/module_fr_fire_util.o and WRFV3/phys/module_fr_fire_util.o differ
+Binary files WRFV3-orig/phys/module_gfs_funcphys.o and WRFV3/phys/module_gfs_funcphys.o differ
+Binary files WRFV3-orig/phys/module_gfs_machine.o and WRFV3/phys/module_gfs_machine.o differ
+Binary files WRFV3-orig/phys/module_gfs_physcons.o and WRFV3/phys/module_gfs_physcons.o differ
+Binary files WRFV3-orig/phys/module_lightning_driver.o and WRFV3/phys/module_lightning_driver.o differ
+Binary files WRFV3-orig/phys/module_ltng_cpmpr92z.o and WRFV3/phys/module_ltng_cpmpr92z.o differ
+Binary files WRFV3-orig/phys/module_ltng_crmpr92.o and WRFV3/phys/module_ltng_crmpr92.o differ
+Binary files WRFV3-orig/phys/module_ltng_iccg.o and WRFV3/phys/module_ltng_iccg.o differ
+Binary files WRFV3-orig/phys/module_ltng_lpi.o and WRFV3/phys/module_ltng_lpi.o differ
+Binary files WRFV3-orig/phys/module_microphysics_driver.o and WRFV3/phys/module_microphysics_driver.o differ
+Binary files WRFV3-orig/phys/module_microphysics_zero_out.o and WRFV3/phys/module_microphysics_zero_out.o differ
+Binary files WRFV3-orig/phys/module_mixactivate.o and WRFV3/phys/module_mixactivate.o differ
+Binary files WRFV3-orig/phys/module_mp_cammgmp_driver.o and WRFV3/phys/module_mp_cammgmp_driver.o differ
+Binary files WRFV3-orig/phys/module_mp_etanew.o and WRFV3/phys/module_mp_etanew.o differ
+Binary files WRFV3-orig/phys/module_mp_etaold.o and WRFV3/phys/module_mp_etaold.o differ
+Binary files WRFV3-orig/phys/module_mp_fast_sbm.o and WRFV3/phys/module_mp_fast_sbm.o differ
+Binary files WRFV3-orig/phys/module_mp_full_sbm.o and WRFV3/phys/module_mp_full_sbm.o differ
+Binary files WRFV3-orig/phys/module_mp_gsfcgce.o and WRFV3/phys/module_mp_gsfcgce.o differ
+Binary files WRFV3-orig/phys/module_mp_HWRF.o and WRFV3/phys/module_mp_HWRF.o differ
+Binary files WRFV3-orig/phys/module_mp_kessler.o and WRFV3/phys/module_mp_kessler.o differ
+Binary files WRFV3-orig/phys/module_mp_lin.o and WRFV3/phys/module_mp_lin.o differ
+Binary files WRFV3-orig/phys/module_mp_milbrandt2mom.o and WRFV3/phys/module_mp_milbrandt2mom.o differ
+Binary files WRFV3-orig/phys/module_mp_morr_two_moment.o and WRFV3/phys/module_mp_morr_two_moment.o differ
+Binary files WRFV3-orig/phys/module_mp_nssl_2mom.o and WRFV3/phys/module_mp_nssl_2mom.o differ
+Binary files WRFV3-orig/phys/module_mp_radar.o and WRFV3/phys/module_mp_radar.o differ
+Binary files WRFV3-orig/phys/module_mp_sbu_ylin.o and WRFV3/phys/module_mp_sbu_ylin.o differ
+Binary files WRFV3-orig/phys/module_mp_thompson.o and WRFV3/phys/module_mp_thompson.o differ
+Binary files WRFV3-orig/phys/module_mp_wdm5.o and WRFV3/phys/module_mp_wdm5.o differ
+Binary files WRFV3-orig/phys/module_mp_wdm6.o and WRFV3/phys/module_mp_wdm6.o differ
+Binary files WRFV3-orig/phys/module_mp_wsm3.o and WRFV3/phys/module_mp_wsm3.o differ
+Binary files WRFV3-orig/phys/module_mp_wsm5.o and WRFV3/phys/module_mp_wsm5.o differ
+Binary files WRFV3-orig/phys/module_mp_wsm6.o and WRFV3/phys/module_mp_wsm6.o differ
+Binary files WRFV3-orig/phys/module_pbl_driver.o and WRFV3/phys/module_pbl_driver.o differ
+Binary files WRFV3-orig/phys/module_physics_addtendc.o and WRFV3/phys/module_physics_addtendc.o differ
+diff -ruN -X exclude-files.txt WRFV3-orig/phys/module_physics_init.F WRFV3/phys/module_physics_init.F
+--- WRFV3-orig/phys/module_physics_init.F	2014-08-14 01:37:44.000000000 +0200
++++ WRFV3/phys/module_physics_init.F	2018-11-27 15:01:20.000000000 +0200
+@@ -13,6 +13,9 @@
+    USE module_state_description
+    USE module_model_constants
+    USE module_configure, ONLY : grid_config_rec_type
++!  pj..  drjack patch
++   USE module_ra_gfdleta, ONLY: etacloudcoverinit
++
+ !  USE module_ssib_veg , ONLY : init_module_ssib_veg !fds (SSiB constants)
+    !Local data for CAM's MG MP scheme
+    integer  :: ixcldliq, ixcldice, ixnumliq, ixnumice
+@@ -1876,6 +1879,11 @@
+      ENDIF
+    ENDIF
+ #endif
++!jack - setup needed for eta cloud fraction routine
++   CALL etacloudcoverinit( shalf,pptop,      &
++                          ids, ide, jds, jde, kds, kde, &
++                          ims, ime, jms, jme, kms, kme, &
++                          its, ite, jts, jte, kts, kte  )
+ 
+    END SUBROUTINE ra_init
+ 
+Binary files WRFV3-orig/phys/module_physics_init.o and WRFV3/phys/module_physics_init.o differ
+Binary files WRFV3-orig/phys/module_progtm.o and WRFV3/phys/module_progtm.o differ
+Binary files WRFV3-orig/phys/module_ra_aerosol.o and WRFV3/phys/module_ra_aerosol.o differ
+Binary files WRFV3-orig/phys/module_ra_cam.o and WRFV3/phys/module_ra_cam.o differ
+Binary files WRFV3-orig/phys/module_ra_cam_support.o and WRFV3/phys/module_ra_cam_support.o differ
+Binary files WRFV3-orig/phys/module_ra_clWRF_support.o and WRFV3/phys/module_ra_clWRF_support.o differ
+diff -ruN -X exclude-files.txt WRFV3-orig/phys/module_radiation_driver.F WRFV3/phys/module_radiation_driver.F
+--- WRFV3-orig/phys/module_radiation_driver.F	2014-08-10 07:08:38.000000000 +0200
++++ WRFV3/phys/module_radiation_driver.F	2018-11-27 14:41:55.000000000 +0200
+@@ -166,7 +166,7 @@
+    USE module_ra_rrtmg_lw   , ONLY : rrtmg_lwrad
+    USE module_ra_rrtmg_sw   , ONLY : rrtmg_swrad
+    USE module_ra_cam        , ONLY : camrad
+-   USE module_ra_gfdleta    , ONLY : etara
++   USE module_ra_gfdleta    , ONLY : etara,etacloudfraction,etacloudcoverinit
+ #ifdef HWRF
+    USE module_ra_hwrf
+ #endif
+@@ -996,12 +996,32 @@
+ ! Call to cloud fraction routine based on Randall 1994 (Hong Pan 1998)
+ 
+         CALL wrf_debug (1, 'CALL cldfra1')
+-        CALL cal_cldfra1(CLDFRA,qv,qc,qi,qs,               &
+-                   F_QV,F_QC,F_QI,F_QS,t,p,                &
+-                   F_ICE_PHY,F_RAIN_PHY,                   &
+-                   ids,ide, jds,jde, kds,kde,              &
+-                   ims,ime, jms,jme, kms,kme,              &
+-                   its,ite, jts,jte, kts,kte               )
++
++! pj... drjack patch
++!JACK - ADD call to etacloudfraction calc to produce layer-avg cloudiness & replace original binary CLDFRA
++       CALL ETACLOUDFRACTION(                                      &
++                  DT=dt                                             &
++                 ,P8W=p8w,DZ8W=dz8w,RHO_PHY=rho,P_PHY=p,T=t         &
++                 ,QV=qv,QW=qc_temp,QI=qi,QS=qs                      &
++                 ,CLDFRA=CLDFRA                                     &
++                 ,HTOP=htop,HBOT=hbot                               &
++                 ,HBOTR=hbotr, HTOPR=htopr                          &
++                 ,CUPPT=cuppt                                       &
++                 ,G=g,NSTEPRA=stepra                                &
++                 ,CFRACL=cfracl,CFRACM=cfracm,CFRACH=cfrach         &
++                 ,ACFRST=acfrst,NCFRST=ncfrst                       &
++                 ,ACFRCV=acfrcv,NCFRCV=ncfrcv                       &
++                 ,IDS=ids,IDE=ide, JDS=jds,JDE=jde, KDS=kds,KDE=kde &     
++                 ,IMS=ims,IME=ime, JMS=jms,JME=jme, KMS=kms,KME=kme &
++                 ,ITS=its,ITE=ite, JTS=jts,JTE=jte, KTS=kts,KTE=kte )
++
++
++!        CALL cal_cldfra1(CLDFRA,qv,qc,qi,qs,               &
++!                   F_QV,F_QC,F_QI,F_QS,t,p,                &
++!                   F_ICE_PHY,F_RAIN_PHY,                   &
++!                   ids,ide, jds,jde, kds,kde,              &
++!                   ims,ime, jms,jme, kms,kme,              &
++!                   its,ite, jts,jte, kts,kte               )
+ 
+         IF ( PRESENT ( CLDFRA_DP ) ) THEN
+ ! this is for Kain-Fritsch scheme
+@@ -1047,10 +1067,30 @@
+      IF ( PRESENT ( CLDFRA ) .AND.                           &
+           PRESENT(F_QC) .AND. PRESENT ( F_QI ) ) THEN
+        CALL wrf_debug (1, 'CALL cldfra2')
+-       CALL cal_cldfra2(CLDFRA,qc,qi,F_QC,F_QI,              &
+-                       ids,ide, jds,jde, kds,kde,            &
+-                       ims,ime, jms,jme, kms,kme,            &
+-                       its,ite, jts,jte, kts,kte             )
++
++! pj... drjack patch
++!JACK - ADD call to etacloudfraction calc to produce layer-avg cloudiness & replace original binary CLDFRA
++        CALL ETACLOUDFRACTION(                                      &
++                  DT=dt                                             &
++                 ,P8W=p8w,DZ8W=dz8w,RHO_PHY=rho,P_PHY=p,T=t         &
++                 ,QV=qv,QW=qc_temp,QI=qi,QS=qs                      &
++                 ,CLDFRA=CLDFRA                                     &
++                 ,HTOP=htop,HBOT=hbot                               &
++                 ,HBOTR=hbotr, HTOPR=htopr                          &
++                 ,CUPPT=cuppt                                       &
++                 ,G=g,NSTEPRA=stepra                                &
++                 ,CFRACL=cfracl,CFRACM=cfracm,CFRACH=cfrach         &
++                 ,ACFRST=acfrst,NCFRST=ncfrst                       &
++                 ,ACFRCV=acfrcv,NCFRCV=ncfrcv                       &
++                 ,IDS=ids,IDE=ide, JDS=jds,JDE=jde, KDS=kds,KDE=kde &     
++                 ,IMS=ims,IME=ime, JMS=jms,JME=jme, KMS=kms,KME=kme &
++                 ,ITS=its,ITE=ite, JTS=jts,JTE=jte, KTS=kts,KTE=kte )
++
++
++!       CALL cal_cldfra2(CLDFRA,qc,qi,F_QC,F_QI,              &
++!                       ids,ide, jds,jde, kds,kde,            &
++!                       ims,ime, jms,jme, kms,kme,            &
++!                       its,ite, jts,jte, kts,kte             )
+      ENDIF
+ 
+      END IF
+Binary files WRFV3-orig/phys/module_radiation_driver.o and WRFV3/phys/module_radiation_driver.o differ
+Binary files WRFV3-orig/phys/module_ra_flg.o and WRFV3/phys/module_ra_flg.o differ
+diff -ruN -X exclude-files.txt WRFV3-orig/phys/module_ra_gfdleta.F WRFV3/phys/module_ra_gfdleta.F
+--- WRFV3-orig/phys/module_ra_gfdleta.F	2012-05-18 18:45:19.000000000 +0200
++++ WRFV3/phys/module_ra_gfdleta.F	2018-11-27 12:43:04.000000000 +0200
+@@ -49,7 +49,9 @@
+ !
+ !--- Used for Gaussian look up tables
+ !
+-      REAL, PRIVATE,PARAMETER :: XSDmax=3.1, DXSD=.01
++!jack - dont need accuracy of 100 iter gaussian - use 20 instead
++      REAL, PRIVATE, PARAMETER :: XSDmax=3.1, DXSD=.05
++!original       REAL, PRIVATE, PARAMETER :: XSDmax=3.1, DXSD=.01
+       INTEGER, PRIVATE,PARAMETER :: NXSD=XSDmax/DXSD
+       REAL, DIMENSION(NXSD),PRIVATE,SAVE :: AXSD
+       REAL, PRIVATE :: RSQR
+@@ -10153,8 +10155,936 @@
+ 
+       END FUNCTION e_sub_i
+ 
++!***********************************************************************
++!!!JACK - NO MODS MADE ABOVE THIS LINE 
++!***********************************************************************
++
++!JACK - note that QI and QS added in 1st routine and passed to 2nd routine as QIFLIP
++!JACK - note that calculates simple binary (0,1) 3d cloud fraction CLDFRA which will be overwritten if cal_cldfra2 subroutine active
++!JACK - called only at each rad time step for efficiency
++
++!-----------------------------------------------------------------------
++      SUBROUTINE ETACLOUDCOVERINIT( SHALF,PPTOP,             &
++     &                       IDS, IDE, JDS, JDE, KDS, KDE,              &
++     &                       IMS, IME, JMS, JME, KMS, KME,              &
++     &                       ITS, ITE, JTS, JTE, KTS, KTE              )
++!-----------------------------------------------------------------------
++      IMPLICIT NONE
++!-----------------------------------------------------------------------
++      TYPE (GRID_CONFIG_REC_TYPE) :: CONFIG_FLAGS
++      INTEGER,INTENT(IN) :: IDS,IDE,JDS,JDE,KDS,KDE                     &
++     &                     ,IMS,IME,JMS,JME,KMS,KME                     &
++     &                     ,ITS,ITE,JTS,JTE,KTS,KTE
++      REAL,INTENT(IN) :: PPTOP
++      REAL,DIMENSION(KMS:KME),INTENT(IN) :: SHALF
++!
++      INTEGER :: I,N
++      REAL :: PCLD,XSD,PI,SQR2PI
++      REAL :: SSLP=1013.25
++      REAL, PARAMETER :: PTOP_HI=150.,PTOP_MID=350.,PTOP_LO=642.,       &
++     &                   PLBTM=105000.
++!-----------------------------------------------------------------------
++!***********************************************************************
++!-----------------------------------------------------------------------
++!
++!***  INITIALIZE DIAGNOSTIC LOW,MIDDLE,HIGH CLOUD LAYER PRESSURE LIMITS.
++!
++      LTOP(1)=0
++      LTOP(2)=0
++      LTOP(3)=0
++!
++      DO N=1,KTE
++        PCLD=(SSLP-PPTOP*10.)*SHALF(N)+PPTOP*10.
++        IF(PCLD>=PTOP_LO)LTOP(1)=N
++        IF(PCLD>=PTOP_MID)LTOP(2)=N
++        IF(PCLD>=PTOP_HI)LTOP(3)=N
++!       PRINT *,N,PCLD,SHALF(N),PSTAR,PPTOP
++      ENDDO
++!***  
++!***  ASSIGN THE PRESSURES FOR CLOUD DOMAIN BOUNDARIES
++!***
++      PTOPC(1)=PLBTM
++      PTOPC(2)=PTOP_LO*100.
++      PTOPC(3)=PTOP_MID*100.
++      PTOPC(4)=PTOP_HI*100.
++
++!---  Calculate the area under the Gaussian curve at the start of the
++!---  model run and build the look up table AXSD
++!
++      PI=ACOS(-1.)
++      SQR2PI=SQRT(2.*PI)
++      RSQR=1./SQR2PI
++      DO I=1,NXSD
++        XSD=REAL(I)*DXSD
++        AXSD(I)=GAUSIN(XSD)
++        if (SDprint) print *,'I, XSD, AXSD =',I,XSD,AXSD(I)
++      ENDDO
++
++!! !***
++!! !***  MESO STANDARD DEVIATION OF EK AND MAHRT'S CLOUD COVER ALOGRITHM
++!! !***
++!!         SDM=-0.03-0.00015*DX+0.02*LOG(DX)  ! meso SD
++!!         if (SDprint) print *,'DX, SDM=',DX,SDM
++!       if (SDprint) print *,                                            &
++!     & 'RHgrd,T_ICE,NLImin,NLImax,FLARGE1,FLARGE2,MDImin,MDImax=',&
++!     &  RHgrd,T_ICE,NLImin,NLImax,FLARGE1,FLARGE2,MDImin,MDImax
++!
++!-----------------------------------------------------------------------
++      END SUBROUTINE ETACLOUDCOVERINIT
++!-----------------------------------------------------------------------
++
++!***********************************************************************
++
++!JACK - MUST ENABLE CALL TO SUBROUTINE GFDLETAINIT in module_physics_init.F (since it needs args PPTOP & SHALF which are not available in module_radiation_driver)
++
++!                 CALL ETACLOUDFRACTION(                            &
++!                  DT=dt                                             &
++!                 ,P8W=p8w,DZ8W=dz8w,RHO_PHY=rho,P_PHY=p,T=t         &
++!                 ,QV=qv,QW=qc_temp,QI=qi,QS=qs                      &
++!                 ,CLDFRA=CLDFRA              &
++!                 ,HTOP=htop,HBOT=hbot           &
++!                 ,HBOTR=hbotr, HTOPR=htopr                          &
++!                 ,CUPPT=cuppt                         &
++!                 ,G=g              &
++!                 ,NSTEPRA=stepra      &
++!                 ,CFRACL=cfracl,CFRACM=cfracm,CFRACH=cfrach         &
++!                 ,ACFRST=acfrst,NCFRST=ncfrst                       &
++!                 ,ACFRCV=acfrcv,NCFRCV=ncfrcv                       &
++!                 ,IDS=ids,IDE=ide, JDS=jds,JDE=jde, KDS=kds,KDE=kde &     
++!                 ,IMS=ims,IME=ime, JMS=jms,JME=jme, KMS=kms,KME=kme &
++!                 ,ITS=its,ITE=ite, JTS=jts,JTE=jte, KTS=kts,KTE=kte )
++
++!-----------------------------------------------------------------------
++      SUBROUTINE ETACLOUDFRACTION( CLDFRA      & 
++     &                ,P8W,DZ8W,RHO_PHY,P_PHY,T                   &
++     &                ,QV,QW,QI,QS                                      & 
++     &                ,HTOP,HBOT,HTOPR,HBOTR,CUPPT     &
++     &                ,G                                &
++     &                ,CFRACL,CFRACM,CFRACH                             &
++     &                ,ACFRST,NCFRST,ACFRCV,NCFRCV                      &
++     &                ,DT,NSTEPRA                                       &
++     &                ,IDS,IDE,JDS,JDE,KDS,KDE                          &
++     &                ,IMS,IME,JMS,JME,KMS,KME                          &
++     &                ,ITS,ITE,JTS,JTE,KTS,KTE)
++!-----------------------------------------------------------------------
++!JACK - modified from subroutine ETARA
++!-----------------------------------------------------------------------
++      IMPLICIT NONE
++!-----------------------------------------------------------------------
++      INTEGER,INTENT(IN) :: IDS,IDE,JDS,JDE,KDS,KDE                     &
++     &                     ,IMS,IME,JMS,JME,KMS,KME                     &
++     &                     ,ITS,ITE,JTS,JTE,KTS,KTE,           &
++     &                     NSTEPRA
++      REAL,INTENT(IN) :: DT,G
++      REAL,INTENT(INOUT),DIMENSION(ims:ime, kms:kme, jms:jme):: CLDFRA  !Added CLDFRA
++      INTEGER,INTENT(INOUT),DIMENSION(ims:ime,jms:jme) :: NCFRST        & !Added
++                                                         ,NCFRCV          !Added
++      REAL,INTENT(IN),DIMENSION(ims:ime, kms:kme, jms:jme)::p8w,dz8w,   &
++     &                                                      rho_phy,    &
++     &                                                      p_phy
++      REAL, INTENT(INOUT), DIMENSION(ims:ime, jms:jme):: HTOP,HBOT,HTOPR,HBOTR,CUPPT
++      REAL, INTENT(INOUT), DIMENSION(ims:ime, jms:jme)::                &
++     &                                                   ACFRST,        & !Added
++     &                                                   ACFRCV
++      REAL,INTENT(OUT),DIMENSION(ims:ime, jms:jme):: CFRACL,CFRACM,CFRACH
++      REAL, INTENT(IN), DIMENSION(ims:ime, kms:kme, jms:jme):: QS,QV,   &
++     &                                                         QW,T
++      REAL, OPTIONAL, INTENT(IN), DIMENSION(ims:ime, kms:kme, jms:jme):: QI
++      REAL, DIMENSION(its:ite, kms:kme, jts:jte):: PFLIP,QIFLIP,QFLIP,  &
++     &                                             QWFLIP,TFLIP
++      REAL, DIMENSION(its:ite, kms:kme, jts:jte)::P8WFLIP,PHYD
++      REAL, DIMENSION(ims:ime, jms:jme):: CUTOP,CUBOT
++      INTEGER :: I,J,K,KFLIP
++!
++!***********************************************************************
++!
++      DO J=JMS,JME
++        DO K=KMS,KME
++          DO I=IMS,IME
++            CLDFRA(I,K,J)=0.
++          ENDDO
++        ENDDO
++      ENDDO
++! NEED HYDROSTATIC PRESSURE HERE (MONOTONIC CHANGE WITH HEIGHT)
++      DO J=JTS,JTE
++      DO I=ITS,ITE
++        PHYD(I,KTS,J)=P8W(I,KTS,J) 
++      ENDDO
++      ENDDO
++!
++      DO J=JTS,JTE
++        DO K=KTS,KTE
++        DO I=ITS,ITE
++          PHYD(I,K+1,J)=PHYD(I,K,J)-G*RHO_PHY(I,K,J)*DZ8W(I,K,J)
++        ENDDO
++        ENDDO
++      ENDDO
++!
++      DO K=KMS,KME
++         KFLIP=KME+1-K
++         DO J=JTS,JTE
++         DO I=ITS,ITE
++           P8WFLIP(I,K,J)=PHYD(I,KFLIP,J)
++         ENDDO
++         ENDDO
++      ENDDO
++!
++!- Note that the effects of rain are ignored in this radiation package (BSF 2005-01-25)
++!
++      DO K=KTS,KTE
++        KFLIP=KTE+1-K
++        DO J=JTS,JTE
++        DO I=ITS,ITE
++          TFLIP (I,K,J)=T(I,KFLIP,J)
++          QFLIP (I,K,J)=MAX(0.,QV(I,KFLIP,J)/(1.+QV(I,KFLIP,J)))
++          QWFLIP(I,K,J)=QW(I,KFLIP,J)      !Modified
++! Note that QIFLIP will contain QS+QI if both are passed in, otherwise just QS 
++!     Eta MP now outputs QS instead of QI (JD 2006-05-12)
++          QIFLIP(I,K,J)=QS(I,KFLIP,J)      !Added QS
++          IF(PRESENT(QI))QIFLIP(I,K,J)=QIFLIP(I,K,J)+QI(I,KFLIP,J)      !Added QI
++!         PFLIP (I,K,J)=P_PHY(I,KFLIP,J)
++!
++!***  USE MONOTONIC HYDROSTATIC PRESSURE INTERPOLATED TO MID-LEVEL
++!
++          PFLIP(I,K,J)=0.5*(P8WFLIP(I,K,J)+P8WFLIP(I,K+1,J))
++        ENDDO
++        ENDDO
++      ENDDO
++!
++      DO J=JTS,JTE
++      DO I=ITS,ITE
++        CUBOT(I,J)=KTE+1-HBOT(I,J)
++        CUTOP(I,J)=KTE+1-HTOP(I,J)
++      ENDDO
++      ENDDO
++
++!-----------------------------------------------------------------------
++      CALL CLOUDFRACTION (TFLIP,QFLIP,QWFLIP,QIFLIP,                         &
++     &            PFLIP,P8WFLIP,                            &
++     &            CUTOP,CUBOT,CUPPT,                   &
++     &            ACFRCV,NCFRCV,ACFRST,NCFRST,                          &
++     &            CLDFRA,                              &
++     &            CFRACL,CFRACM,CFRACH,                                 &
++     &            DT,NSTEPRA,                           &
++     &            IDS,IDE,JDS,JDE,KDS,KDE,                              &
++     &            IMS,IME,JMS,JME,KMS,KME,                              &
++     &            ITS,ITE,JTS,JTE,KTS,KTE                              )
++!-----------------------------------------------------------------------
++
++!***  RESET ACCUMULATED CONVECTIVE CLOUD TOP/BOT AND CONVECTIVE PRECIP
++!***  FOR NEXT INTERVAL BETWEEN RADIATION CALLS
++!
++      DO J=JTS,JTE
++      DO I=ITS,ITE
++! SAVE VALUE USED BY RADIATION BEFORE RESETTING HTOP AND HBOT
++        HBOTR(I,J)=HBOT(I,J)
++        HTOPR(I,J)=HTOP(I,J)
++        HBOT(I,J)=REAL(KTE+1)
++        HTOP(I,J)=0.
++        CUPPT(I,J)=0.
++      ENDDO
++      ENDDO
++
++!!!JACK - print eta cloud fraction 2d results for single hard-wired i,j location (omit 3d CLDFRA)
++!4testprint: write(6,'(a14,1x,3i3,1x,2i3,1x,3f6.3,1x,2(i4,f7.1))') '--- ETA CFRAC:', ite,jte,kte, 20,24, CFRACL(20,24),CFRACM(20,24),CFRACH(20,24), NCFRST(20,24),ACFRST(20,24),NCFRCV(20,24),ACFRCV(20,24)
++
++!
++  END SUBROUTINE ETACLOUDFRACTION
++!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
++
++!-----------------------------------------------------------------------
++      SUBROUTINE CLOUDFRACTION(T,Q,QCW,QICE,                                 &
++     &                 PFLIP,P8WFLIP,                      &
++     &                 CUTOP,CUBOT, CUPPT,                 &
++     &                 ACFRCV,NCFRCV,ACFRST,NCFRST,                     &
++     &                 CLDFRA,         &
++     &                 CFRACL,CFRACM,CFRACH,                            &
++     &                 DT,NSTEPRA,                                      &
++     &                 ids,ide, jds,jde, kds,kde,                       &
++     &                 ims,ime, jms,jme, kms,kme,                       &
++     &                 its,ite, jts,jte, kts,kte                       )
++!-----------------------------------------------------------------------
++!JACK - modified from subroutine RADTN
++!-----------------------------------------------------------------------
++      IMPLICIT NONE
++!-----------------------------------------------------------------------
++
++! CUBOT : (REAL) model layer number that is lowest in the atmosphere
++!        in which convective cloud occurred since the previous call to the
++!        radiation driver.
++
++!!!JACK - I THINK THESE ARE ONLY COMPUTED FOR DIAGNOSTICS AND NOT REALLY NEEDED
++!jack     they are not zeroed when new history file written so will be from start of run
++! ACFRCV : sum of the convective cloud fractions that were computed
++!          during each call to the radiation between calls to the subroutines that
++!          do the forecast output.
++! NCFRCV : the total number of times in which the convective cloud
++!          fraction was computed to be greater than zero in the radiation between
++!          calls to the output routines.  In the post-processor, ACFRCV is divided
++!          by NCFRCV to yield an average convective cloud fraction.
++! ACFRST and NCFRST are the analogs for stratiform cloud cover.
++
++!          LVL holds the number of model layers that lie below the ground surface
++!          at each point.  Clearly for sigma coordinates LVL is zero everywhere.
++
++! CTHK  :  an assumed maximum thickness of stratiform clouds currently set
++!          to 20000 Pascals.  I think this is relevant for computing "low",
++!          "middle", and "high" cloud fractions which are post-processed but which
++!          do not feed back into the integration.
++
++! LTOP  : a 3-element integer array holding the model layer that is at or
++!         immediately below the specified pressure levels for the tops 
++!         of "high" (15000 Pa), "middle" (35000 Pa), and "low" (64200 Pa) 
++!         stratiform clouds.  These are for the diagnostic cloud layers 
++!         needed in the output but not in the integration.
++
++! CLDFRA : 3D cloud fraction
++
++! CFRACL,CFRACM,CFRACH : low, middle, & high (diagnosed) cloud fractions
++
++!-----------------------------------------------------------------------
++      INTEGER, INTENT(IN)        :: ids,ide, jds,jde, kds,kde ,         &
++     &                              ims,ime, jms,jme, kms,kme ,         &
++     &                              its,ite, jts,jte, kts,kte
++      REAL, INTENT(IN)           :: DT
++      INTEGER, INTENT(IN)        :: NSTEPRA
++!-----------------------------------------------------------------------
++      INTEGER            :: LM1,LP1,LM
++!-----------------------------------------------------------------------
++! !jack - from module headers
++! !--- Used for Gaussian look up tables
++!       REAL, PRIVATE, PARAMETER :: XSDmax=3.1, DXSD=.01
++!       INTEGER, PRIVATE, PARAMETER :: NXSD=XSDmax/DXSD
++!       REAL, PRIVATE, DIMENSION(NXSD),SAVE :: AXSD
++!       LOGICAL, PRIVATE, SAVE :: SDprint=.FALSE.
++!-----------------------------------------------------------------------
++      REAL, PARAMETER :: EPSQ1=1.E-5,EPSQ=1.E-12,EPSO3=1.E-10,H0=0.     &
++     &, H1=1.,HALF=.5,T0C=273.15,CUPRATE=24.*1000.,HPINC=HALF*1.E1      &
++!------------------------ For Clouds ----------------------------------
++     &, CLFRmin=0.01                                     &
++!--- Parameters used for new cloud cover scheme
++     &, XSDmin=-XSDmax, DXSD1=-DXSD, STSDM=0.01, CVSDM=.04              &
++     &, DXSD2=HALF*DXSD, DXSD2N=-DXSD2, PCLDY=0.25
++!
++      INTEGER, PARAMETER :: NB=12,KSMUD=0
++      INTEGER,PARAMETER :: K15=SELECTED_REAL_KIND(15)
++      REAL (KIND=K15) :: DDX,EEX,PROD
++!-----------------------------------------------------------------------
++      LOGICAL :: SHORT,LONG
++      LOGICAL :: BITX,BITY,BITZ,BITW,BIT1,BIT2,BITC,BITCP1,BITSP1
++      LOGICAL, SAVE :: CNCLD=.TRUE.
++      LOGICAL :: NEW_CLOUD
++!-----------------------------------------------------------------------
++      REAL, INTENT(IN), DIMENSION(its:ite, kms:kme, jts:jte):: Q,QCW,   &
++     &                                                         QICE,T,  &
++     &                                                         PFLIP,   &
++     &                                                         P8WFLIP
++      REAL, INTENT(OUT), DIMENSION(ims:ime, jms:jme):: CFRACL,CFRACM    &
++     &                                                ,CFRACH
++      REAL, INTENT(OUT),DIMENSION(ims:ime,kms:kme,jms:jme) :: CLDFRA   !added
++!-----------------------------------------------------------------------
++      REAL, INTENT(IN), DIMENSION(ims:ime,jms:jme) :: CUTOP,CUBOT,CUPPT
++!-----------------------------------------------------------------------
++      REAL,   DIMENSION(ims:ime,jms:jme)  :: CZEN
++      INTEGER, DIMENSION(its:ite, jts:jte):: LMH
++!-----------------------------------------------------------------------
++      REAL,   INTENT(INOUT), DIMENSION(ims:ime,jms:jme) :: ACFRCV,ACFRST 
++      INTEGER,INTENT(INOUT), DIMENSION(ims:ime,jms:jme) :: NCFRCV,NCFRST
++!-----------------------------------------------------------------------
++      REAL :: CTHK(3)
++      DATA CTHK/20000.0,20000.0,20000.0/
++      REAL,DIMENSION(10),SAVE :: CC,PPT
++!-----------------------------------------------------------------------
++      INTEGER,DIMENSION(its:ite,jts:jte) :: LVL
++      REAL,   DIMENSION(  0:kte)  :: CLDAMT
++      REAL,   DIMENSION(its:ite,3):: CLDCFR
++      INTEGER,   DIMENSION(its:ite,3):: MBOT,MTOP
++      REAL,   DIMENSION(its:ite,kts:kte) :: PMID,TMID
++      REAL,   DIMENSION(its:ite,kts:kte) :: QMID,THMID,OZN,POZN
++      REAL,   DIMENSION(its:ite,jts:jte) :: TOT 
++      REAL,   DIMENSION(its:ite,kts:kte+1) :: PINT,CAMT
++      INTEGER,DIMENSION(its:ite,kts:kte+1) :: KBTM,KTOP
++      INTEGER,DIMENSION(its:ite)   :: NCLDS,KCLD 
++      REAL,   DIMENSION(its:ite,NB,kts:kte+1) ::RRCL,TTCL
++      REAL,   DIMENSION(its:ite,kts:kte):: CSMID,CCMID,QWMID,QIMID
++!-----------------------------------------------------------------------
++      REAL    :: EXNER,CCLIMIT,CLIMIT,P1,P2,CC1,CC2
++      REAL    :: PMOD,CLFR1,WV,ARG,CLDMAX
++      REAL    :: CL1,CL2,CR1,DPCL,QSUM,PRS1,PRS2,DELP,TCLD,DD,EE,AA,FF
++      REAL    :: BB,GG,FCTR,CFRAVG,SNOMM
++      REAL    :: THICK,CONVPRATE,CLFR,ESAT,QSAT,RHUM,QCLD
++      REAL    :: RHtot,RRHO,FLARGE,FSMALL,DSNOW,SDM,QPCLDY,DIFCLD
++      REAL    :: CFSmax,CFCmax
++      INTEGER :: I,J,MYJS,MYJE,MYIS,MYIE,NTSPH,ITIMSW,ITIMLW,    &
++     &           JD,II
++      INTEGER :: L,N,LML,LVLIJ,IR,KNTLYR,LL,NC,NMOD,IWKL
++      INTEGER :: LCNVB,LCNVT
++      INTEGER :: NLVL,MALVL,LLTOP,LLBOT,KBT2,KTH1,KBT1,KTH2,KTOP1,KFLIP
++      INTEGER :: NCLD,LBASE,NKTP,NBTM,KS,MYJS1,MYJS2,MYJE2,MYJE1
++      REAL    :: CLSTP
++
++      INTEGER :: INDEXS,IXSD
++      DATA    CC/0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0/
++      DATA    PPT/0.,.14,.31,.70,1.6,3.4,7.7,17.,38.,85./
++
++! begin debugging radiation
++      integer :: imd,jmd, Jndx
++      real :: FSWrat
++      imd=(ims+ime)/2
++      jmd=(jms+jme)/2
++! end debugging radiation
++!=======================================================================
++!
++      MYJS=jts
++      MYJE=jte
++      MYIS=its
++      MYIE=ite
++      MYJS1=jts !????
++      MYJE1=jte
++      MYJS2=jts
++      MYJE2=jte
++      LM=kte
++      LM1=LM-1
++      LP1=LM+1
++!
++      DO J=JTS,JTE
++      DO I=ITS,ITE
++        LMH(I,J)=KME-1
++        LVL(I,J)=0
++      ENDDO
++      ENDDO
++!**********************************************************************
++!***  THE FOLLOWING CODE IS EXECUTED EACH TIME THE RADIATION IS CALLED.
++!**********************************************************************
++
++!  CLSTP IS THE NUMBER OF HOURS OF THE ACCUMULATION PERIOD
++!jack - simplification made here since only one type of radiation step
++      NTSPH=NINT(3600./DT)
++      CLSTP=1.0*NSTEPRA/NTSPH
++      CONVPRATE=CUPRATE/CLSTP
++
++!-----------------------------------------------------------------------
++!
++!***********************************************************************
++!***  THIS IS THE BEGINNING OF THE PRIMARY LOOP THROUGH THE DOMAIN
++!***********************************************************************
++!                        *********************
++                         DO 700 J = MYJS, MYJE
++!                        *********************
++!
++      DO 125 L=1,LM
++      DO I=MYIS,MYIE
++        TMID(I,L)=T(I,1,J)
++        QMID(I,L)=EPSQ
++        QWMID(I,L)=0.
++        QIMID(I,L)=0.
++        CSMID(I,L)=0.
++        CCMID(I,L)=0.
++      ENDDO
++  125 CONTINUE
++!
++      DO 140 N=1,3
++      DO I=MYIS,MYIE
++        CLDCFR(I,N)=0.
++        MTOP(I,N)=0
++        MBOT(I,N)=0
++      ENDDO
++  140 CONTINUE
++!***
++!***  FILL IN WORKING ARRAYS WHERE VALUES AT L=LM ARE THOSE THAT
++!***  ARE ACTUALLY AT ETA LEVEL L=LMH.
++!***
++      DO 200 I=MYIS,MYIE
++!     IR=IRAD(I)
++      LML=LMH(I,J)
++      LVLIJ=LVL(I,J)
++!
++      DO L=1,LML
++        PMID(I,L+LVLIJ)=PFLIP(I,L,J)
++        PINT(I,L+LVLIJ+1)=P8WFLIP(I,L+1,J)
++        EXNER=(1.E5/PMID(I,L+LVLIJ))**RCP
++        TMID(I,L+LVLIJ)=T(I,L,J)
++        THMID(I,L+LVLIJ)=T(I,L,J)*EXNER
++        QMID(I,L+LVLIJ)=MAX(EPSQ, Q(I,L,J))
++!--- Note that rain is ignored, only effects from cloud water and 
++!    ice (cloud ice + snow) are considered
++        QWMID(I,L+LVLIJ)=QCW(I,L,J)
++        QIMID(I,L+LVLIJ)=QICE(I,L,J)
++      ENDDO
++!***
++!***  FILL IN ARTIFICIAL VALUES ABOVE THE TOP OF THE DOMAIN.
++!***  PRESSURE DEPTHS OF THESE LAYERS IS 1 HPA.
++!***  TEMPERATURES ABOVE ARE ALREADY ISOTHERMAL WITH (TRUE) LAYER 1.
++!***
++      IF(LVLIJ.GT.0)THEN
++        KNTLYR=0
++!
++        DO L=LVLIJ,1,-1
++          KNTLYR=KNTLYR+1
++          PMID(I,L)=P8WFLIP(I,1,J)-REAL(2*KNTLYR-1)*HPINC
++          PINT(I,L+1)=PMID(I,L)+HPINC
++          EXNER=(1.E5/PMID(I,L))**RCP
++          THMID(I,L)=TMID(I,L)*EXNER
++        ENDDO
++      ENDIF
++!
++      IF(LVLIJ.EQ.0) THEN
++         PINT(I,1)=P8WFLIP(I,1,J)
++      ELSE
++         PINT(I,1)=PMID(I,1)-HPINC
++      ENDIF
++  200 CONTINUE
++!-----------------------------------------------------------------------
++!---  COMPUTE GRID-SCALE CLOUD COVER FOR RADIATION  (Ferrier, Nov '04)
++!
++!--- Assumes Gaussian-distributed probability density functions (PDFs) for
++!    total relative humidity (RHtot) within the grid for convective and
++!    grid-scale cloud processes.  The standard deviation of RHtot is assumed
++!    to be larger for convective clouds than grid-scale (stratiform) clouds.
++!-----------------------------------------------------------------------
++!
++      DO I=MYIS,MYIE
++        LML=LMH(I,J)
++        LVLIJ=LVL(I,J)
++        DO 255 L=1,LML
++            LL=L+LVLIJ
++            WV=QMID(I,LL)/(1.-QMID(I,LL))       !--- Water vapor mixing ratio
++            QCLD=QWMID(I,LL)+QIMID(I,LL)        !--- Total cloud water + ice mixing ratio
++            IF (QCLD .LE. EPSQ) GO TO 255       !--- Skip if no condensate is present
++            CLFR=H0
++            WV=QMID(I,LL)/(1.-QMID(I,LL))       !--- Water vapor mixing ratio
++               
++    !
++    !--- Saturation vapor pressure w/r/t water ( >=0C ) or ice ( <0C )
++    !
++#ifdef FERRIER_GFDL
++            ESAT=1000.*FPVS(TMID(I,LL))         !--- Saturation vapor pressure (Pa)
++#else
++            ESAT=FPVS_new(TMID(I,LL))           !--- Saturation vapor pressure (Pa)
++#endif
++            QSAT=EP_2*ESAT/(PMID(I,LL)-ESAT)    !--- Saturation mixing ratio
++            RHUM=WV/QSAT                        !--- Relative humidity
++    !
++    !--- Revised cloud cover parameterization (temporarily ignore rain)
++    !
++            RHtot=(WV+QCLD)/QSAT                !--- Total relative humidity
++!!    !
++!!    !--- QOVRCST is the amount of cloud condensate associated with full
++!!    !    overcast, PCLDY is an arbitrary factor for partial cloudiness
++!!    !
++!!            TCLD=TMID(I,LL)-T0C                 !--- Air temp in deg C
++!!            RRHO=(R_D*TMID(I,LL)*(1.+EP_1*QMID(I,LL)))/PMID(I,LL)
++!!            IF (TCLD .GE. 0.) THEN
++!!               QOVRCST(I,LL)=QAUT0*RRHO
++!!            ELSE
++!!               IF (TCLD.GE.-8. .AND. TCLD.LE.-3.) THEN
++!!                  FLARGE=FLARGE1
++!!               ELSE
++!!                  FLARGE=FLARGE2
++!!               ENDIF
++!!               FSMALL=(1.-FLARGE)/FLARGE
++!!               DSNOW=XMImax*EXP(XMIexp*TCLD)
++!!               INDEXS=MAX(MDImin, MIN(MDImax, INT(DSNOW)))
++!!               QOVRCST(I,LL)=NLImax*( FSMALL*MASSI(MDImin)              &
++!!     &                               +MASSI(INDEXS) )*RRHO
++!!            ENDIF                 !--- End IF (TCLD .GE. 0.)
++!!            QOVRCST(I,LL)=PCLDY*QOVRCST(I,LL)
++            LCNVT=NINT(CUTOP(I,J))+LVLIJ
++            LCNVT=MIN(LM,LCNVT)
++            LCNVB=NINT(CUBOT(I,J))+LVLIJ
++            LCNVB=MIN(LM,LCNVB)
++            IF (LL.GE.LCNVT .AND. LL.LE.LCNVB) THEN
++               SDM=CVSDM
++            ELSE
++               SDM=STSDM
++            ENDIF
++            ARG=(RHtot-RHgrd)/SDM
++            IF (ARG.LE.DXSD2 .AND. ARG.GE.DXSD2N) THEN
++               CLFR=HALF
++            ELSE IF (ARG .GT. DXSD2) THEN
++               IF (ARG .GE. XSDmax) THEN
++                  CLFR=H1
++               ELSE
++                  IXSD=INT(ARG/DXSD+HALF)
++                  IXSD=MIN(NXSD, MAX(IXSD,1))
++                  CLFR=HALF+AXSD(IXSD)
++                  if (SDprint)                                          &
++     & write(6,"(a,3i3,i4,f8.4,f7.4,2f6.3,f7.3,f6.1,f6.0)")                 &
++     & 'I,LL,J,IXSD,ARG,SDM,CLFR,RHtot,QSAT,T,P=', I,LL,J,IXSD,ARG,SDM,CLFR,RHtot     &
++     & ,1000.*QSAT,TCLD,.01*PMID(I,LL)
++               ENDIF              !--- End IF (ARG .GE. XSDmax)
++            ELSE
++               IF (ARG .LE. XSDmin) THEN
++                  CLFR=H0
++               ELSE
++                  IXSD=INT(ARG/DXSD1+HALF)
++                  IXSD=MIN(NXSD, MAX(IXSD,1))
++                  CLFR=HALF-AXSD(IXSD)
++                  if (SDprint)                                          &
++     & write(6,"(a,3i3,i4,f8.4,f7.4,2f6.3,f7.3,f6.1,f6.0)")                 &
++     & 'I,LL,J,IXSD,ARG,SDM,CLFR,RHtot,QSAT,T,P=', I,LL,J,IXSD,ARG,SDM,CLFR,RHtot     &
++     & ,1000.*QSAT,TCLD,.01*PMID(I,LL)
++                  IF (CLFR .LT. CLFRmin) CLFR=H0
++               ENDIF        !--- End IF (ARG .LE. XSDmin) 
++            ENDIF           !--- IF (ARG.LE.DXSD2 .AND. ARG.GE.DXSD2N)
++            CSMID(I,LL)=CLFR
++!!  !
++!!  !--- Here the condensate is adjusted to be only over the cloudy area
++!!  !
++!!            IF (CLFR.GT.0. .AND. QCLD.LE.0.) THEN
++!!  !
++!!  !--- Put in modest amounts of cloud water & cloud ice for partially cloudy grids
++!!  !
++!!               QPCLDY=MIN(.01*QSAT, QOVRCST(I,LL))
++!!               IF (TCLD .GE. H0) THEN
++!!                  QWMID(I,LL)=QPCLDY
++!!               ELSE
++!!                  QIMID(I,LL)=QPCLDY
++!!               ENDIF
++!!            ENDIF          !--- End IF (CLFR.GT.0. .AND. QCLD.LE.0.) 
++ 255       CONTINUE         !--- End DO L=1,LML
++      ENDDO                !--- End DO I=MYIS,MYIE
++!
++!***********************************************************************
++!******************  END OF GRID-SCALE CLOUD FRACTIONS  ****************
++!
++!---  COMPUTE CONVECTIVE CLOUD COVER FOR RADIATION 
++!
++!--- The parameterization of Slingo (1987, QJRMS, Table 1, p. 904) is 
++!    used for convective cloud fraction as a function of precipitation 
++!    rate.  Cloud fractions have been increased by 20% for each rainrate
++!    interval so that shallow, nonprecipitating convection is ascribed a
++!    constant cloud fraction of 0.1  (Ferrier, Feb '02).
++!***********************************************************************
++!
++      IF (CNCLD) THEN
++        DO I=MYIS,MYIE
++!
++!***  CLOUD TOPS AND BOTTOMS COME FROM CUCNVC
++!     Convective clouds need to be at least 2 model layers thick
++!
++          IF (CUBOT(I,J)-CUTOP(I,J) .GT. 1.0) THEN
++ !--- Compute convective cloud fractions if appropriate  (Ferrier, Feb '02)
++            CLFR=CC(1)
++            PMOD=CUPPT(I,J)*CONVPRATE
++            IF (PMOD .GT. PPT(1)) THEN
++              DO NC=1,10
++                IF(PMOD.GT.PPT(NC)) NMOD=NC
++              ENDDO
++              IF (NMOD .GE. 10) THEN
++                CLFR=CC(10)
++              ELSE
++                CC1=CC(NMOD)
++                CC2=CC(NMOD+1)
++                P1=PPT(NMOD)
++                P2=PPT(NMOD+1)
++                CLFR=CC1+(CC2-CC1)*(PMOD-P1)/(P2-P1)
++              ENDIF      !--- End IF (NMOD .GE. 10) ...
++              CLFR=MIN(H1, CLFR)
++            ENDIF        !--- End IF (PMOD .GT. PPT(1)) ...
++  !
++  !***  ADD LVL TO BE CONSISTENT WITH OTHER WORKING ARRAYS
++  !
++            LVLIJ=LVL(I,J)
++            LCNVT=NINT(CUTOP(I,J))+LVLIJ
++            LCNVT=MIN(LM,LCNVT)
++            LCNVB=NINT(CUBOT(I,J))+LVLIJ
++            LCNVB=MIN(LM,LCNVB)
++!! !
++!! !---- For debugging
++!! !
++!!      WRITE(6,"(2(A,I3),2(A,I2),2(A,F5.2),2(A,I2),A,F6.4)") 
++!!     & ' J=',J,' I=',I,' LCNVB=',LCNVB,' LCNVT=',LCNVT
++!!     &, ' CUBOT=',CUBOT(I,J),' CUTOP=',CUTOP(I,J)
++!!     &,' LVL=',LVLIJ,' LMH=',LMH(I,J),' CCMID=',CLFR
++!! !
++   !
++   !--- Build in small amounts of subgrid-scale convective condensate 
++   !    (simple assumptions), but only if the convective cloud fraction 
++   !    exceeds that of the grid-scale cloud fraction
++   !
++            DO LL=LCNVT,LCNVB
++              ARG=MAX(H0, H1-CSMID(I,LL))
++              CCMID(I,LL)=MIN(ARG,CLFR)
++            ENDDO           !--- End DO LL=LCNVT,LCNVB
++          ENDIF             !--- IF (CUBOT(I,J)-CUTOP(I,J) .GT. 1.0) ...
++        ENDDO               !--- End DO I loop
++      ENDIF                 !--- End IF (CNCLD) ...
++!
++!*********************************************************************
++!***************  END OF CONVECTIVE CLOUD FRACTIONS  *****************
++!*********************************************************************
++!***
++!***  DETERMINE THE FRACTIONAL CLOUD COVERAGE FOR HIGH, MID
++!***  AND LOW OF CLOUDS FROM THE CLOUD COVERAGE AT EACH LEVEL
++!***
++!***  NOTE: THIS IS FOR DIAGNOSTICS ONLY!!!
++!***
++!***
++       DO 500 I=MYIS,MYIE
++!!
++       DO L=0,LM
++         CLDAMT(L)=0.
++       ENDDO
++!!  
++!!***  NOW GOES LOW, MIDDLE, HIGH
++!!
++       DO 480 NLVL=1,3
++       CLDMAX=0.
++       MALVL=LM
++       LLTOP=LM+1-LTOP(NLVL)+LVL(I,J)
++!!***
++!!***  GO TO THE NEXT CLOUD LAYER IF THE TOP OF THE CLOUD-TYPE IN
++!!***  QUESTION IS BELOW GROUND OR IS IN THE LOWEST LAYER ABOVE GROUND.
++!!***
++       IF(LLTOP.GE.LM)GO TO 480
++!!
++       IF(NLVL.GT.1)THEN
++         LLBOT=LM+1-LTOP(NLVL-1)-1+LVL(I,J)
++         LLBOT=MIN(LLBOT,LM1)
++       ELSE
++         LLBOT=LM1
++       ENDIF
++!!
++       DO 435 L=LLTOP,LLBOT
++       CLDAMT(L)=AMAX1(CSMID(I,L),CCMID(I,L))
++       IF(CLDAMT(L).GT.CLDMAX)THEN
++         MALVL=L
++         CLDMAX=CLDAMT(L)
++       ENDIF
++   435 CONTINUE
++!!*********************************************************************
++!! NOW, CALCULATE THE TOTAL CLOUD FRACTION IN THIS PRESSURE DOMAIN
++!! USING THE METHOD DEVELOPED BY Y.H., K.A.C. AND A.K. (NOV., 1992).
++!! IN THIS METHOD, IT IS ASSUMED THAT SEPERATED CLOUD LAYERS ARE
++!! RADOMLY OVERLAPPED AND ADJACENT CLOUD LAYERS ARE MAXIMUM OVERLAPPED.
++!! VERTICAL LOCATION OF EACH TYPE OF CLOUD IS DETERMINED BY THE THICKEST
++!! CONTINUING CLOUD LAYERS IN THE DOMAIN.
++!!*********************************************************************
++       CL1=0.0
++       CL2=0.0
++       KBT1=LLBOT
++       KBT2=LLBOT
++       KTH1=0
++       KTH2=0
++!!
++       DO 450 LL=LLTOP,LLBOT
++       L=LLBOT-LL+LLTOP
++       BIT1=.FALSE.
++       CR1=CLDAMT(L)
++       BITX=(PINT(I,L).GE.PTOPC(NLVL+1)).AND.                           &
++      &     (PINT(I,L).LT.PTOPC(NLVL)).AND.                             &
++      &     (CLDAMT(L).GT.0.0)
++       BIT1=BIT1.OR.BITX
++       IF(.NOT.BIT1)GO TO 450
++!!***
++!!***  BITY=T: FIRST CLOUD LAYER; BITZ=T:CONSECUTIVE CLOUD LAYER
++!!***  NOTE:  WE ASSUME THAT THE THICKNESS OF EACH CLOUD LAYER IN THE
++!!***         DOMAIN IS LESS THAN 200 MB TO AVOID TOO MUCH COOLING OR
++!!***         HEATING. SO WE SET CTHK(NLVL)=200*E2. BUT THIS LIMIT MAY
++!!***         WORK WELL FOR CONVECTIVE CLOUDS. MODIFICATION MAY BE
++!!***         NEEDED IN THE FUTURE.
++!!***
++       BITY=BITX.AND.(KTH2.LE.0)
++       BITZ=BITX.AND.(KTH2.GT.0)
++!!
++       IF(BITY)THEN
++         KBT2=L
++         KTH2=1
++       ENDIF
++!!
++       IF(BITZ)THEN
++         KTOP1=KBT2-KTH2+1
++         DPCL=PMID(I,KBT2)-PMID(I,KTOP1)
++         IF(DPCL.LT.CTHK(NLVL))THEN
++           KTH2=KTH2+1
++         ELSE
++           KBT2=KBT2-1
++         ENDIF
++       ENDIF
++       IF(BITX)CL2=AMAX1(CL2,CR1)
++!!***
++!!*** AT THE DOMAIN BOUNDARY OR SEPARATED CLD LAYERS, RANDOM OVERLAP.
++!!*** CHOOSE THE THICKEST OR THE LARGEST FRACTION AMT AS THE CLD
++!!*** LAYER IN THAT DOMAIN.
++!!***
++       BIT2=.FALSE.
++       BITY=BITX.AND.(CLDAMT(L-1).LE.0.0.OR. &
++            PINT(I,L-1).LT.PTOPC(NLVL+1))
++       BITZ=BITY.AND.CL1.GT.0.0
++       BITW=BITY.AND.CL1.LE.0.0
++       BIT2=BIT2.OR.BITY
++       IF(.NOT.BIT2)GO TO 450
++!!
++       IF(BITZ)THEN
++         KBT1=INT((CL1*KBT1+CL2*KBT2)/(CL1+CL2))
++         KTH1=INT((CL1*KTH1+CL2*KTH2)/(CL1+CL2))+1
++         CL1=CL1+CL2-CL1*CL2
++       ENDIF
++!!
++       IF(BITW)THEN
++         KBT1=KBT2
++         KTH1=KTH2
++         CL1=CL2
++       ENDIF
++!!
++       IF(BITY)THEN
++         KBT2=LLBOT
++         KTH2=0
++         CL2=0.0
++       ENDIF
++   450 CONTINUE
++!
++       CLDCFR(I,NLVL)=AMIN1(1.0,CL1)
++       MTOP(I,NLVL)=MIN(KBT1,KBT1-KTH1+1)
++       MBOT(I,NLVL)=KBT1
++   480 CONTINUE
++   500 CONTINUE
++
++!----------------------------------------------------------------------
++! NOW, CALCULATE THE CLOUD RADIATIVE PROPERTIES AFTER DAVIS (1982),
++! HARSHVARDHAN ET AL (1987) AND Y.H., K.A.C. AND A.K. (1993).
++!----------------------------------------------------------------------
++!
++!***
++!*** INITIALIZE ARRAYS FOR USES LATER
++!***
++
++      DO 600 I=MYIS,MYIE
++      LML=LMH(I,J)
++      LVLIJ=LVL(I,J)
++!***
++!*** NOTE: LAYER=1 IS THE SURFACE, AND LAYER=2 IS THE FIRST CLOUD
++!***       LAYER ABOVE THE SURFACE AND SO ON.
++!***
++      KTOP(I,1)=LP1
++      KBTM(I,1)=LP1
++      CAMT(I,1)=1.0
++      KCLD(I)=2
++
++      DO 510 L=2,LP1
++      CAMT(I,L)=0.0
++      KTOP(I,L)=1
++      KBTM(I,L)=1
++  510 CONTINUE
++
++!### End changes so far
++!***
++!*** NOW CALCULATE THE AMOUNT, TOP, BOTTOM AND TYPE OF EACH CLOUD LAYER
++!*** CLOUD TYPE=1: STRATIFORM CLOUD
++!***       TYPE=2: CONVECTIVE CLOUD
++!*** WHEN BOTH CONVECTIVE AND STRATIFORM CLOUDS EXIST AT THE SAME POINT,
++!*** SELECT CONVECTIVE CLOUD WITH THE HIGHER CLOUD FRACTION.
++!*** CLOUD LAYERS ARE SEPARATED BY TOTAL ABSENCE OF CLOUDINESS.
++!*** NOTE: THERE IS ONLY ONE CONVECTIVE CLOUD LAYER IN ONE COLUMN.
++!*** KTOP AND KBTM ARE THE TOP AND BOTTOM OF EACH CLOUD LAYER IN TERMS
++!*** OF MODEL LEVEL.
++!***
++      NEW_CLOUD=.TRUE.
++!
++      DO L=2,LML
++        LL=LML-L+1+LVLIJ                        !-- Model layer
++        CLFR=MAX(CCMID(I,LL),CSMID(I,LL))       !-- Cloud fraction in layer
++        CLFR1=MAX(CCMID(I,LL+1),CSMID(I,LL+1))  !-- Cloud fraction in lower layer
++!-------------------
++        IF (CLFR .GE. CLFRMIN) THEN
++!--- Cloud present at level
++          IF (NEW_CLOUD) THEN
++!--- New cloud layer
++            IF(L==2.AND.CLFR1>=CLFRmin)THEN
++              KBTM(I,KCLD(I))=LL+1
++              CAMT(I,KCLD(I))=CLFR1
++            ELSE
++              KBTM(I,KCLD(I))=LL
++              CAMT(I,KCLD(I))=CLFR
++            ENDIF
++            NEW_CLOUD=.FALSE.
++          ELSE
++!--- Existing cloud layer
++            CAMT(I,KCLD(I))=AMAX1(CAMT(I,KCLD(I)), CLFR)
++          ENDIF        ! End IF (NEW_CLOUD .EQ. 0) ...
++        ELSE IF (CLFR1 .GE. CLFRMIN) THEN
++!--- Cloud is not present at level but did exist at lower level, then ...
++          IF (L .EQ. 2) THEN
++!--- For the case of ground fog
++            KBTM(I,KCLD(I))=LL+1
++            CAMT(I,KCLD(I))=CLFR1
++          ENDIF
++          KTOP(I,KCLD(I))=LL+1
++          NEW_CLOUD=.TRUE.
++          KCLD(I)=KCLD(I)+1
++          CAMT(I,KCLD(I))=0.0
++        ENDIF
++!-------------------
++      ENDDO      !--- End DO L loop
++!***
++!*** THE REAL NUMBER OF CLOUD LAYERS IS (THE FIRST IS THE GROUND;
++!*** THE LAST IS THE SKY):
++!***
++      NCLDS(I)=KCLD(I)-2
++      NCLD=NCLDS(I)
++!
++  600 CONTINUE
++!
++!***  
++!***  NOW THE VARIABLES REQUIRED BY RADFS HAVE BEEN CALCULATED.
++!***
++!----------------------------------------------------------------------
++!
++!***  ARRAYS ACFRST AND ACFRCV ACCUMULATE AVERAGE STRATIFORM AND
++!***  CONVECTIVE CLOUD FRACTIONS, RESPECTIVELY. 
++!***  ACCUMLATE THESE VARIABLES ONLY ONCE PER RADIATION CALL.
++!
++!***  ASSUME RANDOM OVERLAP BETWEEN LOW, MIDDLE, & HIGH LAYERS.
++!
++!***  UPDATE NEW 3D CLOUD FRACTION (CLDFRA)
++!
++      DO I=MYIS,MYIE
++        CFRACL(I,J)=CLDCFR(I,1)
++        CFRACM(I,J)=CLDCFR(I,2)
++        CFRACH(I,J)=CLDCFR(I,3)
++        IF(CNCLD)THEN
++          CFSmax=0.   !-- Maximum cloud fraction (stratiform component)
++          CFCmax=0.   !-- Maximum cloud fraction (convective component)
++          DO L=1,LMH(I,J)
++            LL=L+LVL(I,J)
++            CFSmax=MAX(CFSmax, CSMID(I,LL) )
++            CFCmax=MAX(CFCmax, CCMID(I,LL) )
++          ENDDO
++          ACFRST(I,J)=ACFRST(I,J)+CFSmax
++          NCFRST(I,J)=NCFRST(I,J)+1
++          ACFRCV(I,J)=ACFRCV(I,J)+CFCmax
++          NCFRCV(I,J)=NCFRCV(I,J)+1
++        ELSE
++  !--- Count only locations with grid-scale cloudiness, ignore convective clouds
++  !    (option not used, but if so set to the total cloud fraction)
++          CFRAVG=1.-(1.-CFRACL(I,J))*(1.-CFRACM(I,J))*(1.-CFRACH(I,J))
++          ACFRST(I,J)=ACFRST(I,J)+CFRAVG
++          NCFRST(I,J)=NCFRST(I,J)+1
++        ENDIF
++!--- Flip 3D cloud fractions in the vertical and save time
++        LML=LMH(I,J)
++        DO L=1,LML
++          LL=LML-L+1+LVL(I,J)
++          CLDFRA(I,L,J)=MAX(CCMID(I,LL),CSMID(I,LL))
++        ENDDO
++      ENDDO      !-- I index
++!***
++!***  THIS ROW IS FINISHED. GO TO NEXT
++!***
++!                        *********************
++  700                          CONTINUE
++!                        *********************
++!----------------------------------------------------------------------
++!***
++!***  CALLS TO RADIATION THIS TIME STEP ARE COMPLETE.
++!***
++!----------------------------------------------------------------------
++
++      END SUBROUTINE CLOUDFRACTION
+ !
+ 
++
+ !----------------------------------------------------------------------
+ !
+       END MODULE module_RA_GFDLETA
+Binary files WRFV3-orig/phys/module_ra_gfdleta.o and WRFV3/phys/module_ra_gfdleta.o differ
+Binary files WRFV3-orig/phys/module_ra_goddard.o and WRFV3/phys/module_ra_goddard.o differ
+Binary files WRFV3-orig/phys/module_ra_gsfcsw.o and WRFV3/phys/module_ra_gsfcsw.o differ
+Binary files WRFV3-orig/phys/module_ra_hs.o and WRFV3/phys/module_ra_hs.o differ
+Binary files WRFV3-orig/phys/module_ra_HWRF.o and WRFV3/phys/module_ra_HWRF.o differ
+Binary files WRFV3-orig/phys/module_ra_rrtmg_lw.o and WRFV3/phys/module_ra_rrtmg_lw.o differ
+Binary files WRFV3-orig/phys/module_ra_rrtmg_sw.o and WRFV3/phys/module_ra_rrtmg_sw.o differ
+Binary files WRFV3-orig/phys/module_ra_rrtm.o and WRFV3/phys/module_ra_rrtm.o differ
+Binary files WRFV3-orig/phys/module_ra_sw.o and WRFV3/phys/module_ra_sw.o differ
+Binary files WRFV3-orig/phys/module_sf_3dpwp.o and WRFV3/phys/module_sf_3dpwp.o differ
+Binary files WRFV3-orig/phys/module_sf_bem.o and WRFV3/phys/module_sf_bem.o differ
+Binary files WRFV3-orig/phys/module_sf_bep_bem.o and WRFV3/phys/module_sf_bep_bem.o differ
+Binary files WRFV3-orig/phys/module_sf_bep.o and WRFV3/phys/module_sf_bep.o differ
+Binary files WRFV3-orig/phys/module_sf_clm.o and WRFV3/phys/module_sf_clm.o differ
+Binary files WRFV3-orig/phys/module_sf_fogdes.o and WRFV3/phys/module_sf_fogdes.o differ
+Binary files WRFV3-orig/phys/module_sf_gfdl.o and WRFV3/phys/module_sf_gfdl.o differ
+Binary files WRFV3-orig/phys/module_sf_gfs.o and WRFV3/phys/module_sf_gfs.o differ
+Binary files WRFV3-orig/phys/module_sf_idealscmsfclay.o and WRFV3/phys/module_sf_idealscmsfclay.o differ
+Binary files WRFV3-orig/phys/module_sf_lake.o and WRFV3/phys/module_sf_lake.o differ
+Binary files WRFV3-orig/phys/module_sf_myjsfc.o and WRFV3/phys/module_sf_myjsfc.o differ
+Binary files WRFV3-orig/phys/module_sf_mynn.o and WRFV3/phys/module_sf_mynn.o differ
+Binary files WRFV3-orig/phys/module_sf_noahdrv.o and WRFV3/phys/module_sf_noahdrv.o differ
+Binary files WRFV3-orig/phys/module_sf_noahlsm_glacial_only.o and WRFV3/phys/module_sf_noahlsm_glacial_only.o differ
+Binary files WRFV3-orig/phys/module_sf_noahlsm.o and WRFV3/phys/module_sf_noahlsm.o differ
+Binary files WRFV3-orig/phys/module_sf_noahmpdrv.o and WRFV3/phys/module_sf_noahmpdrv.o differ
+Binary files WRFV3-orig/phys/module_sf_noahmp_glacier.o and WRFV3/phys/module_sf_noahmp_glacier.o differ
+Binary files WRFV3-orig/phys/module_sf_noahmp_groundwater.o and WRFV3/phys/module_sf_noahmp_groundwater.o differ
+Binary files WRFV3-orig/phys/module_sf_noahmplsm.o and WRFV3/phys/module_sf_noahmplsm.o differ
+Binary files WRFV3-orig/phys/module_sf_noah_seaice_drv.o and WRFV3/phys/module_sf_noah_seaice_drv.o differ
+Binary files WRFV3-orig/phys/module_sf_noah_seaice.o and WRFV3/phys/module_sf_noah_seaice.o differ
+Binary files WRFV3-orig/phys/module_sf_ocean_driver.o and WRFV3/phys/module_sf_ocean_driver.o differ
+Binary files WRFV3-orig/phys/module_sf_oml.o and WRFV3/phys/module_sf_oml.o differ
+Binary files WRFV3-orig/phys/module_sf_pxlsm_data.o and WRFV3/phys/module_sf_pxlsm_data.o differ
+Binary files WRFV3-orig/phys/module_sf_pxlsm.o and WRFV3/phys/module_sf_pxlsm.o differ
+Binary files WRFV3-orig/phys/module_sf_pxsfclay.o and WRFV3/phys/module_sf_pxsfclay.o differ
+Binary files WRFV3-orig/phys/module_sf_qnsesfc.o and WRFV3/phys/module_sf_qnsesfc.o differ
+Binary files WRFV3-orig/phys/module_sf_ruclsm.o and WRFV3/phys/module_sf_ruclsm.o differ
+Binary files WRFV3-orig/phys/module_sf_scmflux.o and WRFV3/phys/module_sf_scmflux.o differ
+Binary files WRFV3-orig/phys/module_sf_scmskintemp.o and WRFV3/phys/module_sf_scmskintemp.o differ
+Binary files WRFV3-orig/phys/module_sf_sfcdiags.o and WRFV3/phys/module_sf_sfcdiags.o differ
+Binary files WRFV3-orig/phys/module_sf_sfcdiags_ruclsm.o and WRFV3/phys/module_sf_sfcdiags_ruclsm.o differ
+Binary files WRFV3-orig/phys/module_sf_sfclay.o and WRFV3/phys/module_sf_sfclay.o differ
+Binary files WRFV3-orig/phys/module_sf_sfclayrev.o and WRFV3/phys/module_sf_sfclayrev.o differ
+Binary files WRFV3-orig/phys/module_sf_slab.o and WRFV3/phys/module_sf_slab.o differ
+Binary files WRFV3-orig/phys/module_sf_ssib.o and WRFV3/phys/module_sf_ssib.o differ
+Binary files WRFV3-orig/phys/module_sf_sstskin.o and WRFV3/phys/module_sf_sstskin.o differ
+Binary files WRFV3-orig/phys/module_sf_temfsfclay.o and WRFV3/phys/module_sf_temfsfclay.o differ
+Binary files WRFV3-orig/phys/module_sf_tmnupdate.o and WRFV3/phys/module_sf_tmnupdate.o differ
+Binary files WRFV3-orig/phys/module_sf_urban.o and WRFV3/phys/module_sf_urban.o differ
+Binary files WRFV3-orig/phys/module_shallowcu_driver.o and WRFV3/phys/module_shallowcu_driver.o differ
+Binary files WRFV3-orig/phys/module_shcu_camuwshcu_driver.o and WRFV3/phys/module_shcu_camuwshcu_driver.o differ
+Binary files WRFV3-orig/phys/module_shcu_camuwshcu.o and WRFV3/phys/module_shcu_camuwshcu.o differ
+Binary files WRFV3-orig/phys/module_shcu_grims.o and WRFV3/phys/module_shcu_grims.o differ
+diff -ruN -X exclude-files.txt WRFV3-orig/phys/module_surface_driver.F WRFV3/phys/module_surface_driver.F
+--- WRFV3-orig/phys/module_surface_driver.F	2014-05-23 18:45:13.000000000 +0200
++++ WRFV3/phys/module_surface_driver.F	2018-11-27 12:43:04.000000000 +0200
+@@ -3730,6 +3730,12 @@
+ 
+    ENDIF
+ 
++!JACK - OUTPUT DESIRED INFO TO STDOUT
++!      CALL jackout(                                                &
++!     &   GSW,GLW                                                   &
++!     & ,ims,ime, jms,jme, kms,kme                                  &
++!     &   )
++
+    END SUBROUTINE surface_driver
+ 
+ !-------------------------------------------------------------------------
+@@ -6472,6 +6478,420 @@
+    END SUBROUTINE get_local_ice_tsk
+ 
+ !=======================================================================
++!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
++!-----------------------------------------------------------------------------
++!  START OF ROUTINES NEEDED FOR 5m WIND CALC
++!-----------------------------------------------------------------------------
++!JACK - alter SFCLAY routine to give velocity at arbitrary level at gridpoint
++!JACK   by utilizing "10m" wind variable
++   SUBROUTINE SFCLAY1Djack( zagl, Uagl,Vagl,                      &
++                     UX,VX,T1D,                      &
++                     QV1D,P1D,dz8w1d,                &
++                     CP,G,ROVCP,R,XLV,PSFCPA,PBLH, &
++                     ZNT,UST,MAVAIL, MOL,      &
++                     XLAND,HFX,QFX,TSK,                            &
++                     DX,             &
++                     SVP1,SVP2,SVP3,SVPT0,EP1,EP2, KARMAN )
++!-------------------------------------------------------------------
++      IMPLICIT NONE
++!-------------------------------------------------------------------
++!jack - following were arguments but calc internally & would be  output so use local value to avoid propagating upstream
++      REAL   ::   RMOL, ZOL, REGIME,PSIM,PSIH, &
++                 TH2,T2,Q2, QSFC, WSPD,BR, FLHC,FLQC,QGH, CPM,           &
++                 GZ1oZ0,                                                 &
++                 zagl,Uagl,Vagl
++      REAL,     PARAMETER     ::        XKA=2.4E-5
++      REAL,     INTENT(IN )   ::        SVP1,SVP2,SVP3,SVPT0
++      REAL,     INTENT(IN )   ::        EP1,EP2,KARMAN,    &
++            UX, VX,  T1D, QV1D, P1D, dz8w1d, PSFCPA, PBLH, &
++            MOL, ZNT, MAVAIL, &
++            XLAND, TSK, HFX, QFX, UST, &
++            CP,G,ROVCP,R,XLV, &
++            DX
++!jack - moved these from  module_sf_sfclay.F
++      REAL    , PARAMETER ::  VCONVC=1.
++! LOCAL VARS
++      REAL    ::  ZA, THVX,ZQKL, ZQKLP1, THX,QX, PSIH2, PSIM2, PSIH10, PSIM10, &
++                  GZ2OZ0, GZ10OZ0, RHOX,GOVRTH, TGDSA, SCR3,SCR4, THGB, PSFC
++      INTEGER ::  N,I,K,KK,L,NZOL,NK,NZOL2,NZOL10
++      REAL    ::  PL,THCON,TVCON,E1
++      REAL    ::  ZL,TSKV,DTHVDZ,DTHVM,VCONV,RZOL,RZOL2,RZOL10,ZOL2,ZOL10
++      REAL    ::  DTG,PSIX,USTM,DTTHX,PSIX10,PSIT,PSIT2,PSIQ,PSIQ2
++      REAL    ::  FLUXC,VSGD 
++!jack - redefined to prevent output
++      REAL    :: USTagl
++!-------------------------------------------------------------------
++
++! PSFC cmb
++         PSFC=PSFCPA/1000.
++!----CONVERT GROUND TEMPERATURE TO POTENTIAL TEMPERATURE:  
++        TGDSA=TSK                                    
++! PSFC cmb
++        THGB=TSK*(100./PSFC)**ROVCP                
++    5 CONTINUE                                               
++!-----DECOUPLE FLUX-FORM VARIABLES TO GIVE U,V,T,THETA,THETA-VIR.,
++!     T-VIR., QV, AND QC AT CROSS POINTS AND AT KTAU-1.  
++   10 CONTINUE                                                     
++!.....SCR3(I,K) STORE TEMPERATURE,                           
++!     SCR4(I,K) STORE VIRTUAL TEMPERATURE.                                       
++! PL cmb
++         PL=P1D/1000.
++         SCR3=T1D                                                   
++         THCON=(100./PL)**ROVCP                                                 
++         THX=SCR3*THCON                                               
++         SCR4=SCR3                                                    
++         THVX=THX                                                     
++         QX=0.                                                             
++   30 CONTINUE                                                                 
++         QGH=0.                                                                
++         FLHC=0.                                                               
++         FLQC=0.                                                               
++         CPM=CP                                                                
++!     IF(IDRY.EQ.1)GOTO 80                                                   
++         QX=QV1D                                                    
++         TVCON=(1.+EP1*QX)                                      
++         THVX=THX*TVCON                                               
++         SCR4=SCR3*TVCON                                              
++   50 CONTINUE                                                                 
++        E1=SVP1*EXP(SVP2*(TGDSA-SVPT0)/(TGDSA-SVP3))                       
++        QSFC=EP2*E1/(PSFC-E1)                                                 
++! QGH CHANGED TO USE LOWEST-LEVEL AIR TEMP CONSISTENT WITH MYJSFC CHANGE
++! Q2SAT = QGH IN LSM
++        E1=SVP1*EXP(SVP2*(T1D-SVPT0)/(T1D-SVP3))                       
++        QGH=EP2*E1/(PSFC-E1)                                                 
++        CPM=CP*(1.+0.8*QX)                                   
++   60 CONTINUE                                                                   
++   80 CONTINUE
++!-----COMPUTE THE HEIGHT OF FULL- AND HALF-SIGMA LEVELS ABOVE GROUND             
++!     LEVEL, AND THE LAYER THICKNESSES.                                          
++        ZQKLP1=0.
++        RHOX=PSFC*1000./(R*SCR4)                                       
++   90 CONTINUE                                                                   
++           ZQKL=dz8w1d+ZQKLP1
++  110 CONTINUE                                                                 
++         ZA=0.5*(ZQKL+ZQKLP1)                                        
++  120 CONTINUE                                                                 
++        GOVRTH=G/THX                                                    
++  160 CONTINUE                                                                   
++!-----CALCULATE BULK RICHARDSON NO. OF SURFACE LAYER, ACCORDING TO               
++!     AKB(1976), EQ(12).                                                         
++        GZ1OZ0=ALOG(ZA/ZNT)                                        
++        GZ2OZ0=ALOG(2./ZNT)                                        
++        GZ10OZ0=ALOG(zagl/ZNT)                                        
++        IF((XLAND-1.5).GE.0)THEN                                            
++          ZL=ZNT                                                            
++        ELSE                                                                     
++          ZL=0.01                                                                
++        ENDIF                                                                    
++        WSPD=SQRT(UX*UX+VX*VX)                        
++        TSKV=THGB*(1.+EP1*QSFC*MAVAIL)                     
++        DTHVDZ=(THVX-TSKV)                                                 
++!  Convective velocity scale Vc and subgrid-scale velocity Vsg
++!       VCONV = 0.25*sqrt(g/tskv*pblh*dthvm)
++        fluxc = max(hfx/rhox/cp                    &
++              + ep1*tskv*qfx/rhox,0.)
++        VCONV = vconvc*(g/tgdsa*pblh*fluxc)**.33
++!       IF(-DTHVDZ.GE.0)THEN
++!         DTHVM=-DTHVDZ
++!       ELSE
++!         DTHVM=0.
++!       ENDIF
++!       VCONV = max(vconv,VCONVC*SQRT(DTHVM))
++! VCONV comes from Beljaars only
++        VSGD = 0.32 * (max(dx/5000.-1.,0.))**.33
++        WSPD=SQRT(WSPD*WSPD+VCONV*VCONV+vsgd*vsgd)
++        WSPD=AMAX1(WSPD,0.1)
++        BR=GOVRTH*ZA*DTHVDZ/(WSPD*WSPD)                        
++!  IF PREVIOUSLY UNSTABLE, DO NOT LET INTO REGIMES 1 AND 2
++        IF(MOL.LT.0.)BR=AMIN1(BR,0.0)
++        RMOL=-GOVRTH*DTHVDZ*ZA*KARMAN
++  260 CONTINUE                                                                   
++
++!JACK - section goes to statement 320
++!-----DIAGNOSE BASIC PARAMETERS FOR THE APPROPRIATED STABILITY CLASS:            
++!     THE STABILITY CLASSES ARE DETERMINED BY BR (BULK RICHARDSON NO.)           
++!     AND HOL (HEIGHT OF PBL/MONIN-OBUKHOV LENGTH).                              
++!     CRITERIA FOR THE CLASSES ARE AS FOLLOWS:                                   
++!        1. BR .GE. 0.2;                                                         
++!               REPRESENTS NIGHTTIME STABLE CONDITIONS (REGIME=1),               
++!        2. BR .LT. 0.2 .AND. BR .GT. 0.0;                                       
++!               REPRESENTS DAMPED MECHANICAL TURBULENT CONDITIONS                
++!               (REGIME=2),                                                      
++!        3. BR .EQ. 0.0                                                          
++!               REPRESENTS FORCED CONVECTION CONDITIONS (REGIME=3),              
++!        4. BR .LT. 0.0                                                          
++!               REPRESENTS FREE CONVECTION CONDITIONS (REGIME=4).                
++        IF(BR.LT.0.)GOTO 310                                                  
++!-----CLASS 1; STABLE (NIGHTTIME) CONDITIONS:                                    
++        IF(BR.LT.0.2)GOTO 270                                                 
++        REGIME=1.                                                           
++        PSIM=-10.*GZ1OZ0                                                   
++!    LOWER LIMIT ON PSI IN STABLE CONDITIONS                                     
++        PSIM=AMAX1(PSIM,-10.)                                              
++        PSIH=PSIM                                                          
++        PSIM10=zagl/ZA*PSIM
++        PSIM10=AMAX1(PSIM10,-10.)                               
++        PSIH10=PSIM10                                          
++        PSIM2=2./ZA*PSIM
++        PSIM2=AMAX1(PSIM2,-10.)                              
++        PSIH2=PSIM2                                         
++!       1.0 over Monin-Obukhov length
++        IF(UST.LT.0.01)THEN
++           RMOL=BR*GZ1OZ0 !ZA/L
++        ELSE
++           RMOL=KARMAN*GOVRTH*ZA*MOL/(UST*UST) !ZA/L
++        ENDIF
++        RMOL=AMIN1(RMOL,9.999) ! ZA/L
++        RMOL = RMOL/ZA !1.0/L
++        GOTO 320                                                                 
++!-----CLASS 2; DAMPED MECHANICAL TURBULENCE:                                     
++  270   IF(BR.EQ.0.0)GOTO 280                                                 
++        REGIME=2.                                                           
++        PSIM=-5.0*BR*GZ1OZ0/(1.1-5.0*BR)                             
++!    LOWER LIMIT ON PSI IN STABLE CONDITIONS                                     
++        PSIM=AMAX1(PSIM,-10.)                                              
++!.....AKB(1976), EQ(16).                                                         
++        PSIH=PSIM                                                          
++        PSIM10=zagl/ZA*PSIM
++        PSIM10=AMAX1(PSIM10,-10.)                               
++        PSIH10=PSIM10                                          
++        PSIM2=2./ZA*PSIM
++        PSIM2=AMAX1(PSIM2,-10.)                              
++        PSIH2=PSIM2                                         
++        ! Linear form: PSIM = -0.5*ZA/L; e.g, see eqn 16 of
++        ! Blackadar, Modeling the nocturnal boundary layer, Preprints,
++        ! Third Symposium on Atmospheric Turbulence Diffusion and Air Quality,
++        ! Raleigh, NC, 1976
++        ZOL = BR*GZ1OZ0/(1.00001-5.0*BR)
++        if ( ZOL .GT. 0.5 ) then ! linear form ok
++           ! Holtslag and de Bruin, J. App. Meteor 27, 689-704, 1988;
++           ! see also, Launiainen, Boundary-Layer Meteor 76,165-179, 1995
++           ! Eqn (8) of Launiainen, 1995
++           ZOL = ( 1.89*GZ1OZ0 + 44.2 ) * BR*BR    &
++                + ( 1.18*GZ1OZ0 - 1.37 ) * BR
++           ZOL=AMIN1(ZOL,9.999)
++        end if
++        ! 1.0 over Monin-Obukhov length
++        RMOL= ZOL/ZA
++        GOTO 320                                                                 
++!-----CLASS 3; FORCED CONVECTION:                                                
++  280   REGIME=3.                                                           
++        PSIM=0.0                                                              
++        PSIH=PSIM                                                          
++        PSIM10=0.                                                   
++        PSIH10=PSIM10                                           
++        PSIM2=0.                                                  
++        PSIH2=PSIM2                                           
++        IF(UST.LT.0.01)THEN                                                 
++          ZOL=BR*GZ1OZ0                                               
++        ELSE                                                                     
++          ZOL=KARMAN*GOVRTH*ZA*MOL/(UST*UST) 
++        ENDIF                                                                    
++        RMOL = ZOL/ZA  
++        GOTO 320                                                                 
++!-----CLASS 4; FREE CONVECTION:                                                  
++  310   CONTINUE                                                                 
++        REGIME=4.                                                           
++        IF(UST.LT.0.01)THEN                                                 
++          ZOL=BR*GZ1OZ0                                               
++        ELSE                                                                     
++          ZOL=KARMAN*GOVRTH*ZA*MOL/(UST*UST)
++        ENDIF                                                                    
++        ZOL10=zagl/ZA*ZOL                                    
++        ZOL2=2./ZA*ZOL                                     
++        ZOL=AMIN1(ZOL,0.)                                              
++        ZOL=AMAX1(ZOL,-9.9999)                                         
++        ZOL10=AMIN1(ZOL10,0.)                                          
++        ZOL10=AMAX1(ZOL10,-9.9999)                                    
++        ZOL2=AMIN1(ZOL2,0.)                                          
++        ZOL2=AMAX1(ZOL2,-9.9999)                                    
++        NZOL=INT(-ZOL*100.)                                                 
++        RZOL=-ZOL*100.-NZOL                                                 
++        NZOL10=INT(-ZOL10*100.)                                        
++        RZOL10=-ZOL10*100.-NZOL10                                     
++        NZOL2=INT(-ZOL2*100.)                                        
++        RZOL2=-ZOL2*100.-NZOL2                                      
++!jack - PSIMTB,PSIHTB were saved arrays from initialization, here made into functions
++        PSIM=PSIMTB(NZOL)+RZOL*(PSIMTB(NZOL+1)-PSIMTB(NZOL))                  
++        PSIH=PSIHTB(NZOL)+RZOL*(PSIHTB(NZOL+1)-PSIHTB(NZOL))                  
++        PSIM10=PSIMTB(NZOL10)+RZOL10*(PSIMTB(NZOL10+1)-PSIMTB(NZOL10))                                                    
++        PSIH10=PSIHTB(NZOL10)+RZOL10*(PSIHTB(NZOL10+1)-PSIHTB(NZOL10))
++        PSIM2=PSIMTB(NZOL2)+RZOL2*(PSIMTB(NZOL2+1)-PSIMTB(NZOL2))    
++        PSIH2=PSIHTB(NZOL2)+RZOL2*(PSIHTB(NZOL2+1)-PSIHTB(NZOL2))   
++!---LIMIT PSIH AND PSIM IN THE CASE OF THIN LAYERS AND HIGH ROUGHNESS            
++!---  THIS PREVENTS DENOMINATOR IN FLUXES FROM GETTING TOO SMALL                 
++!       PSIH=AMIN1(PSIH,0.9*GZ1OZ0)                                     
++!       PSIM=AMIN1(PSIM,0.9*GZ1OZ0)                                     
++        PSIH=AMIN1(PSIH,0.9*GZ1OZ0)
++        PSIM=AMIN1(PSIM,0.9*GZ1OZ0)
++        PSIH2=AMIN1(PSIH2,0.9*GZ2OZ0)
++        PSIM10=AMIN1(PSIM10,0.9*GZ10OZ0)
++        RMOL = ZOL/ZA  
++  320 CONTINUE                                                                   
++!-----COMPUTE THE FRICTIONAL VELOCITY:                                           
++!     ZA(1982) EQS(2.60),(2.61).                                                 
++        DTG=THX-THGB                                                   
++        PSIX=GZ1OZ0-PSIM                                                   
++        PSIX10=GZ10OZ0-PSIM10
++!     LOWER LIMIT ADDED TO PREVENT LARGE FLHC IN SOIL MODEL
++!     ACTIVATES IN UNSTABLE CONDITIONS WITH THIN LAYERS OR HIGH Z0
++        PSIT=AMAX1(GZ1OZ0-PSIH,2.)
++        IF((XLAND-1.5).GE.0)THEN                                            
++          ZL=ZNT                                                            
++        ELSE                                                                     
++          ZL=0.01                                                                
++        ENDIF                                                                    
++        PSIQ=ALOG(KARMAN*UST*ZA/XKA+ZA/ZL)-PSIH   
++        PSIT2=GZ2OZ0-PSIH2                                     
++        PSIQ2=ALOG(KARMAN*UST*2./XKA+2./ZL)-PSIH2                                   
++! TO PREVENT OSCILLONS AVERAGE WITH OLD VALUE 
++!jack - redefined to prevent output of new ust
++!original        UST=0.5*UST+0.5*KARMAN*WSPD/PSIX                                             
++        USTagl=0.5*UST+0.5*KARMAN*WSPD/PSIX                                             
++        Uagl=UX*PSIX10/PSIX                                    
++        Vagl=VX*PSIX10/PSIX                                   
++        return
++  END SUBROUTINE SFCLAY1Djack
++!jack - had to convert what was 2 saved arrays to functions
++      REAL FUNCTION PSIMTB( N )
++        INTEGER                  ::   N
++        REAL                     ::   ZOLN,X
++        ZOLN=-FLOAT(N)*0.01
++        X=(1-16.*ZOLN)**0.25
++        PSIMTB = 2*ALOG(0.5*(1+X))+ALOG(0.5*(1+X*X))- &
++                2.*ATAN(X)+2.*ATAN(1.)
++      END FUNCTION PSIMTB
++      REAL FUNCTION PSIHTB( N )
++        INTEGER                  ::   N
++        REAL                     ::   ZOLN,Y
++        ZOLN=-FLOAT(N)*0.01
++        Y=(1-16*ZOLN)**0.5
++        PSIHTB = 2*ALOG(0.5*(1+Y))
++      END FUNCTION PSIHTB
++!-----------------------------------------------------------------------------
++!  END OF ROUTINES NEEDED FOR 5m WIND CALC
++!-----------------------------------------------------------------------------
++
++!JACK - SFCFLXOUT: OUTPUT SURFACE FLUX INFO TO STDOUT
++      SUBROUTINE jackout( ITIMESTEP,                                    &
++       INEST, JULDAY, GMT,XTIME,                                        &
++       GSW,GLW,                                                 &
++       GRDFLX,HFX,QFX,LH,ALBEDO,EMISS,                             &
++       T2,Q2,TSK,                                               &
++       T_PHY,P8W,RHO,                                           &
++       ims,ime, jms,jme, kms,kme                                &
++!following needed for 5m wind calc
++               ,U_PHY,V_PHY,   &
++                QV_CURR,          &
++                P_PHY,dz8w,   &
++                PSFC,PBLH,  &
++                ZNT,UST,MAVAIL, MOL,  &
++                XLAND,  &
++                DX   &
++!4test            ,U10,V10   &
++        )
++!-----------------------------------------------------------------------------
++!  THIS SECTION NEEDED FOR 5m WIND CALC
++       USE module_model_constants
++!-----------------------------------------------------------------------------
++      IMPLICIT NONE
++      INTEGER :: ITIMESTEP, INEST, JULDAY
++      REAL, INTENT(IN)  ::  GMT,XTIME
++      REAL, DIMENSION( ims:ime, jms:jme ), INTENT(IN) ::  GSW, GLW,      &
++           GRDFLX,HFX,QFX,LH, ALBEDO,EMISS,                              &
++           T2,Q2,TSK                                                    
++      REAL, DIMENSION( ims:ime, kms:kme, jms:jme ), INTENT(IN) ::  T_PHY, P8W, RHO
++      INTEGER :: ims , ime , jms , jme , kms , kme 
++!-----------------------------------------------------------------------------
++!  THIS SECTION NEEDED FOR 5m WIND CALC
++!      ARGUMENT VARS for SFCLAY1Djack
++       REAL, DIMENSION( ims:ime, kms:kme, jms:jme ), INTENT(IN )::     &
++                U_PHY,V_PHY,   &
++                QV_CURR,                &
++                P_PHY,dz8w
++       REAL, DIMENSION( ims:ime, jms:jme ), INTENT(IN )::             &
++                PSFC,PBLH,            &
++                ZNT,UST,MAVAIL, MOL,  &
++                XLAND
++       REAL, INTENT(IN ) ::  DX     
++       REAL  ::  Uagl,Vagl, WSagl,WDagl
++!4test       REAL, DIMENSION( ims:ime, jms:jme ), INTENT(IN )::   U10,V10         
++!-----------------------------------------------------------------------------
++      REAL, PARAMETER :: SIGMA = 5.67E-8
++      REAL, PARAMETER ::   latvap = 2.501e6                           
++      REAL, PARAMETER ::   zeroCkelvin = 273.15     
++      INTEGER iout,jout
++      INTEGER, SAVE :: iter
++      REAL GMTHR, LWEMIS,CALCSOILFLX,VBHFX, SWdown,RADnet,TURBFLXup, T2c,TSKc,T1c, Q2gm,P2,ESAT,RHpct,DEWPTc
++      REAL x, csat0,csat1,csat2,csat3,csat4,csat5,csat6
++      data iter/0/
++      data csat0,csat1,csat2,csat3,csat4,csat5,csat6/6.107799961,4.436518521e-01,1.428945805e-02,2.650648471e-04,3.031240396e-06,2.034080948e-08,6.136820929e-11/
++!!! set grid location - Reading, UK (GB grid2) AtmObs@51.442,-0.938=>gridpt=30.71,13.21=(31,13)  Uboatclub@51.440,-0.972=>gridpt=30.51,13.22=(31,13) atlas=>51.47,-0.98=>gridpt=30.5+.69,13.5-=(31,13)  
++      iout = 31
++      jout = 13
++!-----------------------------------------------------------------------------
++!  THIS SECTION NEEDED FOR 5m WIND CALC
++       CALL SFCLAY1Djack( 5.,uagl,vagl,                                      &
++!4test       CALL SFCLAY1Djack( 10.,uagl,vagl,                                      &
++                U_PHY(IOUT,1,JOUT),V_PHY(IOUT,1,JOUT),T_PHY(IOUT,1,JOUT),   &
++                QV_CURR(IOUT,1,JOUT),                                          &
++                P_PHY(IOUT,1,JOUT),dz8w(IOUT,1,JOUT),   &
++                cp,g,rcp,r_d,xlv,PSFC(iout,jout),PBLH(iout,jout),  &
++                ZNT(iout,jout),UST(iout,jout),MAVAIL(iout,jout), MOL(iout,jout),  &
++                XLAND(iout,jout),HFX(iout,jout),QFX(iout,jout),TSK(iout,jout),    &
++                DX,     &
++                svp1,svp2,svp3,svpt0,ep_1,ep_2, karman )
++!4test       print *,'WIND U,V=',uagl,vagl, ' 10mWind= ',U10(iout,jout),V10(iout,jout)
++!-----------------------------------------------------------------------------
++!!! calculate needed terms
++      iter = iter +1
++      GMTHR = GMT + XTIME/60.
++      LWEMIS = SIGMA * EMISS(iout,jout) * TSK(iout,jout)**4
++      RADnet = GSW(iout,jout) +GLW(iout,jout) -LWEMIS
++!vapor contrib to buoyancy heat flux = cp*rho * 0.61*Theta*QFX
++      VBHFX = cp*(P_PHY(iout,1,jout)/(r_d*T_PHY(iout,1,jout)))* 0.61*T_PHY(iout,1,jout)*((P_PHY(iout,1,jout)/p1000mb)**-rcp)* QFX(iout,jout)
++!latentheatflux      LHFX = LATVAP* QFX(iout,jout)
++      TURBFLXup = ( HFX(iout,jout) + LH(iout,jout) )
++      CALCSOILFLX = RADnet -TURBFLXup
++      SWdown = GSW(iout,jout) / (1.-ALBEDO(iout,jout))
++      T2c = T2(iout,jout) - zeroCkelvin
++      TSKc = TSK(iout,jout) - zeroCkelvin
++      T1c = T_PHY(iout,1,jout) - zeroCkelvin
++      Q2gm = 1000.* Q2(iout,jout)
++! est press at 2m
++      P2 = P8W(iout,1,jout) - RHO(iout,1,jout)*9.8*2.0
++! saturation vapor pressure over liquid water esat (millibars) given the temperature t (celsius)
++! from lowe, paul r.,1977: JAM 16, p100-103 (1977) - obtained from ncarg ncl fortran thermo functions
++!        ESATmb = csat0+T2c*(csat1+T2c*(csat2+T2c*(csat3+T2c*(csat4+T2c*(csat5+csat6*T2c)))))
++      ESAT = 100.*(csat0+T2c*(csat1+T2c*(csat2+T2c*(csat3+T2c*(csat4+T2c*(csat5+csat6*T2c))))))
++      if (ESAT.lt.0.) ESAT = 0.
++! relative humidty from w=mixing ratio[kg/kg], p=pressure[Pa]
++! obtained from ncarg ncl fortran thermo functions
++      RHpct = 100.*(Q2(iout,jout)*(P2-0.378*ESAT)/(0.622*ESAT))
++!   dew point (celsius) given temperature (celsius) & relative humidity (%)
++!   processing of u.s. rawinsonde data and is referenced in parry, h. - obtained from ncarg ncl fortran thermo functions
++      x = 1.-0.01*RHpct
++      DEWPTc = T2c - (14.55+0.114*T2c)*x+((2.5+0.007*T2c)*x)**3+(15.9+0.117*T2c)*x**14
++      WSagl = sqrt( Uagl*Uagl + Vagl*Vagl )
++      WDagl = (atan2(Uagl,Vagl)+3.1415926)*57.29578
++      if(WDagl.gt.360.)WDagl=WDagl-360.
++!!! print
++      if ( iter .eq. 1 ) then
++        print 6000, JULDAY, INEST,iout,jout
++ 6000   format ('SFCFLXOUT  JULDAY=',i4, ' GRIDPT=',i2,i3,i3)
++      end if
++       print 6100, iter, itimestep, GMTHR,                              &
++         GSW(iout,jout),GLW(iout,jout),                                  &
++         LWEMIS,GRDFLX(iout,jout),CALCSOILFLX,                           &
++         SWdown, RADnet, TURBFLXup,                                     &
++         HFX(iout,jout),LH(iout,jout),VBHFX, ALBEDO(iout,jout),EMISS(iout,jout),  &
++         T2c,TSKc, T1c, Q2gm, RHpct, DEWPTc, WSagl,WDagl 
++ 6100  format ('SFCFLXOUT:', i4,i5,f8.3, 11f7.1, 2f6.3, 3f7.2, f7.3,f6.1,f7.2, f8.1,f6.0 )
++!--- 6100  format ('SFCFLXOUT:',i2,i4,i4,1x,f8.3,1p,20e12.4 )
++       return
++       END SUBROUTINE jackout
++
++
+ !=======================================================================
+ 
+ END MODULE module_surface_driver
+Binary files WRFV3-orig/phys/module_surface_driver.o and WRFV3/phys/module_surface_driver.o differ
+Binary files WRFV3-orig/phys/module_wind_fitch.o and WRFV3/phys/module_wind_fitch.o differ
+Binary files WRFV3-orig/phys/pt-subscription-in-renge and WRFV3/phys/pt-subscription-in-renge differ
+diff -ruN -X exclude-files.txt WRFV3-orig/Registry/.directory WRFV3/Registry/.directory
+--- WRFV3-orig/Registry/.directory	1970-01-01 02:00:00.000000000 +0200
++++ WRFV3/Registry/.directory	2018-11-27 15:01:28.000000000 +0200
+@@ -0,0 +1,4 @@
++[Dolphin]
++Timestamp=2018,11,27,15,1,28
++Version=3
++ViewMode=1
+diff -ruN -X exclude-files.txt WRFV3-orig/Registry/Registry.EM_COMMON WRFV3/Registry/Registry.EM_COMMON
+--- WRFV3-orig/Registry/Registry.EM_COMMON	2014-08-14 01:37:44.000000000 +0200
++++ WRFV3/Registry/Registry.EM_COMMON	2018-12-15 16:25:23.000000000 +0200
+@@ -326,7 +326,7 @@
+ 
+ 
+ # TKE
+-state    real   tke            ikj     dyn_em      2         -       r        "tke"          "TURBULENCE KINETIC ENERGY"     "m2 s-2"
++state    real   tke            ikj     dyn_em      2         -       rh        "tke"          "TURBULENCE KINETIC ENERGY"     "m2 s-2"
+ i1       real   tke_tend       ikj     dyn_em      1         -      
+ 
+ # Pressure and Density
+@@ -992,9 +992,9 @@
+ state    real   rswtoa           ij     misc        1         -      -
+ state    real   rlwtoa           ij     misc        1         -      -
+ state    real   czmean           ij     misc        1         -      -
+-state    real   cfracl           ij     misc        1         -      -
+-state    real   cfracm           ij     misc        1         -      -
+-state    real   cfrach           ij     misc        1         -      -
++state    real   cfracl    ij    misc      1    -     ih   "CFRACL"  "ETA 2D CLOUD FRACTION - LOW "  ""
++state    real   cfracm    ij    misc      1    -     ih   "CFRACM"  "ETA 2D CLOUD FRACTION - MID "  ""
++state    real   cfrach    ij    misc      1    -     ih   "CFRACH"  "ETA 2D CLOUD FRACTION - HIGH"  ""
+ state    real   acfrst           ij     misc        1         -      -
+ state integer   ncfrst           ij     misc        1         -      -
+ state    real   acfrcv           ij     misc        1         -      -
+@@ -1363,9 +1363,9 @@
+                                                 
+ state    real  RUBLTEN         ikj      misc        1         -      r        "RUBLTEN"               "COUPLED X WIND TENDENCY DUE TO PBL PARAMETERIZATION"  "Pa m s-2"
+ state    real  RVBLTEN         ikj      misc        1         -      r        "RVBLTEN"               "COUPLED Y WIND TENDENCY DUE TO PBL PARAMETERIZATION"  "Pa m s-2"
+-state    real  RTHBLTEN        ikj      misc        1         -      r        "RTHBLTEN"              "COUPLED THETA TENDENCY DUE TO PBL PARAMETERIZATION"   "Pa K s-1"
+-state    real  RQVBLTEN        ikj      misc        1         -      r        "RQVBLTEN"              "COUPLED Q_V TENDENCY DUE TO PBL PARAMETERIZATION"     "Pa kg kg-1 s-1"
+-state    real  RQCBLTEN        ikj      misc        1         -      r        "RQCBLTEN"              "COUPLED Q_C TENDENCY DUE TO PBL PARAMETERIZATION"     "Pa kg kg-1 s-1"
++state    real  RTHBLTEN        ikj      misc        1         -      rh        "RTHBLTEN"              "COUPLED THETA TENDENCY DUE TO PBL PARAMETERIZATION"   "Pa K s-1"
++state    real  RQVBLTEN        ikj      misc        1         -      rh        "RQVBLTEN"              "COUPLED Q_V TENDENCY DUE TO PBL PARAMETERIZATION"     "Pa kg kg-1 s-1"
++state    real  RQCBLTEN        ikj      misc        1         -      rh        "RQCBLTEN"              "COUPLED Q_C TENDENCY DUE TO PBL PARAMETERIZATION"     "Pa kg kg-1 s-1"
+ state    real  RQIBLTEN        ikj      misc        1         -      r        "RQIBLTEN"              "COUPLED Q_I TENDENCY DUE TO PBL PARAMETERIZATION"     "Pa kg kg-1 s-1"      
+ state    real  RQNIBLTEN       ikj      misc        1         -      r        "RQNIBLTEN"             "COUPLED Q_NI TENDENCY DUE TO PBL PARAMETERIZATION"    "Pa #  kg-1 s-1"
+ 
+Binary files WRFV3-orig/share/bobrand.o and WRFV3/share/bobrand.o differ
+Binary files WRFV3-orig/share/dfi.o and WRFV3/share/dfi.o differ
+Binary files WRFV3-orig/share/init_modules.o and WRFV3/share/init_modules.o differ
+Binary files WRFV3-orig/share/input_wrf.o and WRFV3/share/input_wrf.o differ
+Binary files WRFV3-orig/share/interp_fcn.o and WRFV3/share/interp_fcn.o differ
+Binary files WRFV3-orig/share/landread.o and WRFV3/share/landread.o differ
+Binary files WRFV3-orig/share/mediation_feedback_domain.o and WRFV3/share/mediation_feedback_domain.o differ
+Binary files WRFV3-orig/share/mediation_force_domain.o and WRFV3/share/mediation_force_domain.o differ
+Binary files WRFV3-orig/share/mediation_integrate.o and WRFV3/share/mediation_integrate.o differ
+Binary files WRFV3-orig/share/mediation_interp_domain.o and WRFV3/share/mediation_interp_domain.o differ
+Binary files WRFV3-orig/share/mediation_nest_move.o and WRFV3/share/mediation_nest_move.o differ
+Binary files WRFV3-orig/share/mediation_wrfmain.o and WRFV3/share/mediation_wrfmain.o differ
+Binary files WRFV3-orig/share/module_bc.mod and WRFV3/share/module_bc.mod differ
+Binary files WRFV3-orig/share/module_bc.o and WRFV3/share/module_bc.o differ
+Binary files WRFV3-orig/share/module_bc_time_utilities.mod and WRFV3/share/module_bc_time_utilities.mod differ
+Binary files WRFV3-orig/share/module_bc_time_utilities.o and WRFV3/share/module_bc_time_utilities.o differ
+Binary files WRFV3-orig/share/module_check_a_mundo.mod and WRFV3/share/module_check_a_mundo.mod differ
+Binary files WRFV3-orig/share/module_check_a_mundo.o and WRFV3/share/module_check_a_mundo.o differ
+Binary files WRFV3-orig/share/module_compute_geop.mod and WRFV3/share/module_compute_geop.mod differ
+Binary files WRFV3-orig/share/module_compute_geop.o and WRFV3/share/module_compute_geop.o differ
+Binary files WRFV3-orig/share/module_date_time.mod and WRFV3/share/module_date_time.mod differ
+Binary files WRFV3-orig/share/module_date_time.o and WRFV3/share/module_date_time.o differ
+Binary files WRFV3-orig/share/module_driver_constants.mod and WRFV3/share/module_driver_constants.mod differ
+Binary files WRFV3-orig/share/module_get_file_names.mod and WRFV3/share/module_get_file_names.mod differ
+Binary files WRFV3-orig/share/module_get_file_names.o and WRFV3/share/module_get_file_names.o differ
+Binary files WRFV3-orig/share/module_intermediate_nmm.mod and WRFV3/share/module_intermediate_nmm.mod differ
+Binary files WRFV3-orig/share/module_interp_nmm.mod and WRFV3/share/module_interp_nmm.mod differ
+Binary files WRFV3-orig/share/module_interp_nmm.o and WRFV3/share/module_interp_nmm.o differ
+Binary files WRFV3-orig/share/module_interp_store.mod and WRFV3/share/module_interp_store.mod differ
+Binary files WRFV3-orig/share/module_interp_store.o and WRFV3/share/module_interp_store.o differ
+Binary files WRFV3-orig/share/module_io_domain.mod and WRFV3/share/module_io_domain.mod differ
+Binary files WRFV3-orig/share/module_io_domain.o and WRFV3/share/module_io_domain.o differ
+Binary files WRFV3-orig/share/module_io_wrf.mod and WRFV3/share/module_io_wrf.mod differ
+Binary files WRFV3-orig/share/module_llxy.mod and WRFV3/share/module_llxy.mod differ
+Binary files WRFV3-orig/share/module_llxy.o and WRFV3/share/module_llxy.o differ
+Binary files WRFV3-orig/share/module_machine.mod and WRFV3/share/module_machine.mod differ
+Binary files WRFV3-orig/share/module_model_constants.mod and WRFV3/share/module_model_constants.mod differ
+Binary files WRFV3-orig/share/module_model_constants.o and WRFV3/share/module_model_constants.o differ
+Binary files WRFV3-orig/share/module_mpp.mod and WRFV3/share/module_mpp.mod differ
+Binary files WRFV3-orig/share/module_MPP.o and WRFV3/share/module_MPP.o differ
+Binary files WRFV3-orig/share/module_nesting.mod and WRFV3/share/module_nesting.mod differ
+Binary files WRFV3-orig/share/module_optional_input.mod and WRFV3/share/module_optional_input.mod differ
+Binary files WRFV3-orig/share/module_optional_input.o and WRFV3/share/module_optional_input.o differ
+Binary files WRFV3-orig/share/module_random.mod and WRFV3/share/module_random.mod differ
+Binary files WRFV3-orig/share/module_random.o and WRFV3/share/module_random.o differ
+Binary files WRFV3-orig/share/module_soil_pre.mod and WRFV3/share/module_soil_pre.mod differ
+Binary files WRFV3-orig/share/module_soil_pre.o and WRFV3/share/module_soil_pre.o differ
+Binary files WRFV3-orig/share/module_streams.mod and WRFV3/share/module_streams.mod differ
+Binary files WRFV3-orig/share/module_timing.mod and WRFV3/share/module_timing.mod differ
+Binary files WRFV3-orig/share/module_wrf_error.mod and WRFV3/share/module_wrf_error.mod differ
+Binary files WRFV3-orig/share/module_wrf_quilt.mod and WRFV3/share/module_wrf_quilt.mod differ
+Binary files WRFV3-orig/share/output_wrf.o and WRFV3/share/output_wrf.o differ
+Binary files WRFV3-orig/share/pt-subscription-in-renge and WRFV3/share/pt-subscription-in-renge differ
+Binary files WRFV3-orig/share/set_timekeeping.o and WRFV3/share/set_timekeeping.o differ
+Binary files WRFV3-orig/share/sint.o and WRFV3/share/sint.o differ
+Binary files WRFV3-orig/share/track_driver.o and WRFV3/share/track_driver.o differ
+Binary files WRFV3-orig/share/track_input.o and WRFV3/share/track_input.o differ
+Binary files WRFV3-orig/share/wrf_fddaobs_in.o and WRFV3/share/wrf_fddaobs_in.o differ
+Binary files WRFV3-orig/share/wrf_timeseries.o and WRFV3/share/wrf_timeseries.o differ
+Binary files WRFV3-orig/share/wrf_tsin.o and WRFV3/share/wrf_tsin.o differ
+Binary files WRFV3-orig/tools/fseeko64_test and WRFV3/tools/fseeko64_test differ
+Binary files WRFV3-orig/tools/fseeko_test and WRFV3/tools/fseeko_test differ
